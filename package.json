@@ -4,6 +4,8 @@
   "description": "Application for virtual travel around the world.",
   "main": "src/index.jsx",
   "dependencies": {
+    "@material-ui/core": "4.11.3",
+    "@material-ui/icons": "4.11.2",
     "@testing-library/jest-dom": "5.11.9",
     "@testing-library/react": "11.2.5",
     "react": "16.14.0",
@@ -73,6 +75,8 @@
     "@commitlint/config-conventional": "11.0.0",
     "babel-jest": "26.6.3",
     "babel-loader": "8.2.2",
+    "babel-plugin-import": "1.13.3",
+    "babel-plugin-transform-imports": "2.0.0",
     "clean-webpack-plugin": "3.0.0",
     "core-js": "3.9.0",
     "css-loader": "5.0.2",
