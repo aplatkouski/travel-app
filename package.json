@@ -4,6 +4,8 @@
   "description": "Application for virtual travel around the world.",
   "main": "src/index.html",
   "scripts": {
+    "lint:scss": "stylelint --syntax scss './src/**/*.scss' --ignore-path .gitignore",
+    "lint:scss:fix": "npm run lint:scss -- --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "license": "MIT",
@@ -34,5 +36,9 @@
     "development": [
       "last 2 chrome versions"
     ]
+  },
+  "devDependencies": {
+    "stylelint": "13.10.0",
+    "stylelint-config-twbs-bootstrap": "2.1.0"
   }
 }
