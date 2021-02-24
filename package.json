@@ -1,0 +1,38 @@
+{
+  "name": "travel-app",
+  "version": "0.0.1",
+  "description": "Application for virtual travel around the world.",
+  "main": "src/index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT",
+  "contributors": [
+    {
+      "name": "Artsiom Platkouski",
+      "email": "komukc.apt@gmail.com",
+      "url": "https://www.linkedin.com/in/artsiom-platkouski/"
+    }
+  ],
+  "keywords": [
+    "travel"
+  ],
+  "homepage": "https://github.com/aplatkouski/travel-app#README.md",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:aplatkouski/travel-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aplatkouski/travel-app/issues"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 2 chrome versions"
+    ]
+  }
+}
