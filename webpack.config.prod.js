@@ -7,28 +7,19 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { DefinePlugin } = require('webpack');
 const svgToMiniDataURI = require('mini-svg-data-uri');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
   mode: 'production',
   entry: {
-    bundle: './src/index.jsx',
+    bundle: './src/index.tsx',
   },
   target: 'web',
   resolve: {
     descriptionFiles: ['package.json'],
     modules: ['node_modules'],
-    alias: {
-      Assets: path.resolve(__dirname, './src/assets'),
-      Audio: path.resolve(__dirname, './src/assets/audio'),
-      Components: path.resolve(__dirname, './src/components'),
-      Data: path.resolve(__dirname, './src/assets/data'),
-      Entities: path.resolve(__dirname, './src/entities'),
-      Images: path.resolve(__dirname, './src/assets/images'),
-      States: path.resolve(__dirname, './src/redux-states'),
-      Styles: path.resolve(__dirname, './src/styles'),
-      Utils: path.resolve(__dirname, './src/utils'),
-    },
-    extensions: ['.js', '.jsx', '.json', '.svg'],
+    plugins: [new TsconfigPathsPlugin()],
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.svg'],
   },
   output: {
     assetModuleFilename: 'assets/[hash][ext][query]',
@@ -85,11 +76,13 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
-        exclude: /node_modules|bower_components/,
-        use: {
-          loader: 'babel-loader',
-        },
+        test: /(?<!\.d)\.tsx?$/,
+        exclude: /node_modules|\.d\.ts$/,
+        use: 'ts-loader',
+      },
+      {
+        test: /\.d\.ts$/,
+        loader: 'ignore-loader',
       },
       {
         test: /\.s?css$/,
