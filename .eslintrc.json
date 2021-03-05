@@ -7,35 +7,44 @@
     "node": true
   },
   "extends": [
-    "airbnb",
+    "airbnb-typescript",
     "airbnb/hooks",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:eslint-comments/recommended",
     "plugin:jest/recommended",
     "plugin:prettier/recommended",
     "plugin:promise/recommended",
     "prettier",
+    "prettier/@typescript-eslint",
     "prettier/prettier",
     "prettier/react"
   ],
-  "parser": "@babel/eslint-parser",
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
     },
     "ecmaVersion": 11,
-    "sourceType": "module",
-    "babelOptions": {
-      "configFile": "./.babelrc"
-    }
+    "project": ["tsconfig.json"],
+    "sourceType": "module"
   },
-  "plugins": ["jest", "promise"],
+  "plugins": ["@typescript-eslint", "jest", "promise"],
   "rules": {
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": ["@material-ui/*/*/*", "!@material-ui/core/test-utils/*"]
+      }
+    ],
     "import/extensions": [
       "error",
       "ignorePackages",
       {
         "js": "never",
         "jsx": "never",
+        "ts": "never",
+        "tsx": "never",
         "json": "never",
         "scss": "always",
         "svg": "always"
@@ -103,6 +112,8 @@
       }
     ],
     "react/jsx-props-no-multi-spaces": "error",
+    "react/prop-types": "off",
+    "@typescript-eslint/no-explicit-any": "off",
     "promise/prefer-await-to-then": "warn",
     "promise/prefer-await-to-callbacks": "warn"
   },

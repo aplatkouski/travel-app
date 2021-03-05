@@ -1,9 +1,10 @@
 module.exports = {
+  preset: 'ts-jest',
   collectCoverage: true,
-  collectCoverageFrom: ['**/*.{js,jsx}', '!**/node_modules/**'],
+  collectCoverageFrom: ['**/*.{js,jsx,ts,tsx}', '!**/node_modules/**', '!*.d.ts'],
   coverageDirectory: './coverage/',
   moduleDirectories: ['node_modules', 'src'],
-  moduleFileExtensions: ['js', 'jsx', 'json', 'node'],
+  moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json', 'node'],
   moduleNameMapper: {
     '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
       '<rootDir>/__mocks__/fileMock.js',
@@ -20,7 +21,7 @@ module.exports = {
     '^Utils/(.*)$': '<rootDir>/src/utils/$1',
   },
   roots: ['<rootDir>/src'],
-  setupFilesAfterEnv: ['<rootDir>/src/setupTests.js'],
-  testMatch: ['./**/*.{spec,test}.{js,jsx}'],
+  setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
+  testMatch: ['./**/*.{spec,test}.{js,jsx,ts,tsx}'],
   verbose: true,
 };
