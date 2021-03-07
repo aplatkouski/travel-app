@@ -3,5 +3,5 @@ import * as t from './action-types';
 
 export const change = (value: string): StateTypes.IAction<string> => ({
   type: t.CHANGE,
-  payload: value,
+  payload: value.toLowerCase(),
 });

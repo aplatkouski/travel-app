@@ -4,6 +4,7 @@ import clouds from 'Assets/images/illustration-clouds.png';
 import plane from 'Assets/images/illustration-plane.png';
 import logo from 'Assets/images/logo.png';
 import LanguageSelector from 'Components/LanguageSelector';
+import SearchField from 'Components/SearchField';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -46,7 +47,7 @@ const Header = (): JSX.Element => {
           </Button>
         </Grid>
         <Grid container justify="flex-end">
-          <span>input search</span>
+          <SearchField />
         </Grid>
       </Grid>
     </Grid>
