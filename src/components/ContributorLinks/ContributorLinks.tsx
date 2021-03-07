@@ -2,8 +2,8 @@ import { Grid, Link } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import GitHubLogo from 'Assets/icons/github-logo.svg';
 import SvgImg from 'Components/SvgImg';
+import Contributor from 'Entities/contributor';
 import * as React from 'react';
-import { Contributors } from 'States/contributors/model';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export interface Props {
-  contributors: Contributors;
+  contributors: Array<Contributor>;
 }
 
 const ContributorLinks = ({ contributors }: Props): JSX.Element => {
@@ -32,7 +32,7 @@ const ContributorLinks = ({ contributors }: Props): JSX.Element => {
   return (
     <>
       {contributors.map((contributor) => (
-        <Grid key={contributor.name} className={classes.item} item md={3} sm={6} xs={12}>
+        <Grid key={contributor.name} className={classes.item} item md={3} sm={6} xs={6}>
           <Link
             className={classes.link}
             href={contributor.gitHubLink}
