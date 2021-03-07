@@ -5,6 +5,7 @@ import {
   withStyles,
 } from '@material-ui/core/styles';
 import Footer from 'Components/Footer';
+import Header from 'Components/Header';
 import MainView from 'Components/MainView';
 import React from 'react';
 import theme from './theme';
@@ -22,6 +23,7 @@ type Props = WithStyles<typeof styles>;
 const App = ({ classes }: Props): JSX.Element => (
   <ThemeProvider theme={theme}>
     <div className={classes.root}>
+      <Header/>
       <MainView />
       <Footer />
     </div>
