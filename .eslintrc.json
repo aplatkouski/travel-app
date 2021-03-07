@@ -37,6 +37,7 @@
         "patterns": ["@material-ui/*/*/*", "!@material-ui/core/test-utils/*"]
       }
     ],
+    "import/prefer-default-export": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
