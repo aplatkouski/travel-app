@@ -22,10 +22,16 @@ const styles = (theme: Theme) =>
 
 interface Props extends WithStyles<typeof styles> {
   allCountries: Countries;
+  filter: string;
   selectCountry: (id: ID) => StateTypes.IAction<ID>;
 }
 
-const MainPage = ({ allCountries, classes, selectCountry }: Props): JSX.Element => (
+const MainPage = ({
+  allCountries,
+  classes,
+  filter,
+  selectCountry,
+}: Props): JSX.Element => (
   <Container className={classes.main} component="main" maxWidth="sm">
     <div className="container-fluid lg-p-top">
       <Typography align="center" className="lg-mg-bottom" component="h2" variant="h3">
@@ -33,16 +39,23 @@ const MainPage = ({ allCountries, classes, selectCountry }: Props): JSX.Element 
       </Typography>
       <div className="container-fluid">
         <Grid container spacing={3}>
-          {allCountries.slice(0, 8).map((country) => (
-            <Grid key={country.name} item md={4} xs={6}>
-              <Zoom in>
-                <CountryCard
-                  country={country}
-                  onSelect={() => selectCountry(country.id)}
-                />
-              </Zoom>
-            </Grid>
-          ))}
+          {allCountries
+            .filter(
+              (c) =>
+                c.name.toLowerCase().includes(filter) ||
+                c.capital.toLowerCase().includes(filter)
+            )
+            .slice(0, 8)
+            .map((country) => (
+              <Grid key={country.name} item md={4} xs={6}>
+                <Zoom in>
+                  <CountryCard
+                    country={country}
+                    onSelect={() => selectCountry(country.id)}
+                  />
+                </Zoom>
+              </Grid>
+            ))}
         </Grid>
       </div>
     </div>

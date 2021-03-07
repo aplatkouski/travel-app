@@ -5,6 +5,7 @@ import MainPage from './MainPage';
 
 const mapStateToProps = (state: StateTypes.RootState) => ({
   allCountries: state.countries.all,
+  filter: state.searchField.value,
 });
 
 const mapDispatchToProps = {
