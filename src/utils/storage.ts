@@ -1,9 +1,9 @@
-import type { Countries } from 'Entities/country';
+import type { DBCountries } from 'Entities/country';
 
 const url = 'https://test-travel-app-server.herokuapp.com';
 const countriesUrl = 'todos/countries';
 
-const fetchCountries = async (): Promise<Countries> => {
+const fetchCountries = async (): Promise<DBCountries> => {
   const data = {
     reloadLang: 'en',
   };
@@ -13,7 +13,7 @@ const fetchCountries = async (): Promise<Countries> => {
     body: JSON.stringify(data),
   };
   const response = await fetch(`${url}/${countriesUrl}`, options);
-  return (await response.json()) as Promise<Countries>;
+  return (await response.json()) as Promise<DBCountries>;
 };
 
 export default { fetchCountries };
