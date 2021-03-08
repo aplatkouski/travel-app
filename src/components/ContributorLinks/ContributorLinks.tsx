@@ -5,23 +5,6 @@ import SvgImg from 'Components/SvgImg';
 import Contributor from 'Entities/contributor';
 import * as React from 'react';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    item: {
-      color: theme.palette.text.secondary,
-      margin: theme.spacing(1, 0),
-      minWidth: theme.spacing(20),
-      textAlign: 'center',
-    },
-    link: {
-      color: theme.palette.text.secondary,
-      '& > *': {
-        marginLeft: theme.spacing(1),
-      },
-    },
-  })
-);
-
 export interface Props {
   contributors: Array<Contributor>;
 }
@@ -49,5 +32,28 @@ const ContributorLinks = ({ contributors }: Props): JSX.Element => {
     </>
   );
 };
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    item: {
+      color: theme.palette.text.secondary,
+      margin: theme.spacing(1, 0),
+      minWidth: theme.spacing(20),
+      textAlign: 'center',
+    },
+    link: {
+      color: theme.palette.text.secondary,
+      alignItems: 'center',
+      display: 'flex',
+      justifyContent: 'center',
+      '&:hover': {
+        color: "#00add7",
+      },
+      '& > *': {
+        marginLeft: theme.spacing(1),
+        transition: 'all 1s ease',
 
+      },
+    },
+  })
+);
 export default ContributorLinks;
