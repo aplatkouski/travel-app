@@ -5,7 +5,53 @@ import plane from 'Assets/images/illustration-plane.png';
 import logo from 'Assets/images/logo.png';
 import LanguageSelector from 'Components/LanguageSelector';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
+const Header = (): JSX.Element => {
+  const classes = useStyles();
+
+  return (
+    <Grid className={classes.header} container>
+      <div className={classes.exp}>
+        <div className={classes.exp1}>
+          <img alt="clouds" className={classes.cloudsImg} src={clouds} />
+          <Link to="/">
+            <img alt="logo" className={classes.logo} src={logo} />
+          </Link>
+          <img alt="plane" className={classes.planeImg} src={plane} />
+        </div>
+      </div>
+
+      <Grid item xs={2}>
+        <LanguageSelector />
+      </Grid>
+
+      <Grid
+        className={classes.buttonsContainer}
+        container
+        direction="column"
+        item
+        justify="space-between"
+        xs={10}
+      >
+        <Grid container item justify="flex-end">
+          <Button className={classes.button} color="secondary" variant="outlined">
+            Sign up
+          </Button>
+          <Button className={classes.button} color="secondary" variant="outlined">
+            Login
+          </Button>
+          <Button className={classes.button} color="secondary" variant="outlined">
+            Logout
+          </Button>
+        </Grid>
+        <Grid container justify="flex-end">
+          <span>input search</span>
+        </Grid>
+      </Grid>
+    </Grid>
+  );
+};
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     header: {
@@ -47,11 +93,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     logo: {
       maxWidth: '110px',
-      width: '20%',
-      [theme.breakpoints.down('sm')]: {
-        width: '60%',
-      },
       objectFit: 'contain',
+      transition: 'all 2s ease-in',
+      '&:hover': {
+        transform: 'rotate(360deg)',
+        transition: 'all 2s ease-in',
+      },
     },
     buttonsContainer: {
       height: '100%',
@@ -63,46 +110,4 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-
-const Header = (): JSX.Element => {
-  const classes = useStyles();
-
-  return (
-    <Grid className={classes.header} container>
-      <div className={classes.exp}>
-        <div className={classes.exp1}>
-          <img alt="clouds" className={classes.cloudsImg} src={clouds} />
-          <img alt="logo" className={classes.logo} src={logo} />
-          <img alt="plane" className={classes.planeImg} src={plane} />
-        </div>
-      </div>
-
-      <Grid item xs={2}>
-        <LanguageSelector />
-      </Grid>
-
-      <Grid
-        className={classes.buttonsContainer}
-        container
-        direction="column"
-        item
-        justify="space-between"
-        xs={10}
-      >
-        <Grid container item justify="flex-end">
-          <Button className={classes.button} color="secondary" variant="outlined">
-            Sign up
-          </Button>
-          <Button className={classes.button} color="secondary" variant="outlined">
-            Login
-          </Button>
-        </Grid>
-        <Grid container justify="flex-end">
-          <span>input search</span>
-        </Grid>
-      </Grid>
-    </Grid>
-  );
-};
-
 export default Header;
