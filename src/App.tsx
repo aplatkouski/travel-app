@@ -10,6 +10,7 @@ import Header from 'Components/Header';
 import MainView from 'Components/MainView';
 import React from 'react';
 import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import store from 'States/root-store';
 import theme from './theme';
 
@@ -25,14 +26,18 @@ type Props = WithStyles<typeof styles>;
 
 const App = ({ classes }: Props): JSX.Element => (
   <Provider store={store}>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <div className={classes.root}>
-        <Header/>
-        <MainView />
-        <Footer />
-      </div>
-    </ThemeProvider>
+    <Router>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <div className={classes.root}>
+          <Header/>
+          <Switch>
+            <Route component={MainView} exact path="/" />
+          </Switch>
+          <Footer />
+        </div>
+      </ThemeProvider>
+    </Router>
   </Provider>
 );
 
