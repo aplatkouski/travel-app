@@ -13,4 +13,5 @@ test('renders App', () => {
   );
 
   expect(getAllByText(/Login/i)).toHaveLength(1);
+  expect(getAllByText(/Countries/i)).toHaveLength(1);
 });
