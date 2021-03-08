@@ -5,38 +5,15 @@ import ContributorLinks from 'Components/ContributorLinks';
 import SvgImg from 'Components/SvgImg';
 import contributors from 'Data/contributors.json';
 import * as React from 'react';
+import classNames from "classnames";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    container: {
-      flexGrow: 1,
-      margin: 'auto',
-      maxWidth: '1024px',
-      justifyContent: 'center',
-    },
-    footer: {
-      backgroundColor:
-        theme.palette.type === 'light'
-          ? theme.palette.grey[200]
-          : theme.palette.grey[800],
-      flexShrink: 0,
-      padding: theme.spacing(3, 2),
-    },
-    item: {
-      color: theme.palette.text.secondary,
-      display: 'flex',
-      justifyContent: 'center',
-      margin: theme.spacing(1, 0),
-    },
-  })
-);
-
-const AppIntro = () => (
+const AppIntro = (): JSX.Element => (
   <Typography color="textSecondary" variant="body2">
     <Link
       color="inherit"
       href="https://github.com/aplatkouski/travel-app"
       title="Travel app source"
+      underline="none"
     >
       Travel app
     </Link>
@@ -50,10 +27,10 @@ export default function Footer(): JSX.Element {
   return (
     <footer className={classes.footer}>
       <Grid className={classes.container} container>
-        <Grid className={classes.item} item md sm={12}>
+        <Grid className={classNames(classes.item, classes.travelApp)} item md sm={12}>
           <AppIntro />
         </Grid>
-        <Grid container item md={9} sm={12}>
+        <Grid container item md={9} sm={12} justify='center'>
           <ContributorLinks contributors={contributors} />
         </Grid>
         <Grid className={classes.item} item md sm={12}>
@@ -71,3 +48,46 @@ export default function Footer(): JSX.Element {
     </footer>
   );
 }
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    container: {
+      flexGrow: 1,
+      margin: 'auto',
+      maxWidth: '1024px',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    footer: {
+      backgroundColor: '#f7f7f7',
+      flexShrink: 0,
+      padding: theme.spacing(0, 2),
+      boxShadow: '0px -2px 2px -2px #717171',
+    },
+    item: {
+      color: theme.palette.text.secondary,
+      display: 'flex',
+      justifyContent: 'center',
+      margin: theme.spacing(1, 0),
+      "& a:hover":{
+        color: '#00add7',
+      },
+      "& a img": {
+        width: '50px',
+        height: 'initial',
+        transition: 'all 1s ease',
+      },
+    },
+    travelApp: {
+      "& p": {
+        color: '#FF385C',
+        fontWeight: 500,
+      },
+      display: 'flex',
+      justifyContent: 'center',
+      margin: theme.spacing(1, 0),
+      "& a:hover":{
+        color: '#00add7',
+      }
+    },
+  })
+);
