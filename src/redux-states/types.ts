@@ -1,4 +1,5 @@
 import { ThunkDispatch } from 'redux-thunk';
+import { IState as ICountriesState } from 'States/countries/model';
 import { IState as ILanguageSelectorState } from 'States/language-selector/model';
 
 export interface IAction<P> {
@@ -20,5 +21,6 @@ export type AsyncDispatch<T, P> = (
 ) => Promise<void>;
 
 export interface RootState {
+  countries: ICountriesState;
   languageSelector: ILanguageSelectorState;
 }
