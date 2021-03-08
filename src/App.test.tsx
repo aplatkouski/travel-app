@@ -5,9 +5,10 @@ import store from 'States/root-store';
 import App from './App';
 
 test('renders App', () => {
+  const fetchCountries = jest.fn();
   const { getAllByText } = render(
     <Provider store={store}>
-      <App />
+      <App fetchCountries={fetchCountries} />
     </Provider>
   );
 

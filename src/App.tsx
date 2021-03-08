@@ -8,7 +8,7 @@ import {
 import Footer from 'Components/Footer';
 import Header from 'Components/Header';
 import MainPage from 'Components/MainPage';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import theme from './theme';
 
@@ -20,21 +20,30 @@ const styles = createStyles({
   },
 });
 
-type Props = WithStyles<typeof styles>;
+interface Props extends WithStyles<typeof styles> {
+  fetchCountries: () => Promise<void>;
+}
 
-const App = ({ classes }: Props): JSX.Element => (
-  <Router>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <div className={classes.root}>
-        <Header />
-        <Switch>
-          <Route component={MainPage} exact path="/" />
-        </Switch>
-        <Footer />
-      </div>
-    </ThemeProvider>
-  </Router>
-);
+const App = ({ classes, fetchCountries }: Props): JSX.Element => {
+  useEffect(() => {
+    /* eslint-disable-next-line @typescript-eslint/no-floating-promises */
+    fetchCountries();
+  }, [fetchCountries]);
+
+  return (
+    <Router>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <div className={classes.root}>
+          <Header />
+          <Switch>
+            <Route component={MainPage} exact path="/" />
+          </Switch>
+          <Footer />
+        </div>
+      </ThemeProvider>
+    </Router>
+  );
+};
 
 export default withStyles(styles, { withTheme: true })(App);
