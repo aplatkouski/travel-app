@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       justifyContent: 'center',
       '&:hover': {
-        color: "#00add7",
+        color: theme.palette.secondary.main,
       },
       '& > *': {
         marginLeft: theme.spacing(1),
