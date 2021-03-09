@@ -7,11 +7,9 @@ import {
 } from '@material-ui/core/styles';
 import Footer from 'Components/Footer';
 import Header from 'Components/Header';
-import MainView from 'Components/MainView';
+import MainPage from 'Components/MainPage';
 import React from 'react';
-import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import store from 'States/root-store';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import theme from './theme';
 
 const styles = createStyles({
@@ -25,20 +23,18 @@ const styles = createStyles({
 type Props = WithStyles<typeof styles>;
 
 const App = ({ classes }: Props): JSX.Element => (
-  <Provider store={store}>
-    <Router>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <div className={classes.root}>
-          <Header/>
-          <Switch>
-            <Route component={MainView} exact path="/" />
-          </Switch>
-          <Footer />
-        </div>
-      </ThemeProvider>
-    </Router>
-  </Provider>
+  <Router>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <div className={classes.root}>
+        <Header />
+        <Switch>
+          <Route component={MainPage} exact path="/" />
+        </Switch>
+        <Footer />
+      </div>
+    </ThemeProvider>
+  </Router>
 );
 
 export default withStyles(styles, { withTheme: true })(App);

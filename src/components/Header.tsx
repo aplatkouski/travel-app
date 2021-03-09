@@ -52,13 +52,14 @@ const Header = (): JSX.Element => {
     </Grid>
   );
 };
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     header: {
-      boxShadow: '0px 2px 2px -2px #717171',
+      background: theme.palette.background.paper,
+      boxShadow: `0 2px 2px -2px ${theme.palette.text.secondary}`,
       height: '7rem',
-      padding: '0.5rem 0 0.5rem 1rem',
-      background: '#fff',
+      padding: '.5rem 0 .5rem 1rem',
       position: 'relative',
     },
     exp: {
@@ -76,7 +77,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     cloudsImg: {
-      maxWidth: '288px',
+      maxWidth: theme.spacing(36),
       width: '40%',
       [theme.breakpoints.down('xs')]: {
         width: '60%',
@@ -84,7 +85,7 @@ const useStyles = makeStyles((theme: Theme) =>
       objectFit: 'contain',
     },
     planeImg: {
-      maxWidth: '288px',
+      maxWidth: theme.spacing(36),
       width: '40%',
       [theme.breakpoints.down('xs')]: {
         display: 'none',
@@ -98,14 +99,17 @@ const useStyles = makeStyles((theme: Theme) =>
       '&:hover': {
         transform: 'rotate(360deg)',
         transition: 'all 2s ease-in',
+        transformOrigin: '49% 58%',
       },
     },
     buttonsContainer: {
       height: '100%',
     },
     button: {
-      color: '#ff385c',
-      border: '1px solid #FF385C',
+      color: theme.palette.text.primary,
+      borderWith: '1px',
+      borderStyle: 'solid',
+      borderColor: theme.palette.primary.main,
       marginRight: '1rem',
     },
   })

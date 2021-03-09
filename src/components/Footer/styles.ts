@@ -6,7 +6,7 @@ const styles = (theme: Theme) =>
     container: {
       flexGrow: 1,
       margin: 'auto',
-      maxWidth: '1024px',
+      maxWidth: theme.spacing(128),
       justifyContent: 'center',
       alignItems: 'center',
     },
@@ -14,7 +14,7 @@ const styles = (theme: Theme) =>
       backgroundColor: theme.palette.background.default,
       flexShrink: 0,
       padding: theme.spacing(0, 2),
-      boxShadow: '0px -2px 2px -2px #717171',
+      boxShadow: `0 -2px 2px -2px ${theme.palette.text.secondary}`,
     },
     item: {
       color: theme.palette.text.secondary,
@@ -25,9 +25,9 @@ const styles = (theme: Theme) =>
         color: theme.palette.secondary.main,
       },
       '& a img': {
-        width: '50px',
+        width: theme.spacing(6.25),
         height: 'initial',
-        transition: 'all 1s ease',
+        transition: 'all .5s ease',
       },
     },
     travelApp: {
