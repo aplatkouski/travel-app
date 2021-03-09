@@ -1,8 +1,11 @@
 import { Container, Grid, Typography, Zoom } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import CountryCard from 'Components/CountryCard';
+import { Countries } from 'Entities/country';
+import ID from 'Entities/id';
 import type { Countries } from 'Entities/country';
 import * as React from 'react';
+import * as StateTypes from 'States/types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,10 +25,10 @@ const useStyles = makeStyles((theme: Theme) =>
 interface Props {
   allCountries: Countries;
   isLoading: boolean;
+  selectCountry: (id: ID) => StateTypes.IAction<ID>;
 }
 
-const MainPage = ({ allCountries, isLoading }: Props): JSX.Element => {
-  const classes = useStyles();
+const MainPage = ({ allCountries, isLoading, selectCountry }: Props): JSX.Element => {  const classes = useStyles();
 
   return (
     <Container className={classes.main} component="main" maxWidth="sm">
@@ -38,7 +41,10 @@ const MainPage = ({ allCountries, isLoading }: Props): JSX.Element => {
             {allCountries.slice(0, 8).map((country) => (
               <Grid key={country.name} item md={4} xs={6}>
                 <Zoom in={isLoading}>
-                  <CountryCard country={country} />
+                  <CountryCard
+                    country={country}
+                    onSelect={() => selectCountry(country.id)}
+                  />
                 </Zoom>
               </Grid>
             ))}
