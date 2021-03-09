@@ -38,7 +38,6 @@
       }
     ],
     "import/prefer-default-export": "off",
-    "@typescript-eslint/no-use-before-define": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -116,6 +115,7 @@
     "react/jsx-props-no-multi-spaces": "error",
     "react/prop-types": "off",
     "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-use-before-define": "off",
     "promise/prefer-await-to-then": "warn",
     "promise/prefer-await-to-callbacks": "warn"
   },

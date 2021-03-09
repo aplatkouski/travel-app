@@ -1,6 +1,6 @@
 import { FormControl, MenuItem, Select } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import Language from 'Entities/laguage';
+import { Language } from 'Entities/travel-app';
 import * as React from 'react';
 import { useCallback } from 'react';
 import * as StateTypes from 'States/types';
