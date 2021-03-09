@@ -43,3 +43,8 @@ export const fetchCountries = (): StateTypes.AsyncDispatch<IState, any> => async
     }
   }
 };
+
+export const selectCountry = (id: ID): StateTypes.IAction<ID> => ({
+  type: t.SELECT_COUNTRY,
+  payload: id,
+});

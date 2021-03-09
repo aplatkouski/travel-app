@@ -23,14 +23,15 @@ const useStyles = makeStyles(() =>
 
 interface Props {
   country: ICountry;
+  onSelect: () => void;
 }
 
-const CountryCard = ({ country }: Props): JSX.Element => {
+const CountryCard = ({ country, onSelect: handleSelect }: Props): JSX.Element => {
   const classes = useStyles();
 
   return (
     <Card className={classes.root}>
-      <CardActionArea>
+      <CardActionArea onClick={() => handleSelect()}>
         <CardMedia
           className={classes.media}
           image={country.photoUrl}
