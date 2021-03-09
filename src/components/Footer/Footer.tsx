@@ -1,11 +1,12 @@
 import { Grid, Link, Typography } from '@material-ui/core';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import RsSchoolLogo from 'Assets/icons/rsschool-logo.svg';
 import ContributorLinks from 'Components/ContributorLinks';
 import SvgImg from 'Components/SvgImg';
 import contributors from 'Data/contributors.json';
 import * as React from 'react';
 import classNames from "classnames";
+import theme from '../../palette';
 
 const AppIntro = (): JSX.Element => (
   <Typography color="textSecondary" variant="body2">
@@ -48,7 +49,7 @@ export default function Footer(): JSX.Element {
     </footer>
   );
 }
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles((Theme: theme) =>
   createStyles({
     container: {
       flexGrow: 1,
@@ -58,7 +59,7 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
     },
     footer: {
-      backgroundColor: '#f7f7f7',
+      backgroundColor: theme.palette.lightBackground.main,
       flexShrink: 0,
       padding: theme.spacing(0, 2),
       boxShadow: '0px -2px 2px -2px #717171',
@@ -69,7 +70,7 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'center',
       margin: theme.spacing(1, 0),
       "& a:hover":{
-        color: '#00add7',
+        color: theme.palette.secondary.main,
       },
       "& a img": {
         width: '50px',
@@ -79,14 +80,14 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     travelApp: {
       "& p": {
-        color: '#FF385C',
+        color: theme.palette.primary.main,
         fontWeight: 500,
       },
       display: 'flex',
       justifyContent: 'center',
       margin: theme.spacing(1, 0),
       "& a:hover":{
-        color: '#00add7',
+        color: theme.palette.secondary.main,
       }
     },
   })
