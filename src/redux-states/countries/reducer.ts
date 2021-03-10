@@ -1,5 +1,5 @@
 import type { Countries } from 'Entities/country';
-import ID from 'Entities/id';
+import type ID from 'Entities/id';
 import * as StateTypes from 'States/types';
 import * as t from './action-types';
 import { IState } from './model';
@@ -12,19 +12,25 @@ const initialState: IState = {
 };
 
 const handlers: StateTypes.IHandlers<IState, any> = {
-  [t.FETCH_FAILURE]: (state, { payload: error }: StateTypes.IAction<typeof Error>) => ({
+  [t.FETCH_COUNTRIES.FAILURE]: (
+    state,
+    { payload: error }: StateTypes.IAction<typeof Error>
+  ) => ({
     ...state,
     isLoading: false,
     error,
   }),
-  [t.FETCH_SUCCESS]: (state, { payload: countries }: StateTypes.IAction<Countries>) => ({
+  [t.FETCH_COUNTRIES.START]: (state) => ({
+    ...state,
+    isLoading: true,
+  }),
+  [t.FETCH_COUNTRIES.SUCCESS]: (
+    state,
+    { payload: countries }: StateTypes.IAction<Countries>
+  ) => ({
     ...state,
     isLoading: false,
     all: countries,
-  }),
-  [t.START_REQUEST]: (state) => ({
-    ...state,
-    isLoading: true,
   }),
   [t.SELECT_COUNTRY]: (state, { payload: id }: StateTypes.IAction<ID>) => ({
     ...state,

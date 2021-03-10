@@ -8,6 +8,8 @@ import {
 import Footer from 'Components/Footer';
 import Header from 'Components/Header';
 import MainPage from 'Components/MainPage';
+import { useDispatch } from 'react-redux';
+import countries from 'States/countries';
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import theme from './theme';
@@ -20,15 +22,15 @@ const styles = createStyles({
   },
 });
 
-interface Props extends WithStyles<typeof styles> {
-  fetchCountries: () => Promise<void>;
-}
+type Props = WithStyles<typeof styles>;
 
-const App = ({ classes, fetchCountries }: Props): JSX.Element => {
+const App = ({ classes }: Props): JSX.Element => {
+  const dispatch = useDispatch();
+  const { fetchCountries } = countries.actions;
+
   useEffect(() => {
-    /* eslint-disable-next-line @typescript-eslint/no-floating-promises */
-    fetchCountries();
-  }, [fetchCountries]);
+    dispatch(fetchCountries());
+  }, [dispatch, fetchCountries]);
 
   return (
     <Router>
