@@ -94,7 +94,7 @@ const useStyles = makeStyles((theme: Theme) =>
       objectFit: 'contain',
     },
     logo: {
-      maxWidth: '110px',
+      maxWidth: theme.spacing(14),
       objectFit: 'contain',
       transition: 'all 2s ease-in',
       '&:hover': {

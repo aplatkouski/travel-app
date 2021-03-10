@@ -21,6 +21,7 @@ export type AsyncDispatch<T, P> = (
   }
 ) => Promise<void>;
 
+// export type RootState = ReturnType<typeof rootReducer>;
 export interface RootState {
   countries: ICountriesState;
   languageSelector: ILanguageSelectorState;

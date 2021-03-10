@@ -1,11 +1,11 @@
 import { FormControl, MenuItem, Select } from '@material-ui/core';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Language } from 'Entities/travel-app';
 import * as React from 'react';
 import { useCallback } from 'react';
 import * as StateTypes from 'States/types';
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     formControl: {
       minWidth: '3rem',
@@ -16,14 +16,14 @@ const useStyles = makeStyles(() =>
         border: 'none',
       },
       '&:after': {
-        borderColor: '#ff385c',
+        borderColor: theme.palette.primary.main,
       },
       '&:hover:not(.Mui-disabled):before': {
         border: 'none',
       },
     },
     icon: {
-      fill: '#ff385c',
+      fill: theme.palette.primary.main,
     },
   })
 );
