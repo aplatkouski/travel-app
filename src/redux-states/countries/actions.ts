@@ -1,5 +1,4 @@
-import type { Countries, DBCountries } from 'Entities/country';
-import type ID from 'Entities/id';
+import { Countries, DBCountries } from 'Entities/country';
 import * as StateTypes from 'States/types';
 import storage from 'Utils/storage';
 import * as t from './action-types';
@@ -20,7 +19,7 @@ export const startRequest = (): StateTypes.IAction<undefined> => ({
   payload: undefined,
 });
 
-const parseCounties = (countries: DBCountries): Countries => {
+export const parseCounties = (countries: DBCountries): Countries => {
   return countries.map((country) => {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     const { _id, ...rest } = country;
@@ -44,8 +43,3 @@ export const fetchCountries = (): StateTypes.AsyncDispatch<IState, any> => async
     }
   }
 };
-
-export const selectCountry = (id: ID): StateTypes.IAction<ID> => ({
-  type: t.SELECT_COUNTRY,
-  payload: id,
-});

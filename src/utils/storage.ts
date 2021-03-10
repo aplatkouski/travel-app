@@ -1,6 +1,6 @@
-import type { DBCountries } from 'Entities/country';
+import { api } from 'App/constants';
+import { DBCountries } from 'Entities/country';
 
-const url = 'https://test-travel-app-server.herokuapp.com';
 const countriesUrl = 'todos/countries';
 
 const fetchCountries = async (): Promise<DBCountries> => {
@@ -12,7 +12,7 @@ const fetchCountries = async (): Promise<DBCountries> => {
     headers: { 'Content-Type': 'application/json; charset=UTF-8' },
     body: JSON.stringify(data),
   };
-  const response = await fetch(`${url}/${countriesUrl}`, options);
+  const response = await fetch(`${api}/${countriesUrl}`, options);
   return (await response.json()) as Promise<DBCountries>;
 };
 

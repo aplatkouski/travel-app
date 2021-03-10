@@ -40,8 +40,7 @@ const App = ({ classes }: Props): JSX.Element => {
         <Header />
         <Switch>
           <Route component={MainPage} exact path="/" />
-          {/*todo path*/}
-          <Route component={CountryPage} exact path="/country" />
+          <Route component={CountryPage} path="/country/:id" />
         </Switch>
         <Footer />
       </div>

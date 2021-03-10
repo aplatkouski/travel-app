@@ -1,11 +1,33 @@
 import { Container, Grid } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Gallery from 'Components/Gallery/Gallery';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { Dispatch } from 'redux';
+import { getCountyInfoThunk } from 'States/country/thunk';
 
+interface IRedux {
+  country: any;
+}
 
-const CountryPage = (): JSX.Element => {
+interface IDispatch {
+  getCountyInfo: (id: string, lang: string) => void;
+}
+
+type IProps = IRedux & IDispatch;
+
+const CountryPageContainer = (props: IProps): JSX.Element => {
+  const { country, getCountyInfo } = props;
   const classes = useStyles();
+  // @ts-ignore
+  const { id } = useParams();
+
+  useEffect(() => {
+    getCountyInfo(id, 'en');
+  }, [getCountyInfo, id]);
+
+  console.log(country);
 
   return (
     <Container className={classes.main} component="main">
@@ -59,4 +81,17 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
+
+const mapStateToProps = (state: any) => ({
+  country: state.country.payload,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  getCountyInfo: (id: string, lang: string) =>{
+    // @ts-ignore
+    dispatch(getCountyInfoThunk(id, lang));
+  }
+});
+
+const CountryPage = connect(mapStateToProps, mapDispatchToProps)(CountryPageContainer);
 export default CountryPage;

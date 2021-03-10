@@ -1,10 +1,10 @@
 import { Container, Grid, Typography, Zoom } from '@material-ui/core';
 import { createStyles, Theme, WithStyles, withStyles } from '@material-ui/core/styles';
 import CountryCard from 'Components/CountryCard';
-import type { Countries } from 'Entities/country';
-import type ID from 'Entities/id';
+import { Countries } from 'Entities/country';
+import { useCallback } from 'react';
 import * as React from 'react';
-import * as StateTypes from 'States/types';
+import { useHistory } from "react-router-dom";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -23,15 +23,18 @@ const styles = (theme: Theme) =>
 interface Props extends WithStyles<typeof styles> {
   allCountries: Countries;
   filter: string;
-  selectCountry: (id: ID) => StateTypes.IAction<ID>;
 }
 
-const MainPage = ({
-  allCountries,
-  classes,
-  filter,
-  selectCountry,
-}: Props): JSX.Element => (
+const MainPage = (props: Props): JSX.Element => {
+
+  const { allCountries, classes, filter } = props;
+  const history = useHistory();
+
+  const handleCountrySelect = useCallback((id: string) => () => {
+    history.push(`/country/${id}`);
+  }, [history]);
+
+  return (
   <Container className={classes.main} component="main" maxWidth="sm">
     <div className="container-fluid lg-p-top">
       <Typography align="center" className="lg-mg-bottom" component="h2" variant="h3">
@@ -51,7 +54,7 @@ const MainPage = ({
                 <Zoom in>
                   <CountryCard
                     country={country}
-                    onSelect={() => selectCountry(country.id)}
+                    onSelect={handleCountrySelect(country.id)}
                   />
                 </Zoom>
               </Grid>
@@ -60,6 +63,7 @@ const MainPage = ({
       </div>
     </div>
   </Container>
-);
+)
+};
 
 export default withStyles(styles, { withTheme: true })(MainPage);
