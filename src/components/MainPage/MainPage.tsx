@@ -1,13 +1,12 @@
 import { Container, Grid, Typography, Zoom } from '@material-ui/core';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, Theme, WithStyles, withStyles } from '@material-ui/core/styles';
 import CountryCard from 'Components/CountryCard';
-import { Countries } from 'Entities/country';
-import ID from 'Entities/id';
 import type { Countries } from 'Entities/country';
+import type ID from 'Entities/id';
 import * as React from 'react';
 import * as StateTypes from 'States/types';
 
-const useStyles = makeStyles((theme: Theme) =>
+const styles = (theme: Theme) =>
   createStyles({
     main: {
       flexBasis: 'auto',
@@ -19,40 +18,35 @@ const useStyles = makeStyles((theme: Theme) =>
     card: {
       maxWidth: 460,
     },
-  })
-);
+  });
 
-interface Props {
+interface Props extends WithStyles<typeof styles> {
   allCountries: Countries;
-  isLoading: boolean;
   selectCountry: (id: ID) => StateTypes.IAction<ID>;
 }
 
-const MainPage = ({ allCountries, isLoading, selectCountry }: Props): JSX.Element => {  const classes = useStyles();
-
-  return (
-    <Container className={classes.main} component="main" maxWidth="sm">
-      <div className="container-fluid lg-p-top">
-        <Typography align="center" className="lg-mg-bottom" component="h2" variant="h3">
-          Countries
-        </Typography>
-        <div className="container-fluid">
-          <Grid container spacing={3}>
-            {allCountries.slice(0, 8).map((country) => (
-              <Grid key={country.name} item md={4} xs={6}>
-                <Zoom in={isLoading}>
-                  <CountryCard
-                    country={country}
-                    onSelect={() => selectCountry(country.id)}
-                  />
-                </Zoom>
-              </Grid>
-            ))}
-          </Grid>
-        </div>
+const MainPage = ({ allCountries, classes, selectCountry }: Props): JSX.Element => (
+  <Container className={classes.main} component="main" maxWidth="sm">
+    <div className="container-fluid lg-p-top">
+      <Typography align="center" className="lg-mg-bottom" component="h2" variant="h3">
+        Countries
+      </Typography>
+      <div className="container-fluid">
+        <Grid container spacing={3}>
+          {allCountries.slice(0, 8).map((country) => (
+            <Grid key={country.name} item md={4} xs={6}>
+              <Zoom in>
+                <CountryCard
+                  country={country}
+                  onSelect={() => selectCountry(country.id)}
+                />
+              </Zoom>
+            </Grid>
+          ))}
+        </Grid>
       </div>
-    </Container>
-  );
-};
+    </div>
+  </Container>
+);
 
-export default MainPage;
+export default withStyles(styles, { withTheme: true })(MainPage);

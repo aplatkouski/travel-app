@@ -5,7 +5,6 @@ import MainPage from './MainPage';
 
 const mapStateToProps = (state: StateTypes.RootState) => ({
   allCountries: state.countries.all,
-  isLoading: state.countries.isLoading,
 });
 
 const mapDispatchToProps = {
