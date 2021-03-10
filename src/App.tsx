@@ -5,6 +5,7 @@ import {
   WithStyles,
   withStyles,
 } from '@material-ui/core/styles';
+import CountryPage from 'Components/CountryPage';
 import Footer from 'Components/Footer';
 import Header from 'Components/Header';
 import MainPage from 'Components/MainPage';
@@ -42,6 +43,7 @@ const App = ({ classes, fetchCountries, language }: Props): JSX.Element => {
           <Header />
           <Switch>
             <Route component={MainPage} exact path="/" />
+            <Route component={CountryPage} path="/country/:id" />
           </Switch>
           <Footer />
         </div>
