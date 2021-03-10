@@ -1,7 +1,7 @@
-import ImagesSlider from 'Components/gallery/ImageSlider';
-import PreviewPanel from 'Components/gallery/PreviewPannel';
+import ImagesSlider from 'Components/Gallery/ImageSlider';
+import PreviewPanel from 'Components/Gallery/PreviewPannel';
 import React, { useState, useEffect, useCallback } from 'react';
-import { createStyles, makeStyles } from '@material-ui/core';
+import { createStyles, Grid, makeStyles } from '@material-ui/core';
 
 const Gallery = (): JSX.Element => {
   const [images, setImages] = useState([]);
@@ -22,16 +22,17 @@ const Gallery = (): JSX.Element => {
   }, []);
 
   return (
-    <div className={classes.container}>
+    <Grid container direction="column" alignItems="center" className={classes.container}>
       <ImagesSlider images={images} imageIndex={imageIndex} onChange={handleImageIndexChange} />
-      <PreviewPanel images={images} imageIndex={imageIndex} />
-    </div>
+      <PreviewPanel images={images} imageIndex={imageIndex} onChange={handleImageIndexChange} />
+    </Grid>
   );
 };
 
 const useStyles = makeStyles(() =>
   createStyles({
-    container: {},
+    container: {
+    },
   })
 );
 
