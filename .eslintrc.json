@@ -76,7 +76,7 @@
     "react/jsx-max-depth": [
       "warn",
       {
-        "max": 4
+        "max": 5
       }
     ],
     "react/jsx-no-constructed-context-values": "error",

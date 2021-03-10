@@ -5,7 +5,7 @@ const primary = '#ff385c';
 const secondary = '#00add7';
 
 // background
-const backgroundPaper = '#fff';
+const backgroundPaper = '#ffffff';
 const backgroundDefault = '#f7f7f7';
 
 // text
