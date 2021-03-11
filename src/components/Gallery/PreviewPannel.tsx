@@ -1,34 +1,42 @@
-import React, { useCallback } from 'react';
+import { IPanelSight } from 'Components/Gallery/Gallery';
+import React, { useCallback, useState, useEffect } from 'react';
 import { createStyles, Grid, makeStyles } from '@material-ui/core';
 import classNames from "classnames";
 
 interface IProps {
-  images: any[];
-  imageIndex: number;
+  sights: IPanelSight[];
+  sightIndex: number;
   onChange: (index: number) => void;
 }
 
 const MAX_PANEL_IMAGES = 6;
 
 const PreviewPanel = (props: IProps): JSX.Element => {
-  const {images = [], imageIndex = 0, onChange} = props;
+  const {sights = [], sightIndex = 0, onChange} = props;
+  const [displaySights, setDisplaySights]= useState<IPanelSight[]>([]);
 
-  const displayImages = images.slice(imageIndex, imageIndex + MAX_PANEL_IMAGES);
+  useEffect(() => {
+    let res = sights.slice(sightIndex, sightIndex + MAX_PANEL_IMAGES);
+    const existing = displaySights.find(sight => sight.imageIndex === sightIndex);
+    if (!displaySights.length || !existing) {
+      setDisplaySights(res);
+    }
+  }, [displaySights, sightIndex, sights]);
 
-  const handleIndexChange = useCallback((index: number) => () => {
-    onChange(imageIndex + index);
-  }, [imageIndex, onChange]);
+  const handleIndexChange = useCallback((sight: IPanelSight) => () => {
+    onChange(sight.imageIndex);
+  }, [sightIndex, onChange]);
 
   const classes = useStyles();
 
   return (
     <Grid container justify="space-evenly" wrap="nowrap" className={classes.container}>
-      {displayImages.map((image, index) => (
-        <Grid key={image.description} item onClick={handleIndexChange(index)} className={classNames({
+      {displaySights.map((sight: IPanelSight) => (
+        <Grid key={`${sight.id}-${sight.name}`} item onClick={handleIndexChange(sight)} className={classNames({
           [classes.image]: true,
-          [classes.activeImage]: index === 0
+          [classes.activeImage]: sightIndex === sight.imageIndex
         })}>
-          <img src={image.url} alt={image.name} />
+          <img src={sight.photoUrl} alt={sight.name} />
         </Grid>
       ))}
     </Grid>
@@ -43,10 +51,10 @@ const useStyles = makeStyles(() =>
       marginTop: '0.5rem',
     },
     image: {
-
+      cursor: 'pointer',
       "& img": {
-        border: '1px solid #ddd',
-        borderRadius: '4px',
+        border: '1px solid theme.palette.text.secondary',
+        borderRadius: '5px',
         padding: '5px',
         width: '150px',
         height: '100px',

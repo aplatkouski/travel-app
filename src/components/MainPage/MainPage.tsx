@@ -18,6 +18,11 @@ const styles = (theme: Theme) =>
     card: {
       maxWidth: 460,
     },
+    header: {
+      color: theme.palette.text.secondary,
+      textAlign: 'left',
+      fontSize: '3rem',
+    },
   });
 
 interface Props extends WithStyles<typeof styles> {
@@ -37,7 +42,7 @@ const MainPage = (props: Props): JSX.Element => {
   return (
   <Container className={classes.main} component="main" maxWidth="sm">
     <div className="container-fluid lg-p-top">
-      <Typography align="center" className="lg-mg-bottom" component="h2" variant="h3">
+      <Typography align="center" component="h1" variant="h1" className={classes.header}>
         Countries
       </Typography>
       <div className="container-fluid">

@@ -17,7 +17,7 @@ interface Props extends WithStyles<typeof styles> {
 
 const CountryCard = ({ classes, country, onSelect }: Props): JSX.Element => (
   <Card className={classes.root}>
-    <CardActionArea onClick={() => onSelect()}>
+    <CardActionArea onClick={onSelect}>
       <CardMedia
         className={classes.media}
         image={country.photoUrl}

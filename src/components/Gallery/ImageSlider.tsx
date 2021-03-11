@@ -1,21 +1,22 @@
 import SightRating from 'Components/Rating';
+import { ISight } from 'Entities/country';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import { createStyles, Grid, makeStyles, Theme, Typography } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 
 interface IProps {
-  images: any[];
-  imageIndex: number;
+  sights: ISight[];
+  sightIndex: number;
   onChange: (index: number) => void;
 }
 
 const ImagesSlider = (props: IProps): JSX.Element => {
-  const {images = [], imageIndex = 0, onChange} = props;
+  const {sights = [], sightIndex = 0, onChange} = props;
   const [fullScreenEnabled, setFullScreenEnabled] = useState(false);
 
-  const totalImages = useMemo(() => images.length, [images]);
+  const totalImages = useMemo(() => sights.length, [sights]);
 
   const classes = useStyles();
 
@@ -26,12 +27,16 @@ const ImagesSlider = (props: IProps): JSX.Element => {
   const handleKeyPress = useCallback((e: KeyboardEvent) => {
     e.preventDefault();
     if (e.key === "ArrowLeft") {
-      handleNavBtnClick(imageIndex-1)();
+      if(sightIndex !== 0){
+        handleNavBtnClick(sightIndex-1)();
+      }
     }
     if (e.key === "ArrowRight") {
-      handleNavBtnClick(imageIndex+1)();
+      if(sightIndex + 1 !== totalImages){
+        handleNavBtnClick(sightIndex+1)();
+      }
     }
-  }, [handleNavBtnClick,imageIndex]);
+  }, [handleNavBtnClick,sightIndex]);
 
   const handleFullScreen = useCallback(() => {
     if (fullScreenEnabled) {
@@ -50,37 +55,44 @@ const ImagesSlider = (props: IProps): JSX.Element => {
   }, [handleKeyPress]);
 
   return (
-    <div className={classes.container} id="imageSliderContainer">
-      <button onClick={handleFullScreen}
-              className={classes.button}>
-        <FullscreenIcon/>
-      </button>
-
-      <h2>{images[imageIndex]?.name}</h2>
-      <div className={classes.stage}>
-        <img
-          src={images[imageIndex]?.url}
-          alt={`${images[imageIndex]?.name}`}
-        />
-      </div>
-      <div className={classes.buttonContainer}>
-        <button onClick={handleNavBtnClick(imageIndex - 1)}
-                disabled={imageIndex === 0}
-                className={classes.button}>
-          <ArrowBackIosIcon/>
-        </button>
-        <button
-          onClick={handleNavBtnClick(imageIndex + 1)}
-          disabled={imageIndex + 1 === totalImages}
-          className={classes.button}
-        >
-          <ArrowForwardIosIcon/>
-        </button>
-      </div>
-        <SightRating/>
+    <div className={classes.container} >
+      <Grid container justify="space-between" alignItems="center">
         <div className={classes.counter}>
-          {totalImages && `Displaying ${imageIndex + 1} of ${totalImages}`}
+          {totalImages && `${sightIndex + 1}/${totalImages}`}
         </div>
+        <button onClick={handleFullScreen} className={classes.fullScreenBtn}>
+          <FullscreenIcon color='secondary' />
+        </button>
+      </Grid>
+      <Typography variant="h3" className={classes.sightName}>
+        {sights[sightIndex]?.name}
+      </Typography>
+
+      <div className={classes.stage} id="imageSliderContainer">
+        <img
+          src={sights[sightIndex]?.photoUrl}
+          alt={`${sights[sightIndex]?.name}`}
+        />
+        <div className={classes.buttonContainer}>
+          <button onClick={handleNavBtnClick(sightIndex - 1)}
+                  disabled={sightIndex === 0}
+                  className={classes.button}>
+            <ArrowBackIosIcon/>
+          </button>
+          <button
+            onClick={handleNavBtnClick(sightIndex + 1)}
+            disabled={sightIndex + 1 === totalImages}
+            className={classes.button}
+          >
+            <ArrowForwardIosIcon/>
+          </button>
+        </div>
+      </div>
+
+      <Typography variant="h4" className={classes.sightDescription}>
+        {sights[sightIndex]?.description}
+      </Typography>
+        <SightRating/>
     </div>
   );
 };
@@ -88,52 +100,82 @@ const ImagesSlider = (props: IProps): JSX.Element => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      border: '5px solid #c6dcf7',
+      boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%),' +
+        ' 0px 1px 3px 0px rgb(0 0 0 / 12%)',
       borderRadius: '5px',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      textAlign: 'center',
       maxWidth: '600px',
-      margin: '0 auto',
-      padding: '20px',
-      position: 'relative',
+      padding: '10px',
+
       justifyContent: 'center',
-      background: theme.palette.background.default,
+      background: theme.palette.background.paper,
+    },
+    fullScreenBtn: {
+      background: 'transparent',
+      transition: 'all .5s ease',
+      "&:hover": {
+        transform: 'scale(1.3)',
+      },
+    },
+
+    counter: {
+      fontSize: '1.5rem',
+      fontFamily: 'Fondamento',
+      color: theme.palette.text.secondary,
     },
     buttonContainer: {
       position: 'absolute',
       display: 'flex',
       justifyContent: 'space-between',
-      width: '100%',
+      width: '95%',
       alignItems: 'center',
     },
     button: {
-      color: 'red',
+      color: theme.palette.secondary.main,
       background: 'transparent',
-
+      transition: 'all .2s ease',
       "&:disabled": {
-        background: '#ddd',
-        color: 'rgb(83, 80, 80)',
-      }
+        color: theme.palette.text.secondary,
+      },
+      "&:hover": {
+        transform: 'scale(1.3)',
+      },
+      "&:active": {
+        color: '#00add745',
+      },
     },
-    counter: {
-      padding: '20px',
+    sightName: {
+      color: theme.palette.text.secondary,
+      fontSize: '2rem',
+      fontFamily: 'Vollkorn SC',
+    },
+    sightDescription: {
+      fontSize: '1.2rem',
+      color: theme.palette.text.secondary,
+      marginBottom: '1rem',
+      fontFamily: 'Vollkorn SC',
+      textAlign: 'center',
+      lineHeight: '1.5rem',
+      minHeight: '130px',
     },
     stage: {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
       width: '100%',
-      height: '440px',
+      height: '350px',
+      position: 'relative',
       "& img": {
-        display: 'block',
-        position: 'relative',
         opacity: 1,
+        padding: '5px',
+        border: '1px solid #ddd',
         maxHeight: '90%',
         maxWidth: '100%',
         transition: 'opacity 0.2s ease-in-out',
-        padding: '20px',
+        borderRadius: '5px',
+        objectFit: 'contain',
       },
     },
   })

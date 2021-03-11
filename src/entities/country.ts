@@ -11,6 +11,7 @@ export interface ISight {
   id: ID;
   description: string;
   photoUrl: string;
+  name: string;
   reviews: Array<{ userId: string; rating: number }>;
 }
 

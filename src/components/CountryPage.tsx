@@ -1,6 +1,7 @@
-import { Container, Grid } from '@material-ui/core';
+import { Container, Grid, Typography } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Gallery from 'Components/Gallery/Gallery';
+import Loader from 'Components/Loader';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -27,37 +28,46 @@ const CountryPageContainer = (props: IProps): JSX.Element => {
     getCountyInfo(id, 'en');
   }, [getCountyInfo, id]);
 
-  console.log(country);
-
   return (
-    <Container className={classes.main} component="main">
-      <Grid container direction="column">
+    <>
+      {(country === undefined) ? <Loader/> : (
+        <Container className={classes.main} component="main">
+          <Grid container direction="column">
 
-        <Grid container >
-          <Grid item sm={4} className={classes.imgContainer}>
-          <img
-            src={'https://img2.storyblok.com/1000x1100/filters:format(webp)/f/53624/4096x1260/a8edc3b4b4/pru_4096x1260.png'}
-            />
-          </Grid>
-          <Grid container item direction="column" justify="center" alignItems="center" sm={8}>
-            <span>Название страны</span>
-            <span>Столица</span>
-            <Grid container className={classes.widgetsContainer}>
-              <Grid item sm={4}>погода</Grid>
-              <Grid item sm={4}>курс валют</Grid>
-              <Grid item sm={4}>дата время</Grid>
+            <Grid container>
+              <Grid item sm={4} className={classes.imgContainer}>
+                <img
+                  src={country.photoUrl}
+                />
+              </Grid>
+              <Grid container item direction="column" justify="space-between" alignItems="center"
+                    sm={8}>
+                <Grid container direction="column" alignItems="center">
+                  <Typography variant="h1" className={classes.countryName}>
+                    {country.name}
+                  </Typography>
+                  <Typography variant="h2" className={classes.countryCapital}>
+                    {country.capital}
+                  </Typography>
+                </Grid>
+                <Grid container className={classes.widgetsContainer}>
+                  <Grid item sm={4}>погода</Grid>
+                  <Grid item sm={4}>курс валют</Grid>
+                  <Grid item sm={4}>дата время</Grid>
+                </Grid>
+              </Grid>
             </Grid>
-          </Grid>
-        </Grid>
 
-        <Grid container>
-          <Grid item sm={6}>инфа о стране</Grid>
-          <Grid item sm={6}>карта с маркером в столице</Grid>
-        </Grid>
-        <Gallery/>
-        <div>video</div>
-      </Grid>
-    </Container>
+            <Grid container justify="center" alignItems="center">
+              <Grid item sm={6}>{country.description}</Grid>
+              <Grid item sm={6}>карта с маркером в столице</Grid>
+            </Grid>
+            <Gallery id={id}/>
+            <div>video</div>
+          </Grid>
+        </Container>
+      )}
+    </>
   );
 };
 const useStyles = makeStyles((theme: Theme) =>
@@ -71,10 +81,16 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     imgContainer: {
       "& img": {
-        width: '70vh',
         transition: 'all 0.6s',
       },
       overflow: 'hidden',
+    },
+    countryName: {
+      color: theme.palette.text.secondary,
+      fontSize: '4rem',
+    },
+    countryCapital: {
+      fontSize: '3rem',
     },
     widgetsContainer: {
 
