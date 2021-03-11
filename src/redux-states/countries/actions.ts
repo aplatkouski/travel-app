@@ -1,4 +1,4 @@
-import type { Countries, DBCountries } from 'Entities/country';
+import type { Countries, ICountry } from 'Entities/country';
 import type ID from 'Entities/id';
 import * as StateTypes from 'States/types';
 import storage from 'Utils/storage';
@@ -6,38 +6,34 @@ import * as t from './action-types';
 import { IState } from './model';
 
 const fetchFailure = (error: Error): StateTypes.IAction<Error> => ({
-  type: t.FETCH_COUNTRIES.FAILURE,
+  type: t.FETCH.FAILURE,
   payload: error,
 });
 
-const fetchSuccess = (countries: Countries) => ({
-  type: t.FETCH_COUNTRIES.SUCCESS,
+const fetchCountriesSuccess = (countries: Countries) => ({
+  type: t.FETCH_COUNTRIES_SUCCESS,
   payload: countries,
 });
 
+const fetchCountrySuccess = (country: ICountry) => ({
+  type: t.FETCH_COUNTRY_SUCCESS,
+  payload: country,
+});
+
 export const startRequest = (): StateTypes.IAction<undefined> => ({
-  type: t.FETCH_COUNTRIES.START,
+  type: t.FETCH.START,
   payload: undefined,
 });
 
-const parseCounties = (countries: DBCountries): Countries => {
-  return countries.map((country) => {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    const { _id, ...rest } = country;
-    return {
-      id: _id,
-      ...rest,
-    };
-  });
-};
-
 export const fetchCountries = (): StateTypes.AsyncDispatch<IState, any> => async (
-  dispatch
+  dispatch,
+  getState
 ) => {
   startRequest();
+  const { languageSelector } = getState();
   try {
-    const countries = await storage.fetchCountries();
-    dispatch(fetchSuccess(parseCounties(countries)));
+    const countries = await storage.fetchCountries(languageSelector.language);
+    dispatch(fetchCountriesSuccess(countries));
   } catch (error) {
     if (error) {
       dispatch(fetchFailure(error));
@@ -45,7 +41,23 @@ export const fetchCountries = (): StateTypes.AsyncDispatch<IState, any> => async
   }
 };
 
-export const selectCountry = (id: ID): StateTypes.IAction<ID> => ({
-  type: t.SELECT_COUNTRY,
-  payload: id,
-});
+export const selectCountry = (id: ID): StateTypes.AsyncDispatch<IState, any> => async (
+  dispatch,
+  getState
+) => {
+  startRequest();
+  const {
+    languageSelector: { language },
+  } = getState();
+  try {
+    const country = await storage.fetchCountry({
+      id,
+      language,
+    });
+    dispatch(fetchCountrySuccess(country));
+  } catch (error) {
+    if (error) {
+      dispatch(fetchFailure(error));
+    }
+  }
+};

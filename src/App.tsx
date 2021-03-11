@@ -8,10 +8,12 @@ import {
 import Footer from 'Components/Footer';
 import Header from 'Components/Header';
 import MainPage from 'Components/MainPage';
-import { useDispatch } from 'react-redux';
-import countries from 'States/countries';
+import { Language } from 'Entities/travel-app';
 import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import countries from 'States/countries';
+import * as StateTypes from 'States/types';
 import theme from './theme';
 
 const styles = createStyles({
@@ -22,15 +24,15 @@ const styles = createStyles({
   },
 });
 
-type Props = WithStyles<typeof styles>;
+interface Props extends WithStyles<typeof styles> {
+  language: Language;
+  fetchCountries: () => void;
+}
 
-const App = ({ classes }: Props): JSX.Element => {
-  const dispatch = useDispatch();
-  const { fetchCountries } = countries.actions;
-
+const App = ({ classes, fetchCountries, language }: Props): JSX.Element => {
   useEffect(() => {
-    dispatch(fetchCountries());
-  }, [dispatch, fetchCountries]);
+    fetchCountries();
+  }, [fetchCountries, language]);
 
   return (
     <Router>
@@ -48,4 +50,14 @@ const App = ({ classes }: Props): JSX.Element => {
   );
 };
 
-export default withStyles(styles, { withTheme: true })(App);
+const mapStateToProps = (state: StateTypes.RootState) => ({
+  language: state.languageSelector.language,
+});
+
+const mapDispatchToProps = {
+  fetchCountries: countries.actions.fetchCountries,
+};
+
+export default withStyles(styles, { withTheme: true })(
+  connect(mapStateToProps, mapDispatchToProps)(App)
+);

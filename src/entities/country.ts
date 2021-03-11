@@ -7,11 +7,18 @@ export interface ICountryPreview {
   photoUrl: string;
 }
 
+export interface Rating {
+  _id: string;
+  userId: string;
+  rating: number;
+}
+
 export interface ISight {
   id: ID;
   description: string;
+  name: string;
   photoUrl: string;
-  reviews: Array<{ userId: string; rating: number }>;
+  reviews: Array<Rating>;
 }
 
 export interface ICountry extends ICountryPreview {
@@ -20,10 +27,4 @@ export interface ICountry extends ICountryPreview {
   videoUrl: string;
 }
 
-export type Countries = Array<ICountry>;
-
-export interface DBCountry extends Omit<ICountry, 'id'> {
-  _id: ID;
-}
-
-export type DBCountries = Array<DBCountry>;
+export type Countries = Array<ICountryPreview>;

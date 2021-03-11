@@ -4,7 +4,6 @@ import CountryCard from 'Components/CountryCard';
 import type { Countries } from 'Entities/country';
 import type ID from 'Entities/id';
 import * as React from 'react';
-import * as StateTypes from 'States/types';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -23,7 +22,7 @@ const styles = (theme: Theme) =>
 interface Props extends WithStyles<typeof styles> {
   allCountries: Countries;
   filter: string;
-  selectCountry: (id: ID) => StateTypes.IAction<ID>;
+  selectCountry: (id: ID) => void;
 }
 
 const MainPage = ({

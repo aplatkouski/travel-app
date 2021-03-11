@@ -14,16 +14,14 @@ export interface IHandlers<S, P> {
   [key: string]: Reducer<S, P>;
 }
 
-export type AsyncDispatch<T, P> = (
-  dispatch: ThunkDispatch<T, any, IAction<P>>,
-  getState: () => {
-    [key: string]: T;
-  }
-) => Promise<void>;
-
 // export type RootState = ReturnType<typeof rootReducer>;
 export interface RootState {
   countries: ICountriesState;
   languageSelector: ILanguageSelectorState;
   searchField: ISearchFieldState;
 }
+
+export type AsyncDispatch<T, P> = (
+  dispatch: ThunkDispatch<T, any, IAction<P>>,
+  getState: () => RootState
+) => Promise<void>;
