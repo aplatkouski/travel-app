@@ -4,6 +4,8 @@ import CountryCard from 'Components/CountryCard';
 import type { Countries } from 'Entities/country';
 import type { ID } from 'Entities/travel-app';
 import * as React from 'react';
+import { useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -17,47 +19,57 @@ const styles = (theme: Theme) =>
     card: {
       maxWidth: 460,
     },
+    header: {
+      color: theme.palette.text.secondary,
+      textAlign: 'left',
+      fontSize: '3rem',
+    },
   });
 
 interface Props extends WithStyles<typeof styles> {
   allCountries: Countries;
   filter: string;
-  selectCountry: (id: ID) => void;
 }
 
-const MainPage = ({
-  allCountries,
-  classes,
-  filter,
-  selectCountry,
-}: Props): JSX.Element => (
-  <Container className={classes.main} component="main" maxWidth="sm">
-    <div className="container-fluid lg-p-top">
-      <Typography align="center" className="lg-mg-bottom" component="h2" variant="h3">
-        Countries
-      </Typography>
-      <div className="container-fluid">
-        <Grid container spacing={3}>
-          {allCountries
-            .filter(
-              (c) =>
-                c.name.toLowerCase().includes(filter) ||
-                c.capital.toLowerCase().includes(filter)
-            )
-            .map((country) => (
-              <Grid key={country.name} item md={4} xs={6}>
-                <Zoom in>
-                  <CountryCard
-                    country={country}
-                    onSelect={() => selectCountry(country.id)}
-                  />
-                </Zoom>
-              </Grid>
-            ))}
-        </Grid>
+const MainPage = ({ allCountries, classes, filter }: Props): JSX.Element => {
+  const history = useHistory();
+
+  const handleCountrySelect = useCallback(
+    (id: ID) => () => {
+      history.push(`/country/${id}`);
+    },
+    [history]
+  );
+
+  return (
+    <Container className={classes.main} component="main" maxWidth="sm">
+      <div className="container-fluid lg-p-top">
+        <Typography align="center" className={classes.header} component="h1" variant="h1">
+          Countries
+        </Typography>
+        <div className="container-fluid">
+          <Grid container spacing={3}>
+            {allCountries
+              .filter(
+                (c) =>
+                  c.name.toLowerCase().includes(filter) ||
+                  c.capital.toLowerCase().includes(filter)
+              )
+              .map((country) => (
+                <Grid key={country.name} item md={4} xs={6}>
+                  <Zoom in>
+                    <CountryCard
+                      country={country}
+                      onSelect={handleCountrySelect(country.id)}
+                    />
+                  </Zoom>
+                </Grid>
+              ))}
+          </Grid>
+        </div>
       </div>
-    </div>
-  </Container>
-);
+    </Container>
+  );
+};
 
 export default withStyles(styles, { withTheme: true })(MainPage);
