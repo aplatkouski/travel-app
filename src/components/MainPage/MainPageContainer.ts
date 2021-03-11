@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import country from 'States/country';
 import * as StateTypes from 'States/types';
 import MainPage from './MainPage';
 
@@ -8,8 +7,4 @@ const mapStateToProps = (state: StateTypes.RootState) => ({
   filter: state.searchField.value,
 });
 
-const mapDispatchToProps = {
-  selectCountry: country.thunk.getCountryThunk,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
+export default connect(mapStateToProps)(MainPage);
