@@ -36,7 +36,7 @@ const ImagesSlider = (props: IProps): JSX.Element => {
         handleNavBtnClick(sightIndex+1)();
       }
     }
-  }, [handleNavBtnClick,sightIndex]);
+  }, [handleNavBtnClick, sightIndex, totalImages]);
 
   const handleFullScreen = useCallback(() => {
     if (fullScreenEnabled) {
@@ -60,7 +60,7 @@ const ImagesSlider = (props: IProps): JSX.Element => {
         <div className={classes.counter}>
           {totalImages && `${sightIndex + 1}/${totalImages}`}
         </div>
-        <button onClick={handleFullScreen} className={classes.fullScreenBtn}>
+        <button type="button" onClick={handleFullScreen} className={classes.fullScreenBtn}>
           <FullscreenIcon color='secondary' />
         </button>
       </Grid>
@@ -74,12 +74,16 @@ const ImagesSlider = (props: IProps): JSX.Element => {
           alt={`${sights[sightIndex]?.name}`}
         />
         <div className={classes.buttonContainer}>
-          <button onClick={handleNavBtnClick(sightIndex - 1)}
-                  disabled={sightIndex === 0}
-                  className={classes.button}>
+          <button
+            type="button"
+            onClick={handleNavBtnClick(sightIndex - 1)}
+            disabled={sightIndex === 0}
+            className={classes.button}
+          >
             <ArrowBackIosIcon/>
           </button>
           <button
+            type="button"
             onClick={handleNavBtnClick(sightIndex + 1)}
             disabled={sightIndex + 1 === totalImages}
             className={classes.button}

@@ -25,7 +25,7 @@ const PreviewPanel = (props: IProps): JSX.Element => {
 
   const handleIndexChange = useCallback((sight: IPanelSight) => () => {
     onChange(sight.imageIndex);
-  }, [sightIndex, onChange]);
+  }, [onChange]);
 
   const classes = useStyles();
 

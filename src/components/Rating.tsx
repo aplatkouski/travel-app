@@ -7,7 +7,6 @@ const SightRating = (): JSX.Element => {
   const classes = useStyles();
   const [value, setValue] = useState<number | null>(2);
 
-
   return (
     <div className={classes.ratingContainer}>
         <Typography component="legend">Rate the attraction</Typography>

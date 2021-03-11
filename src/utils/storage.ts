@@ -1,4 +1,4 @@
-import { api } from 'App/constants';
+import { api } from '../constants';
 import { DBCountries } from 'Entities/country';
 
 const countriesUrl = 'todos/countries';

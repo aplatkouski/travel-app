@@ -1,6 +1,6 @@
 import ImagesSlider from 'Components/Gallery/ImageSlider';
 import PreviewPanel from 'Components/Gallery/PreviewPannel';
-import { ISight } from 'Entities/country';
+import { ICountry, ISight } from 'Entities/country';
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { createStyles, Grid, makeStyles } from '@material-ui/core';
 import { connect } from 'react-redux';
@@ -8,7 +8,7 @@ import { Dispatch } from 'redux';
 import { getCountyInfoThunk } from 'States/country/thunk';
 
 interface IRedux {
-  country: any;
+  country: ICountry;
 }
 
 interface IGallery {
@@ -32,21 +32,13 @@ const GalleryContainer = (props: IProps): JSX.Element => {
 
   const classes = useStyles();
 
-  // useEffect(() => {
-  //   fetch("https://api.imgflip.com/get_memes")
-  //     .then((response) => response.json())
-  //     .then((response) => {
-  //       setSights(response?.data.memes);
-  //     });
-  // }, []);
-
   useEffect(() => {
     getCountyInfo(id, 'en');
-    setSights([...country.sights, ...country.sights])
-  }, [getCountyInfo, id]);
+    setSights(country.sights)
+  }, [country.sights, getCountyInfo, id]);
 
   const panelSights = useMemo<IPanelSight[]>(() => {
-    return sights.map((sight: ISight, index) => ({ ...(sight), imageIndex: index }));
+    return sights.map((sight: ISight, index) => ({ ...sight, imageIndex: index }));
   }, [sights]);
 
   const handleImageIndexChange = useCallback((index: number) => {

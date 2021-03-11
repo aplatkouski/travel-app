@@ -1,6 +1,6 @@
 import { fetchFailure, fetchSuccess, startRequest } from 'States/country/actions';
 import { Dispatch } from "redux";
-import { api } from 'App/constants';
+import { api } from '../../constants';
 
 export const getCountyInfoThunk = (id: string, lang: string) => (dispatch: Dispatch) => {
   dispatch(startRequest());
