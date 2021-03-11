@@ -29,6 +29,14 @@ const theme = createMuiTheme({
       secondary: textSecondary,
     },
   },
+  typography: {
+    h1: {
+      fontFamily: '"Vollkorn SC", serif',
+    },
+    h2: {
+      fontFamily: '"Fondamento", cursive',
+    },
+  },
 });
 
 export default responsiveFontSizes(theme);
