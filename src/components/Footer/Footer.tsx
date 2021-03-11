@@ -2,11 +2,11 @@ import { Grid, Link, Typography } from '@material-ui/core';
 import { withStyles, WithStyles } from '@material-ui/core/styles';
 import RsSchoolLogo from 'Assets/icons/rsschool-logo.svg';
 import clsx from 'clsx';
-import ContributorLinks from 'Components/ContributorLinks';
-import SvgImg from 'Components/SvgImg';
 import contributors from 'Data/contributors.json';
 import * as React from 'react';
+import ContributorLinks from './ContributorLinks';
 import styles from './styles';
+import SvgImg from './SvgImg';
 
 type Props = WithStyles<typeof styles>;
 

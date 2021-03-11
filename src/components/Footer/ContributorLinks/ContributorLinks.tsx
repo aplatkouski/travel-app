@@ -1,7 +1,7 @@
 import { Grid, Link } from '@material-ui/core';
 import { withStyles, WithStyles } from '@material-ui/core/styles';
 import GitHubLogo from 'Assets/icons/github-logo.svg';
-import SvgImg from 'Components/SvgImg';
+import SvgImg from 'Components/Footer/SvgImg';
 import Contributor from 'Entities/contributor';
 import * as React from 'react';
 import styles from './styles';
