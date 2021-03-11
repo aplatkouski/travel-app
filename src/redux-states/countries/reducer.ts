@@ -14,7 +14,7 @@ const initialState: IState = {
 const handlers: StateTypes.IHandlers<IState, any> = {
   [t.FETCH_COUNTRIES.FAILURE]: (
     state,
-    { payload: error }: StateTypes.IAction<typeof Error>
+    { payload: error }: StateTypes.IAction<Error>
   ) => ({
     ...state,
     isLoading: false,

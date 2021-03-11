@@ -10,7 +10,7 @@ const fetchFailure = (error: Error): StateTypes.IAction<Error> => ({
   payload: error,
 });
 
-const fetchSuccess = (countries: Array<any>) => ({
+const fetchSuccess = (countries: Countries) => ({
   type: t.FETCH_COUNTRIES.SUCCESS,
   payload: countries,
 });

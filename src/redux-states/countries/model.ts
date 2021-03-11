@@ -3,7 +3,7 @@ import { ICountry } from 'Entities/country';
 
 export interface IState {
   all: Countries;
-  error?: typeof Error;
+  error?: Error;
   isLoading: boolean;
   selected?: ICountry;
 }
