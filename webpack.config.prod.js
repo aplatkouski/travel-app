@@ -90,7 +90,7 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader'],
       },
       {
-        test: /\.(?:jpe?g|png)$/i,
+        test: /\.(?:jpe?g|png|gif)$/i,
         type: 'asset/resource',
         generator: {
           filename: 'assets/images/[hash][ext][query]',
