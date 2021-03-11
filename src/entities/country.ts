@@ -1,4 +1,4 @@
-import ID from 'Entities/id';
+import type { ID } from 'Entities/travel-app';
 
 export interface ICountryPreview {
   id: ID;

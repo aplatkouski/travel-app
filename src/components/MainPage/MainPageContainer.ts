@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import countries from 'States/countries';
+import country from 'States/country';
 import * as StateTypes from 'States/types';
 import MainPage from './MainPage';
 
@@ -9,7 +9,7 @@ const mapStateToProps = (state: StateTypes.RootState) => ({
 });
 
 const mapDispatchToProps = {
-  selectCountry: countries.actions.selectCountry,
+  selectCountry: country.thunk.getCountryThunk,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainPage);

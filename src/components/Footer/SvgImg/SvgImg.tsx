@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme: Theme) =>
       objectFit: 'fill',
       width: 'auto',
       '&:hover': {
-        transform: 'scale(1.4)',
+        transform: 'scale(1.3)',
       },
     },
   })

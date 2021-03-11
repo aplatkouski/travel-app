@@ -2,7 +2,7 @@ import { Container, Grid, Typography, Zoom } from '@material-ui/core';
 import { createStyles, Theme, WithStyles, withStyles } from '@material-ui/core/styles';
 import CountryCard from 'Components/CountryCard';
 import type { Countries } from 'Entities/country';
-import type ID from 'Entities/id';
+import type { ID } from 'Entities/travel-app';
 import * as React from 'react';
 
 const styles = (theme: Theme) =>
@@ -44,7 +44,6 @@ const MainPage = ({
                 c.name.toLowerCase().includes(filter) ||
                 c.capital.toLowerCase().includes(filter)
             )
-            .slice(0, 8)
             .map((country) => (
               <Grid key={country.name} item md={4} xs={6}>
                 <Zoom in>
