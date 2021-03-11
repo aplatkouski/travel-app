@@ -18,7 +18,6 @@
     "noUnusedParameters": true,
     "outDir": "./dist/",
     "paths": {
-      "App/*": ["*"],
       "Assets/*": ["assets/*"],
       "Audio/*": ["assets/audio/*"],
       "Components/*": ["components/*"],

@@ -1,6 +1,6 @@
-import { api, countriesAPI, countriesPerPage } from 'App/constants';
 import { Countries } from 'Entities/country';
 import * as StateTypes from 'States/types';
+import { api, countriesAPI, countriesPerPage } from '../../constants';
 import { fetchFailure, fetchSuccess, startRequest } from './actions';
 import { IState } from './model';
 
