@@ -11,6 +11,11 @@ const styles = (theme: Theme) =>
     },
     media: {
       height: theme.spacing(30),
+      transition: 'all .5s',
+      '&:hover': {
+        transform: 'scale(1.2)',
+        backgroundPositionY: '-18px',
+      },
     },
     capital: {
       color: theme.palette.text.secondary,

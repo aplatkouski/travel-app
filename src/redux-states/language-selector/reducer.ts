@@ -1,7 +1,7 @@
 import { Language } from 'Entities/travel-app';
 import * as StateTypes from 'States/types';
 import * as t from './action-types';
-import type { IState } from './model';
+import { IState } from './model';
 
 const initialState: IState = {
   language: 'en' as Language,

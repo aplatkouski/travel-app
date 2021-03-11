@@ -11,7 +11,7 @@ const styles = (theme: Theme) =>
       alignItems: 'center',
     },
     footer: {
-      backgroundColor: theme.palette.background.default,
+      backgroundColor: theme.palette.background.paper,
       flexShrink: 0,
       padding: theme.spacing(0, 2),
       boxShadow: `0 -2px 2px -2px ${theme.palette.text.secondary}`,

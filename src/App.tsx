@@ -55,7 +55,7 @@ const mapStateToProps = (state: StateTypes.RootState) => ({
 });
 
 const mapDispatchToProps = {
-  fetchCountries: countries.actions.fetchCountries,
+  fetchCountries: countries.thunk.getCountriesThunk,
 };
 
 export default withStyles(styles, { withTheme: true })(
