@@ -21,9 +21,17 @@ const useStyles = makeStyles((theme: Theme) =>
       '&:hover:not(.Mui-disabled):before': {
         border: 'none',
       },
+      color: theme.palette.text.secondary,
+      fontFamily: 'Vollkorn SC',
+      fontWeight: 600,
     },
     icon: {
       fill: theme.palette.primary.main,
+    },
+    menuItem: {
+      color: theme.palette.text.secondary,
+      fontFamily: 'Vollkorn SC',
+      fontWeight: 600,
     },
   })
 );
@@ -59,7 +67,7 @@ const LanguageSelector = ({
         value={currentLanguage}
       >
         {['en', 'ru', 'de'].map((language) => (
-          <MenuItem key={language} value={language}>
+          <MenuItem key={language} className={classes.menuItem} value={language}>
             {language}
           </MenuItem>
         ))}
