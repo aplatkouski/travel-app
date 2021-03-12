@@ -24,6 +24,7 @@ const handlers: StateTypes.IHandlers<IState, any> = {
     { payload: country }: StateTypes.IAction<ICountry>
   ) => ({
     ...state,
+    isLoading: false,
     country,
   }),
   DEFAULT: (state) => state,
