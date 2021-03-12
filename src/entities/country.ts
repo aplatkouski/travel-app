@@ -1,4 +1,4 @@
-import ID from 'Entities/id';
+import type { ID } from 'Entities/travel-app';
 
 export interface ICountryPreview {
   id: ID;
@@ -7,12 +7,18 @@ export interface ICountryPreview {
   photoUrl: string;
 }
 
+export interface Rating {
+  _id: string;
+  userId: string;
+  rating: number;
+}
+
 export interface ISight {
   id: ID;
   description: string;
-  photoUrl: string;
   name: string;
-  reviews: Array<{ userId: string; rating: number }>;
+  photoUrl: string;
+  reviews: Array<Rating>;
 }
 
 export interface ICountry extends ICountryPreview {
@@ -21,10 +27,4 @@ export interface ICountry extends ICountryPreview {
   videoUrl: string;
 }
 
-export type Countries = Array<ICountry>;
-
-export interface DBCountry extends Omit<ICountry, 'id'> {
-  _id: ID;
-}
-
-export type DBCountries = Array<DBCountry>;
+export type Countries = Array<ICountryPreview>;

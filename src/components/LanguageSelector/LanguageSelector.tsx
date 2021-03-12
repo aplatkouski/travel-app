@@ -30,9 +30,7 @@ const LanguageSelector = (props: Props): JSX.Element => {
         value={currentLanguage}
       >
         {['en', 'ru', 'de'].map((language) => (
-          <option>
-          {language}
-          </option>
+          <option key={language}>{language}</option>
         ))}
 
       </select>

@@ -37,7 +37,7 @@ const CountryPageContainer = (props: IProps): JSX.Element => {
 
         <Grid container>
           <Grid item sm={4} className={classes.imgContainer}>
-            <img src={country.photoUrl} alt={country.name} />
+            <img src={country.photoUrl} alt={country.name}/>
           </Grid>
           <Grid container item direction="column" justify="space-between"
                 alignItems="center"
@@ -60,7 +60,7 @@ const CountryPageContainer = (props: IProps): JSX.Element => {
 
         <Grid container justify="center" alignItems="center">
           <Grid item sm={6}>{country.description}</Grid>
-          <Grid item sm={6}></Grid>
+          <Grid item sm={6}/>
         </Grid>
         <Gallery id={id}/>
         <div>video</div>
@@ -68,6 +68,7 @@ const CountryPageContainer = (props: IProps): JSX.Element => {
     </Container>
   );
 };
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     main: {
@@ -78,7 +79,7 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: '1280px',
     },
     imgContainer: {
-      "& img": {
+      '& img': {
         transition: 'all 0.6s',
       },
       overflow: 'hidden',
@@ -90,10 +91,8 @@ const useStyles = makeStyles((theme: Theme) =>
     countryCapital: {
       fontSize: '3rem',
     },
-    widgetsContainer: {
-
-    },
-  })
+    widgetsContainer: {},
+  }),
 );
 
 const mapStateToProps = (state: any) => ({
@@ -101,10 +100,10 @@ const mapStateToProps = (state: any) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  getCountyInfo: (id: string, lang: string) =>{
+  getCountyInfo: (id: string, lang: string) => {
     // @ts-ignore
     dispatch(getCountyInfoThunk(id, lang));
-  }
+  },
 });
 
 const CountryPage = connect(mapStateToProps, mapDispatchToProps)(CountryPageContainer);

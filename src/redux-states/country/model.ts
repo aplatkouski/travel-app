@@ -1,7 +1,7 @@
-import { Countries } from 'Entities/country';
+import { ICountry } from 'Entities/country';
 
 export interface IState {
-  all: Countries;
+  payload?: ICountry;
   error?: Error;
   isLoading: boolean;
 }

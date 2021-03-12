@@ -7,7 +7,6 @@ const initialState: IState = {
   all: [] as Countries,
   error: undefined,
   isLoading: false,
-  selected: undefined,
 };
 
 const handlers: StateTypes.IHandlers<IState, any> = {

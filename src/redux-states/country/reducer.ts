@@ -1,12 +1,7 @@
-import { Countries } from 'Entities/country';
+import { ICountry } from 'Entities/country';
 import * as StateTypes from 'States/types';
 import * as t from './action-types';
-
-export interface IState {
-  payload: any;
-  error?: typeof Error;
-  isLoading: boolean;
-}
+import { IState } from './model';
 
 const initialState: IState = {
   payload: undefined,
@@ -15,7 +10,7 @@ const initialState: IState = {
 };
 
 const handlers: StateTypes.IHandlers<IState, any> = {
-  [t.FETCH_COUNTRY.FAILURE]: (state, { payload: error }: StateTypes.IAction<typeof Error>) => ({
+  [t.FETCH_COUNTRY.FAILURE]: (state, { payload: error }: StateTypes.IAction<Error>) => ({
     ...state,
     isLoading: false,
     error,
@@ -24,9 +19,8 @@ const handlers: StateTypes.IHandlers<IState, any> = {
     ...state,
     isLoading: true,
   }),
-  [t.FETCH_COUNTRY.SUCCESS]: (state, { payload }: StateTypes.IAction<Countries>) => ({
+  [t.FETCH_COUNTRY.SUCCESS]: (state, { payload }: StateTypes.IAction<ICountry>) => ({
     ...state,
-    isLoading: false,
     payload,
   }),
   DEFAULT: (state) => state,

@@ -6,18 +6,18 @@ import {
   Typography,
 } from '@material-ui/core';
 import { withStyles, WithStyles } from '@material-ui/core/styles';
-import { ICountry } from 'Entities/country';
+import { ICountryPreview } from 'Entities/country';
 import * as React from 'react';
 import styles from './styles';
 
 interface Props extends WithStyles<typeof styles> {
-  country: ICountry;
+  country: ICountryPreview;
   onSelect: () => void;
 }
 
-const CountryCard = ({ classes, country, onSelect }: Props): JSX.Element => (
+const CountryCard = ({ classes, country, onSelect: handleClick }: Props): JSX.Element => (
   <Card className={classes.root}>
-    <CardActionArea onClick={onSelect}>
+    <CardActionArea onClick={handleClick}>
       <CardMedia
         className={classes.media}
         image={country.photoUrl}

@@ -9,3 +9,9 @@ declare module '*.svg' {
   export const ReactComponent: React.FunctionComponent<React.SVGAttributes<SVGElement>>;
   export default content;
 }
+
+declare module '*.gif' {
+  const content: string;
+  export const ReactComponent: React.FunctionComponent<React.SVGAttributes<SVGElement>>;
+  export default content;
+}
