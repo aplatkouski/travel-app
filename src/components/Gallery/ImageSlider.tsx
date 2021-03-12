@@ -5,6 +5,7 @@ import { createStyles, Grid, makeStyles, Theme, Typography } from '@material-ui/
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
+import Grow from '@material-ui/core/Grow';
 
 interface IProps {
   sights: ISight[];
@@ -15,14 +16,24 @@ interface IProps {
 const ImagesSlider = (props: IProps): JSX.Element => {
   const {sights = [], sightIndex = 0, onChange} = props;
   const [fullScreenEnabled, setFullScreenEnabled] = useState(false);
+  const [checked, setChecked] = useState<boolean>(true);
 
   const totalImages = useMemo(() => sights.length, [sights]);
 
   const classes = useStyles();
 
+  useEffect(() => {
+    setTimeout(() => {
+      setChecked(true);
+    }, 350);
+  }, [sightIndex]);
+
+
   const handleNavBtnClick = useCallback((index: number) => () => {
     onChange(index);
-  }, [onChange]);
+    setChecked(!checked);
+  }, [checked, onChange]);
+
 
   const handleKeyPress = useCallback((e: KeyboardEvent) => {
     e.preventDefault();
@@ -55,48 +66,50 @@ const ImagesSlider = (props: IProps): JSX.Element => {
   }, [handleKeyPress]);
 
   return (
-    <div className={classes.container} >
+    <div className={classes.container}>
       <Grid container justify="space-between" alignItems="center">
         <div className={classes.counter}>
           {totalImages && `${sightIndex + 1}/${totalImages}`}
         </div>
-        <button type="button" onClick={handleFullScreen} className={classes.fullScreenBtn}>
-          <FullscreenIcon color='secondary' />
+        <button type="button" onClick={handleFullScreen}
+                className={classes.fullScreenBtn}>
+          <FullscreenIcon color='secondary'/>
         </button>
       </Grid>
       <Typography variant="h3" className={classes.sightName}>
         {sights[sightIndex]?.name}
       </Typography>
-
-      <div className={classes.stage} id="imageSliderContainer">
-        <img
-          src={sights[sightIndex]?.photoUrl}
-          alt={`${sights[sightIndex]?.name}`}
-        />
-        <div className={classes.buttonContainer}>
-          <button
-            type="button"
-            onClick={handleNavBtnClick(sightIndex - 1)}
-            disabled={sightIndex === 0}
-            className={classes.button}
-          >
-            <ArrowBackIosIcon/>
-          </button>
-          <button
-            type="button"
-            onClick={handleNavBtnClick(sightIndex + 1)}
-            disabled={sightIndex + 1 === totalImages}
-            className={classes.button}
-          >
-            <ArrowForwardIosIcon/>
-          </button>
+      <Grow in={checked}>
+        <div className={classes.stage} id="imageSliderContainer">
+          <img
+            src={sights[sightIndex]?.photoUrl}
+            alt={`${sights[sightIndex]?.name}`}
+          />
+          <div className={classes.buttonContainer}>
+            <button
+              type="button"
+              onClick={handleNavBtnClick(sightIndex - 1)}
+              disabled={sightIndex === 0}
+              className={classes.button}
+            >
+              <ArrowBackIosIcon/>
+            </button>
+            <button
+              type="button"
+              onClick={handleNavBtnClick(sightIndex + 1)}
+              disabled={sightIndex + 1 === totalImages}
+              className={classes.button}
+            >
+              <ArrowForwardIosIcon/>
+            </button>
+          </div>
         </div>
-      </div>
+      </Grow>
 
       <Typography variant="h4" className={classes.sightDescription}>
         {sights[sightIndex]?.description}
       </Typography>
-        <SightRating/>
+      <SightRating/>
     </div>
   );
 };
@@ -145,9 +158,10 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       "&:hover": {
         transform: 'scale(1.3)',
+        color: '#00add745',
       },
       "&:active": {
-        color: '#00add745',
+        color: theme.palette.secondary.main,
       },
     },
     sightName: {
@@ -176,7 +190,7 @@ const useStyles = makeStyles((theme: Theme) =>
         padding: '5px',
         border: '1px solid #ddd',
         maxHeight: '90%',
-        maxWidth: '100%',
+        maxWidth: '500px',
         transition: 'opacity 0.2s ease-in-out',
         borderRadius: '5px',
         objectFit: 'contain',

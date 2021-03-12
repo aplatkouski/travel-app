@@ -53,19 +53,20 @@ const useStyles = makeStyles(() =>
     image: {
       cursor: 'pointer',
       "& img": {
-        border: '1px solid theme.palette.text.secondary',
+        height: '99px',
+        objectFit: 'cover',
         borderRadius: '5px',
-        padding: '5px',
-        width: '150px',
-        height: '100px',
-        objectFit: 'contain',
+        boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px' +
+        ' 1px 3px 0px rgb(0 0 0 / 12%)',
         "&:hover": {
-          boxShadow: 'inset 0px 0px 3px 1px rgb(0 140 186 / 50%)',
+          boxShadow: '0px 0px 9px 1px #717171',
         },
       },
     },
     activeImage: {
-      border: '2px solid red',
+      "& img": {
+        border: '2px solid #00add7',
+      }
     }
   })
 );

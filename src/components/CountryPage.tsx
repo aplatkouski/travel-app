@@ -60,7 +60,7 @@ const CountryPageContainer = (props: IProps): JSX.Element => {
 
         <Grid container justify="center" alignItems="center">
           <Grid item sm={6}>{country.description}</Grid>
-          <Grid item sm={6}>карта с маркером в столице</Grid>
+          <Grid item sm={6}></Grid>
         </Grid>
         <Gallery id={id}/>
         <div>video</div>
