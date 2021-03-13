@@ -13,3 +13,9 @@ export interface IUserRegistrationData extends IUserAuthorizationData {
   name: string;
   photoPath: string;
 }
+
+export interface ILoginErrs {
+  loginErr: string | null | undefined;
+  passwordErr: string | null | undefined;
+  generalErr: string | null | undefined;
+}
