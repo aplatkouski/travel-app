@@ -7,9 +7,20 @@ import LanguageSelector from 'Components/LanguageSelector';
 import SearchField from 'Components/SearchField';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import RegistrationForm from 'Components/RegistrationForm';
 
 const Header = (): JSX.Element => {
   const classes = useStyles();
+
+  const [openRegUserDlg, setOpenRegUserDlg] = React.useState(false);
+
+  const handleOpenRegUserDlg = () => {
+    setOpenRegUserDlg(true);
+  };
+
+  const handleCloseRegUserDlg = () => {
+    setOpenRegUserDlg(false);
+  };
 
   return (
     <Grid className={classes.header} container>
@@ -36,9 +47,15 @@ const Header = (): JSX.Element => {
         xs={10}
       >
         <Grid container item justify="flex-end">
-          <Button className={classes.button} color="secondary" variant="outlined">
+          <Button
+            className={classes.button}
+            color="secondary"
+            onClick={handleOpenRegUserDlg}
+            variant="outlined"
+          >
             Sign up
           </Button>
+          <RegistrationForm onClose={handleCloseRegUserDlg} open={openRegUserDlg} />
           <Button className={classes.button} color="secondary" variant="outlined">
             Login
           </Button>
