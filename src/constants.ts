@@ -3,3 +3,6 @@ export const countriesAPI = 'todos/countries';
 export const countriesPerPage = 9;
 export const countryAPI = 'todos/countryDetailed';
 export const MAX_PANEL_IMAGES = 6;
+export const userRegAPI = 'auth/register';
+export const successRegMess =
+  'Congratulations! You have been registered successfully. Now, You can log in.';

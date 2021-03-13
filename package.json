@@ -39,7 +39,7 @@
     "test": "jest --coverage=false",
     "test:coverage": "jest --coverage=true"
   },
-  "proxy": "https://test-travel-app-server.herokuapp.com",
+  "proxy": "https://travel-app-backend-service.herokuapp.com",
   "license": "MIT",
   "contributors": [
     {
