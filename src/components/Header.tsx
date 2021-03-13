@@ -9,15 +9,39 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import user from 'States/user';
+import LoginForm from 'Components/LoginForm';
+
+import * as StateTypes from 'States/types';
+import { IUser } from 'Entities/user';
+import { connect } from 'react-redux';
+import user from 'States/user';
 
 interface Props {
+  currUser: IUser | undefined;
   onOpenRegistrationForm: () => void;
+  logout: () => void;
 }
 
 const Header = ({
+  currUser,
   onOpenRegistrationForm: handleOpenRegistrationForm,
+  logout,
 }: Props): JSX.Element => {
   const classes = useStyles();
+
+  const [openLoginUserDlg, setOpenLoginUserDlg] = React.useState(false);
+
+  const handleOpenLoginUserDlg = () => {
+    setOpenLoginUserDlg(true);
+  };
+
+  const handleCloseLoginUserDlg = () => {
+    setOpenLoginUserDlg(false);
+  };
+
+  const handleUserLogout = () => {
+    logout();
+  };
 
   return (
     <Grid className={classes.header} container>
@@ -52,10 +76,23 @@ const Header = ({
           >
             Sign up
           </Button>
-          <Button className={classes.button} color="secondary" variant="outlined">
+          <Button
+            className={classes.button}
+            color="secondary"
+            disabled={!!(currUser && currUser.token)}
+            onClick={handleOpenLoginUserDlg}
+            variant="outlined"
+          >
             Login
           </Button>
-          <Button className={classes.button} color="secondary" variant="outlined">
+          <LoginForm onClose={handleCloseLoginUserDlg} open={openLoginUserDlg} />
+          <Button
+            className={classes.button}
+            color="secondary"
+            disabled={!currUser || !currUser.token}
+            onClick={handleUserLogout}
+            variant="outlined"
+          >
             Logout
           </Button>
         </Grid>
@@ -129,8 +166,13 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+const mapStateToProps = (state: StateTypes.RootState) => ({
+  currUser: state.user.user,
+});
+
 const mapDispatchToProps = {
   onOpenRegistrationForm: user.actions.openRegistrationForm,
+  logout: user.thunk.logoutThunk,
 };
 
-export default connect(null, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

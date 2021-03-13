@@ -16,6 +16,7 @@ import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import countries from 'States/countries';
 import * as StateTypes from 'States/types';
+import user from 'States/user';
 import theme from './theme';
 
 const styles = createStyles({
@@ -29,12 +30,19 @@ const styles = createStyles({
 interface Props extends WithStyles<typeof styles> {
   language: Language;
   fetchCountries: () => void;
+  loginViaLocalStorage: () => void;
 }
 
-const App = ({ classes, fetchCountries, language }: Props): JSX.Element => {
+const App = ({
+  classes,
+  fetchCountries,
+  language,
+  loginViaLocalStorage,
+}: Props): JSX.Element => {
   useEffect(() => {
     fetchCountries();
-  }, [fetchCountries, language]);
+    loginViaLocalStorage();
+  }, [fetchCountries, language, loginViaLocalStorage]);
 
   return (
     <Router>
@@ -60,6 +68,7 @@ const mapStateToProps = (state: StateTypes.RootState) => ({
 
 const mapDispatchToProps = {
   fetchCountries: countries.thunk.getCountriesThunk,
+  loginViaLocalStorage: user.thunk.loginViaLocalStorageThunk,
 };
 
 export default withStyles(styles, { withTheme: true })(

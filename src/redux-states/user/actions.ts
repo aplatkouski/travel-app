@@ -1,4 +1,5 @@
 import type { Countries } from 'Entities/country';
+import { IUser, ILoginErrs } from 'Entities/user';
 import * as StateTypes from 'States/types';
 import * as t from './action-types';
 
@@ -22,17 +23,32 @@ export const openRegistrationForm = (): StateTypes.IAction<undefined> => ({
   payload: undefined,
 });
 
-export const logInFailure = (error: Error): StateTypes.IAction<Error> => ({
+export const loginFailure = (error: ILoginErrs): StateTypes.IAction<ILoginErrs> => ({
   type: t.LOGIN.FAILURE,
   payload: error,
 });
 
-export const logInSuccess = (countries: Countries): StateTypes.IAction<Countries> => ({
+export const loginSuccess = (user: IUser): StateTypes.IAction<IUser> => ({
   type: t.LOGIN.SUCCESS,
-  payload: countries,
+  payload: user,
 });
 
-export const logInRequest = (): StateTypes.IAction<undefined> => ({
+export const startLogin = (): StateTypes.IAction<undefined> => ({
   type: t.LOGIN.START,
+  payload: undefined,
+});
+
+export const clearLoginErrs = (): StateTypes.IAction<undefined> => ({
+  type: t.LOGIN.CLEAR_LOGIN_ERRS,
+  payload: undefined,
+});
+
+export const logout = (): StateTypes.IAction<undefined> => ({
+  type: t.LOGIN.LOGOUT,
+  payload: undefined,
+});
+
+export const loginViaLocalStorage = (): StateTypes.IAction<undefined> => ({
+  type: t.LOGIN.LOGIN_VIA_LOCALSTORAGE,
   payload: undefined,
 });

@@ -1,7 +1,9 @@
-import { IUser } from 'Entities/user';
+import { IUser, ILoginErrs } from 'Entities/user';
 
 export interface IState {
-  error?: Error;
+  user?: IUser;
+  error?: ILoginErrs;
+  isLogginIn: boolean;
   isLoading: boolean;
   isOpenAuthorizationForm: boolean;
   isOpenRegistrationForm: boolean;
