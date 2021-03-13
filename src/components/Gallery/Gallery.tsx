@@ -1,75 +1,60 @@
-import ImagesSlider from 'Components/Gallery/ImageSlider';
-import PreviewPanel from 'Components/Gallery/PreviewPannel';
-import { ICountry, ISight } from 'Entities/country';
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { createStyles, Grid, makeStyles } from '@material-ui/core';
-import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
-import { getCountyInfoThunk } from 'States/country/thunk';
+import { ISight } from 'Entities/country';
+import React, { useCallback, useMemo, useState } from 'react';
+import ImagesSlider from './ImageSlider';
+import { IPanelSight } from './model';
+import PreviewPanel from './PreviewPannel';
 
-interface IRedux {
-  country: ICountry;
+interface IProps {
+  sights: Array<ISight>;
 }
 
-interface IGallery {
-  id: string;
-}
+const Gallery = (props: IProps): JSX.Element => {
+  const { sights = [] } = props;
+  const [currentSightIndex, setCurrentSightIndex] = useState<number>(0);
 
-interface IDispatch {
-  getCountyInfo: (id: string, lang: string) => void;
-}
+  const totalImages = useMemo(() => sights.length, [sights.length]);
 
-export interface IPanelSight extends ISight {
-  imageIndex: number;
-}
-
-type IProps = IRedux & IDispatch & IGallery;
-
-const GalleryContainer = (props: IProps): JSX.Element => {
-  const { id, country, getCountyInfo } = props;
-  const [sights, setSights] = useState<ISight[]>([]);
-  const [sightIndex, setImageIndex] = useState<number>(0);
+  const currentSight = useMemo<ISight | undefined>(() => {
+    return sights[currentSightIndex]
+  }, [currentSightIndex, sights]);
 
   const classes = useStyles();
 
-  useEffect(() => {
-    getCountyInfo(id, 'en');
-    setSights(country.sights)
-  }, [country.sights, getCountyInfo, id]);
-
   const panelSights = useMemo<IPanelSight[]>(() => {
-    return sights.map((sight: ISight, index) => ({ ...sight, imageIndex: index }));
+    return sights.map((sight: ISight, index) => ({ ...sight, index }));
   }, [sights]);
 
-  const handleImageIndexChange = useCallback((index: number) => {
-    setImageIndex(index);
+  const handleCurrentImageChange = useCallback((index: number) => {
+    setCurrentSightIndex(index);
   }, []);
 
   return (
-    <Grid container direction="column" alignItems="center" className={classes.container}>
-      <ImagesSlider sights={sights} sightIndex={sightIndex} onChange={handleImageIndexChange} />
-      <PreviewPanel sights={panelSights} sightIndex={sightIndex} onChange={handleImageIndexChange} />
+    <Grid alignItems="center" className={classes.container} container direction="column">
+      {currentSight ? (
+        <ImagesSlider
+          currentSight={currentSight}
+          currentSightIndex={currentSightIndex}
+          onChange={handleCurrentImageChange}
+          totalImages={totalImages}
+        />
+      ) : null}
+      {sights.length ? (
+        <PreviewPanel
+          currentSightIndex={currentSightIndex}
+          onChange={handleCurrentImageChange}
+          sights={panelSights}
+          totalImages={totalImages}
+        />
+      ) : null}
     </Grid>
   );
 };
 
 const useStyles = makeStyles(() =>
   createStyles({
-    container: {
-    },
+    container: {},
   })
 );
-const mapStateToProps = (state: any) => ({
-  country: state.country.payload,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  getCountyInfo: (id: string, lang: string) =>{
-    // @ts-ignore
-    dispatch(getCountyInfoThunk(id, lang));
-  }
-});
-
-const Gallery = connect(mapStateToProps, mapDispatchToProps)(GalleryContainer);
 
 export default Gallery;

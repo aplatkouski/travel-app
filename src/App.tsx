@@ -43,7 +43,8 @@ const App = ({ classes, fetchCountries, language }: Props): JSX.Element => {
         <Switch>
           <Route component={MainPage} exact path="/" />
           <Route component={CountryPage} path="/country/:id" />
-        </Switch>
+        <Route component={CountryPage} path="/country/:id" />
+          </Switch>
         <Footer />
       </div>
     </ThemeProvider>

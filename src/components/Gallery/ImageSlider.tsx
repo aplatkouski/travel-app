@@ -1,24 +1,23 @@
-import SightRating from 'Components/Rating';
-import { ISight } from 'Entities/country';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { createStyles, Grid, makeStyles, Theme, Typography } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
+import SightRating from 'Components/Rating';
+import { ISight } from 'Entities/country';
+import React, { useCallback, useEffect, useState } from 'react';
 import Grow from '@material-ui/core/Grow';
 
 interface IProps {
-  sights: ISight[];
-  sightIndex: number;
+  currentSight: ISight;
+  currentSightIndex: number;
   onChange: (index: number) => void;
+  totalImages: number;
 }
 
 const ImagesSlider = (props: IProps): JSX.Element => {
-  const {sights = [], sightIndex = 0, onChange} = props;
+  const { currentSight, currentSightIndex, onChange, totalImages = 0 } = props;
   const [fullScreenEnabled, setFullScreenEnabled] = useState(false);
   const [checked, setChecked] = useState<boolean>(true);
-
-  const totalImages = useMemo(() => sights.length, [sights]);
 
   const classes = useStyles();
 
@@ -26,79 +25,79 @@ const ImagesSlider = (props: IProps): JSX.Element => {
     setTimeout(() => {
       setChecked(true);
     }, 350);
-  }, [sightIndex]);
-
+  }, [currentSightIndex]);
 
   const handleNavBtnClick = useCallback((index: number) => () => {
     onChange(index);
     setChecked(!checked);
   }, [checked, onChange]);
 
-
-  const handleKeyPress = useCallback((e: KeyboardEvent) => {
-    e.preventDefault();
-    if (e.key === "ArrowLeft") {
-      if(sightIndex !== 0){
-        handleNavBtnClick(sightIndex-1)();
+  const handleKeyPress = useCallback(
+    (e: KeyboardEvent) => {
+      e.preventDefault();
+      if (e.key === 'ArrowLeft' && currentSightIndex) {
+        handleNavBtnClick(currentSightIndex - 1)();
       }
-    }
-    if (e.key === "ArrowRight") {
-      if(sightIndex + 1 !== totalImages){
-        handleNavBtnClick(sightIndex+1)();
+      if (e.key === 'ArrowRight' && currentSightIndex + 1 !== totalImages) {
+        handleNavBtnClick(currentSightIndex + 1)();
       }
-    }
-  }, [handleNavBtnClick, sightIndex, totalImages]);
+    },
+    [handleNavBtnClick, currentSightIndex, totalImages]
+  );
 
   const handleFullScreen = useCallback(() => {
     if (fullScreenEnabled) {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       document.exitFullscreen();
     } else {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       document.querySelector('#imageSliderContainer')?.requestFullscreen();
     }
     setFullScreenEnabled(!fullScreenEnabled);
   }, [fullScreenEnabled]);
 
   useEffect(() => {
-    document.addEventListener("keyup", handleKeyPress);
+    document.addEventListener('keyup', handleKeyPress);
     return () => {
-      document.removeEventListener("keyup", handleKeyPress);
-    }
+      document.removeEventListener('keyup', handleKeyPress);
+    };
   }, [handleKeyPress]);
 
   return (
     <div className={classes.container}>
-      <Grid container justify="space-between" alignItems="center">
+      <Grid alignItems="center" container justify="space-between">
         <div className={classes.counter}>
-          {totalImages && `${sightIndex + 1}/${totalImages}`}
+          {totalImages && `${currentSightIndex + 1}/${totalImages}`}
         </div>
-        <button type="button" onClick={handleFullScreen}
-                className={classes.fullScreenBtn}>
-          <FullscreenIcon color='secondary'/>
+        <button
+          className={classes.fullScreenBtn}
+          onClick={handleFullScreen}
+          type="button"
+        >
+          <FullscreenIcon color="secondary" />
         </button>
       </Grid>
-      <Typography variant="h3" className={classes.sightName}>
-        {sights[sightIndex]?.name}
+      <Typography className={classes.sightName} variant="h3">
+        {currentSight.name}
       </Typography>
+
       <Grow in={checked}>
         <div className={classes.stage} id="imageSliderContainer">
-          <img
-            src={sights[sightIndex]?.photoUrl}
-            alt={`${sights[sightIndex]?.name}`}
-          />
+          <img alt={currentSight.name} src={currentSight.photoUrl}/>
           <div className={classes.buttonContainer}>
             <button
-              type="button"
-              onClick={handleNavBtnClick(sightIndex - 1)}
-              disabled={sightIndex === 0}
               className={classes.button}
+              disabled={currentSightIndex === 0}
+              onClick={handleNavBtnClick(currentSightIndex - 1)}
+              type="button"
             >
               <ArrowBackIosIcon/>
             </button>
             <button
-              type="button"
-              onClick={handleNavBtnClick(sightIndex + 1)}
-              disabled={sightIndex + 1 === totalImages}
               className={classes.button}
+              disabled={currentSightIndex + 1 === totalImages}
+              onClick={handleNavBtnClick(currentSightIndex + 1)}
+              type="button"
             >
               <ArrowForwardIosIcon/>
             </button>
@@ -106,10 +105,12 @@ const ImagesSlider = (props: IProps): JSX.Element => {
         </div>
       </Grow>
 
-      <Typography variant="h4" className={classes.sightDescription}>
-        {sights[sightIndex]?.description}
+      <Typography className={classes.sightDescription} variant="h4">
+        {currentSight.description}
       </Typography>
-      <SightRating/>
+      {currentSight.userRating && currentSight.userRating.length ? (
+        <SightRating name={currentSight.id} reviews={currentSight.userRating} />
+      ) : null}
     </div>
   );
 };
@@ -123,7 +124,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      maxWidth: '600px',
+      maxWidth: theme.spacing(62.5),
       padding: '10px',
 
       justifyContent: 'center',
@@ -132,11 +133,10 @@ const useStyles = makeStyles((theme: Theme) =>
     fullScreenBtn: {
       background: 'transparent',
       transition: 'all .5s ease',
-      "&:hover": {
+      '&:hover': {
         transform: 'scale(1.3)',
       },
     },
-
     counter: {
       fontSize: '1.5rem',
       fontFamily: 'Fondamento',
@@ -153,14 +153,14 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.secondary.main,
       background: 'transparent',
       transition: 'all .2s ease',
-      "&:disabled": {
+      '&:disabled': {
         color: theme.palette.text.secondary,
       },
-      "&:hover": {
+      '&:hover': {
         transform: 'scale(1.3)',
         color: '#00add745',
       },
-      "&:active": {
+      '&:active': {
         color: theme.palette.secondary.main,
       },
     },
@@ -183,15 +183,15 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'center',
       alignItems: 'center',
       width: '100%',
-      height: '350px',
+      height: theme.spacing(44),
       position: 'relative',
-      "& img": {
+      '& img': {
         opacity: 1,
         padding: '5px',
         border: '1px solid #ddd',
         maxHeight: '90%',
-        maxWidth: '500px',
-        transition: 'opacity 0.2s ease-in-out',
+        maxWidth: '85%',
+        transition: 'opacity .2s ease-in-out',
         borderRadius: '5px',
         objectFit: 'contain',
       },

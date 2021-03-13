@@ -7,9 +7,9 @@ export interface ICountryPreview {
   photoUrl: string;
 }
 
-export interface Rating {
-  _id: string;
-  userId: string;
+export interface IRating {
+  _id: ID;
+  userId: ID;
   rating: number;
 }
 
@@ -18,7 +18,7 @@ export interface ISight {
   description: string;
   name: string;
   photoUrl: string;
-  reviews: Array<Rating>;
+  userRating: Array<IRating>;
 }
 
 export interface ICountry extends ICountryPreview {

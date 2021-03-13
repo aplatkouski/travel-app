@@ -22,6 +22,7 @@ const handlers: StateTypes.IHandlers<IState, any> = {
   [t.FETCH_COUNTRY.SUCCESS]: (state, { payload }: StateTypes.IAction<ICountry>) => ({
     ...state,
     payload,
+    isLoading: false,
   }),
   DEFAULT: (state) => state,
 };

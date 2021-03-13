@@ -3,54 +3,61 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Gallery from 'Components/Gallery/Gallery';
 import Loader from 'Components/Loader';
 import { ICountry } from 'Entities/country';
+import { ID, Language } from 'Entities/travel-app';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { Dispatch } from 'redux';
 import { getCountyInfoThunk } from 'States/country/thunk';
+import { RootState } from 'States/types';
 
 interface IRedux {
-  country: ICountry;
+  country: ICountry | undefined;
+  language: Language;
 }
 
 interface IDispatch {
-  getCountyInfo: (id: string, lang: string) => void;
+  getCountyInfo: (id: ID) => void;
+}
+
+interface ParamTypes {
+  id: ID;
 }
 
 type IProps = IRedux & IDispatch;
 
 const CountryPageContainer = (props: IProps): JSX.Element => {
-  const { country, getCountyInfo } = props;
+  const { country, getCountyInfo, language } = props;
   const classes = useStyles();
-  // @ts-ignore
-  const { id } = useParams();
+  const { id } = useParams<ParamTypes>();
 
   useEffect(() => {
-    getCountyInfo(id, 'en');
-  }, [getCountyInfo, id]);
+    getCountyInfo(id);
+  }, [getCountyInfo, id, language]);
 
-  return (country === undefined) ? (
-    <Loader/>
-  ) : (
+  return country ? (
     <Container className={classes.main} component="main">
       <Grid container direction="column">
-
         <Grid container>
-          <Grid item sm={4} className={classes.imgContainer}>
-            <img src={country.photoUrl} alt={country.name}/>
+          <Grid className={classes.imgContainer} item sm={4}>
+            <img alt={country.name} src={country.photoUrl} />
           </Grid>
-          <Grid container item direction="column" justify="space-between"
-                alignItems="center"
-                sm={8}>
-            <Grid container direction="column" alignItems="center">
-              <Typography variant="h1" className={classes.countryName}>
+          <Grid
+            alignItems="center"
+            container
+            direction="column"
+            item
+            justify="space-between"
+            sm={8}
+          >
+            <Grid alignItems="center" container direction="column">
+              <Typography className={classes.countryName} variant="h1">
                 {country.name}
               </Typography>
-              <Typography variant="h2" className={classes.countryCapital}>
+              <Typography className={classes.countryCapital} variant="h2">
                 {country.capital}
               </Typography>
             </Grid>
-            <Grid container className={classes.widgetsContainer}>
+            <Grid className={classes.widgetsContainer} container>
               <Grid item sm={4}>погода</Grid>
               <Grid item sm={4}>курс валют</Grid>
               <Grid item sm={4}>дата время</Grid>
@@ -58,14 +65,16 @@ const CountryPageContainer = (props: IProps): JSX.Element => {
           </Grid>
         </Grid>
 
-        <Grid container justify="center" alignItems="center">
+        <Grid alignItems="center" container justify="center">
           <Grid item sm={6}>{country.description}</Grid>
-          <Grid item sm={6}/>
+          <Grid item sm={6}>карта с маркером в столице</Grid>
         </Grid>
-        <Gallery id={id}/>
+        <Gallery sights={country.sights} />
         <div>video</div>
       </Grid>
     </Container>
+  ) : (
+    <Loader />
   );
 };
 
@@ -76,11 +85,11 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       flexShrink: 0,
       padding: theme.spacing(2, 0),
-      maxWidth: '1280px',
+      maxWidth: theme.spacing(160),
     },
     imgContainer: {
       '& img': {
-        transition: 'all 0.6s',
+        transition: 'all .6s',
       },
       overflow: 'hidden',
     },
@@ -92,19 +101,17 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '3rem',
     },
     widgetsContainer: {},
-  }),
+  })
 );
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: RootState) => ({
   country: state.country.payload,
+  language: state.languageSelector.language,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  getCountyInfo: (id: string, lang: string) => {
-    // @ts-ignore
-    dispatch(getCountyInfoThunk(id, lang));
-  },
-});
+const mapDispatchToProps = {
+  getCountyInfo: getCountyInfoThunk,
+};
 
 const CountryPage = connect(mapStateToProps, mapDispatchToProps)(CountryPageContainer);
 export default CountryPage;
