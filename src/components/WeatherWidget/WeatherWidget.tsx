@@ -20,6 +20,8 @@ interface Props extends WithStyles<typeof styles> {
   getWeather: (lat: number, lng: number, lang: string) => void;
 }
 
+const DELAY = 60000;
+
 const WeatherWidget = ({
   classes,
   lat,
@@ -33,9 +35,15 @@ const WeatherWidget = ({
   getWeather,
 }: Props): JSX.Element => {
   useEffect(() => {
-    if (lat && lng) {
-      getWeather(lat, lng, language);
-    }
+    const update = () => {
+      if (lat && lng) {
+        getWeather(lat, lng, language);
+      }
+    };
+
+    update();
+    const timerId: number = window.setInterval(() => update(), DELAY);
+    return () => clearInterval(timerId);
   }, [lat, lng, language, getWeather]);
 
   if (error || weatherError || !weather) {
@@ -65,7 +73,7 @@ const WeatherWidget = ({
 
   return (
     <Box className={classes.root}>
-      {String(weather.icon) && <WeatherIcon iconId={weather.icon} />}
+      {weather.icon && <WeatherIcon iconId={weather.icon} />}
 
       {String(weather.temperature) && (
         <Typography component="p" variant="body2">
