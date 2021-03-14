@@ -4,6 +4,7 @@ import { IState as ICountryState } from 'States/country/model';
 import { IState as ILanguageSelectorState } from 'States/language-selector/model';
 import { IState as ISearchFieldState } from 'States/search-field/model';
 import { IState as IUserState } from 'States/user/model';
+import { IState as IWeatherState } from 'States/weather/model';
 
 export interface IAction<P> {
   type: string;
@@ -23,6 +24,7 @@ export interface RootState {
   languageSelector: ILanguageSelectorState;
   searchField: ISearchFieldState;
   user: IUserState;
+  weather: IWeatherState;
 }
 
 export type AsyncDispatch<T, P> = (
