@@ -1,5 +1,5 @@
 import { ICountry } from 'Entities/country';
-import type { ID } from 'Entities/travel-app';
+import { ID } from 'Entities/travel-app';
 import * as StateTypes from 'States/types';
 import { api, countryAPI } from '../../constants';
 import { fetchFailure, fetchSuccess, startRequest } from './actions';

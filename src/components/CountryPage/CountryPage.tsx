@@ -9,7 +9,7 @@ import React, { useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getCountryThunk } from 'States/country/thunk';
+import { getCountyInfoThunk } from 'States/country/thunk';
 import { RootState } from 'States/types';
 
 interface IRedux {
@@ -69,12 +69,8 @@ const CountryPageContainer = (props: IProps): JSX.Element => {
         </Grid>
 
         <Grid alignItems="center" container justify="center">
-          <Grid item sm={6}>
-            {country.description}
-          </Grid>
-          <Grid item sm={6}>
-            карта с маркером в столице
-          </Grid>
+          <Grid item sm={6}>{country.description}</Grid>
+          <Grid item sm={6}>карта с маркером в столице</Grid>
         </Grid>
         <Gallery sights={country.sights} />
         <ReactPlayer controls light pip url={country.videoUrl} />
@@ -114,12 +110,12 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const mapStateToProps = (state: RootState) => ({
-  country: state.country.country,
+  country: state.country.payload,
   language: state.languageSelector.language,
 });
 
 const mapDispatchToProps = {
-  getCountyInfo: getCountryThunk,
+  getCountyInfo: getCountyInfoThunk,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CountryPageContainer);
