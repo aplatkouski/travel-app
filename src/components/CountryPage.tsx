@@ -3,6 +3,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Gallery from 'Components/Gallery/Gallery';
 import Loader from 'Components/Loader';
 import DateTimeWidget from 'Components/DateTimeWidget';
+import WeatherWidget from 'Components/WeatherWidget';
 import { ICountry } from 'Entities/country';
 import { ID, Language } from 'Entities/travel-app';
 import React, { useEffect } from 'react';
@@ -60,7 +61,7 @@ const CountryPageContainer = (props: IProps): JSX.Element => {
             </Grid>
             <Grid className={classes.widgetsContainer} container>
               <Grid item sm={4}>
-                погода
+                <WeatherWidget />
               </Grid>
               <Grid item sm={4}>
                 курс валют
