@@ -9,6 +9,7 @@ interface IWeather {
   humidity: number;
   pressure: number;
   description: string;
+  icon: string;
 }
 
 export default IWeather;

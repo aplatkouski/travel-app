@@ -50,6 +50,7 @@ export const mapWeatherResult = ({
     humidity: main.humidity,
     pressure: main.pressure,
     description: weather[0].description,
+    icon: weather[0].icon,
   };
 };
 

@@ -3,6 +3,8 @@ import { withStyles, WithStyles } from '@material-ui/core/styles';
 import IWeather from 'Entities/weather';
 import React, { useEffect } from 'react';
 import Loader from 'Components/Loader';
+import { ArrowIcon } from './ArrowIcon/ArrowIcon';
+import WeatherIcon from './WeatherIcon';
 import styles from './styles';
 
 interface Props extends WithStyles<typeof styles> {
@@ -53,11 +55,34 @@ const WeatherWidget = ({
     );
   }
 
+  const iconStyles = weather.windDeg
+    ? {
+        transform: `rotate(${weather.windDeg + 90}deg)`,
+        color: 'blue',
+      }
+    : undefined;
+
   return (
     <Box className={classes.root}>
+      {String(weather.icon) && <WeatherIcon iconId={weather.icon} />}
+
       {String(weather.temperature) && (
         <Typography component="p" variant="body2">
           {`${weather.temperature} °C`}
+        </Typography>
+      )}
+
+      {String(weather.humidity) && (
+        <Typography component="p" variant="body2">
+          {`${weather.humidity} %`}
+        </Typography>
+      )}
+
+      {String(weather.windSpeed) && (
+        <Typography component="p" variant="body2">
+          {String(weather.windDeg) && <ArrowIcon styles={iconStyles} />}
+          &nbsp;
+          {`${weather.windSpeed} m/c`}
         </Typography>
       )}
 

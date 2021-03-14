@@ -25,6 +25,7 @@ const handlers: StateTypes.IHandlers<IState, any> = {
   ) => ({
     ...state,
     isLoading: false,
+    error: undefined,
     weather,
   }),
   DEFAULT: (state) => state,
