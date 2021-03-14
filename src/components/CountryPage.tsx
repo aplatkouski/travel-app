@@ -2,6 +2,7 @@ import { Container, Grid, Typography } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Gallery from 'Components/Gallery/Gallery';
 import Loader from 'Components/Loader';
+import DateTimeWidget from 'Components/DateTimeWidget';
 import { ICountry } from 'Entities/country';
 import { ID, Language } from 'Entities/travel-app';
 import React, { useEffect } from 'react';
@@ -65,7 +66,7 @@ const CountryPageContainer = (props: IProps): JSX.Element => {
                 курс валют
               </Grid>
               <Grid item sm={4}>
-                дата время
+                <DateTimeWidget />
               </Grid>
             </Grid>
           </Grid>
