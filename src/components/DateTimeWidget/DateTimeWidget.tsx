@@ -1,23 +1,18 @@
-import { Typography, Box } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import { withStyles, WithStyles } from '@material-ui/core/styles';
-import React, { useState, useEffect, useMemo } from 'react';
 import Loader from 'Components/Loader';
+import React, { useEffect, useMemo, useState } from 'react';
 import styles from './styles';
 
 interface Props extends WithStyles<typeof styles> {
-  timezone: string | undefined;
-  language: string;
-  isLoading: boolean;
   error: Error | undefined;
+  isLoading: boolean;
+  language: string;
+  timeZone: string;
 }
 
-const DateTimeWidget = ({
-  classes,
-  timezone,
-  language,
-  isLoading,
-  error,
-}: Props): JSX.Element => {
+const DateTimeWidget = (props: Props): JSX.Element => {
+  const { classes, timeZone, language, isLoading, error } = props;
   const [date, setDate] = useState<Date>(new Date());
 
   useEffect(() => {
@@ -27,30 +22,33 @@ const DateTimeWidget = ({
     return () => clearInterval(timerId);
   }, []);
 
-  const dateOptions: Intl.DateTimeFormatOptions = useMemo(() => {
-    return {
-      timeZone: timezone,
-      year: 'numeric',
-      month: 'long',
+  const dateOptions: Intl.DateTimeFormatOptions = useMemo(
+    () => ({
       day: 'numeric',
-    };
-  }, [timezone]);
+      month: 'long',
+      year: 'numeric',
+      timeZone,
+    }),
+    [timeZone]
+  );
 
-  const weekdayOptions: Intl.DateTimeFormatOptions = useMemo(() => {
-    return {
-      timeZone: timezone,
+  const weekdayOptions: Intl.DateTimeFormatOptions = useMemo(
+    () => ({
       weekday: 'long',
-    };
-  }, [timezone]);
+      timeZone,
+    }),
+    [timeZone]
+  );
 
-  const timeOptions: Intl.DateTimeFormatOptions = useMemo(() => {
-    return {
-      timeZone: timezone,
+  const timeOptions: Intl.DateTimeFormatOptions = useMemo(
+    () => ({
       hour: '2-digit',
       minute: '2-digit',
       second: '2-digit',
-    };
-  }, [timezone]);
+      timeZone,
+    }),
+    [timeZone]
+  );
 
   const dateStr = date.toLocaleString(language, dateOptions);
   const weekdayStr = date.toLocaleString(language, weekdayOptions);
