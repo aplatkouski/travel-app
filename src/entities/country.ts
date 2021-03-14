@@ -29,6 +29,7 @@ export interface ICountry extends ICountryPreview {
   description: string;
   sights: Array<ISight>;
   videoUrl: string;
+  currency: string;
 }
 
 export type Countries = Array<ICountryPreview>;

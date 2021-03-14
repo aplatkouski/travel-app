@@ -15,9 +15,9 @@ const SightRating = (props: IProps): JSX.Element => {
   const [, setValue] = useState<number | null>(2);
 
   const value = useMemo(() => {
-    return reviews
-      .map((review) => review.rating)
-      .reduce((a, c) => a + c, 0) / reviews.length;
+    return (
+      reviews.map((review) => review.rating).reduce((a, c) => a + c, 0) / reviews.length
+    );
   }, [reviews]);
 
   const handleRatingChange = useCallback((_, newValue) => {
@@ -27,11 +27,7 @@ const SightRating = (props: IProps): JSX.Element => {
   return (
     <div className={classes.ratingContainer}>
       <Typography component="legend">Rate the attraction</Typography>
-      <Rating
-        name={name}
-        onChange={handleRatingChange}
-        value={value}
-      />
+      <Rating name={name} onChange={handleRatingChange} value={value} />
     </div>
   );
 };

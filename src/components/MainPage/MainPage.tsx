@@ -34,9 +34,12 @@ const MainPage = (props: Props): JSX.Element => {
   const { allCountries, classes, filter } = props;
   const history = useHistory();
 
-  const handleCountrySelect = useCallback((id: ID) => () => {
+  const handleCountrySelect = useCallback(
+    (id: ID) => () => {
       history.push(`/country/${id}`);
-    }, [history]);
+    },
+    [history]
+  );
 
   return (
     <Container className={classes.main} component="main" maxWidth="sm">

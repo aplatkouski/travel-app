@@ -15,27 +15,29 @@ const LanguageSelector = (props: Props): JSX.Element => {
 
   const classes = useStyles();
 
-  const handleChange = useCallback(({ target: { value } }: ChangeEvent<{ name?: string; value: unknown }>) => {
-      if (typeof value === 'string'){
+  const handleChange = useCallback(
+    ({ target: { value } }: ChangeEvent<{ name?: string; value: unknown }>) => {
+      if (typeof value === 'string') {
         handleSelect(value as Language);
       }
-    },[handleSelect]);
+    },
+    [handleSelect]
+  );
 
   return (
     <FormControl className={classes.formControl}>
       <div className={classes.selectContainer}>
-      <select
-        className={classes.select}
-        onChange={handleChange}
-        value={currentLanguage}
-      >
-        {['en', 'ru', 'de'].map((language) => (
-          <option key={language}>{language}</option>
-        ))}
-
-      </select>
+        <select
+          className={classes.select}
+          onChange={handleChange}
+          value={currentLanguage}
+        >
+          {['en', 'ru', 'de'].map((language) => (
+            <option key={language}>{language}</option>
+          ))}
+        </select>
       </div>
-        <ExpandMoreIcon className={classes.icon} />
+      <ExpandMoreIcon className={classes.icon} />
     </FormControl>
   );
 };
@@ -43,7 +45,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     formControl: {
       minWidth: '3rem',
-      //width: '200px',
+      // width: '200px',
       background: 'transparent',
       cursor: 'pointer',
     },
@@ -67,7 +69,6 @@ const useStyles = makeStyles((theme: Theme) =>
       '&:hover': {
         color: theme.palette.primary.main,
       },
-
     },
     icon: {
       fill: theme.palette.primary.main,

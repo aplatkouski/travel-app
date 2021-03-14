@@ -36,7 +36,7 @@ const theme = createMuiTheme({
     h2: {
       fontFamily: '"Fondamento", cursive',
     },
-  }
+  },
 });
 
 export default responsiveFontSizes(theme);

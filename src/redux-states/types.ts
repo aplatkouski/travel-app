@@ -3,6 +3,7 @@ import { IState as ICountriesState } from 'States/countries/model';
 import { IState as ICountryState } from 'States/country/model';
 import { IState as ILanguageSelectorState } from 'States/language-selector/model';
 import { IState as ISearchFieldState } from 'States/search-field/model';
+import { IState as ICurrencyState } from 'States/widgets/reducer';
 import { IState as IUserState } from 'States/user/model';
 import { IState as IWeatherState } from 'States/weather/model';
 
@@ -23,6 +24,7 @@ export interface RootState {
   country: ICountryState;
   languageSelector: ILanguageSelectorState;
   searchField: ISearchFieldState;
+  currency: ICurrencyState;
   user: IUserState;
   weather: IWeatherState;
 }
