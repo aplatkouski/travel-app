@@ -45,15 +45,15 @@ const App = ({
     logInWithLocalStorage();
   }, [fetchCountries, language, logInWithLocalStorage]);
 
-  return (
-    <Router>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <div className={classes.root}>
-          <Header />
-          <Switch>
-            <Route component={MainPage} exact path="/" />
-            <Route component={CountryPage} path="/country/:id" />
+  return (<Router>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <div className={classes.root}>
+        <Header />
+        <Switch>
+          <Route component={MainPage} exact path="/" />
+          <Route component={CountryPage} path="/country/:id" />
+        <Route component={CountryPage} path="/country/:id" />
           </Switch>
           <Footer />
           <RegistrationForm />

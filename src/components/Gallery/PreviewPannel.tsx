@@ -1,5 +1,4 @@
 import { createStyles, Grid, makeStyles } from '@material-ui/core';
-import { Theme } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import React, { useCallback, useEffect, useState } from 'react';
 import { MAX_PANEL_IMAGES } from '../../constants';
@@ -43,7 +42,9 @@ const PreviewPanel = (props: IProps): JSX.Element => {
     );
   }, [currentSightIndex, totalImages]);
 
-  const handleIndexChange = useCallback((index: number) => onChange(index), [onChange]);
+  const handleIndexChange = useCallback((index: number) => () => {
+    onChange(index);
+  }, [onChange]);
 
   const classes = useStyles();
 
@@ -59,7 +60,7 @@ const PreviewPanel = (props: IProps): JSX.Element => {
               [classes.activeImage]: currentSightIndex === sight.index,
             })}
             item
-            onClick={() => handleIndexChange(sight.index)}
+            onClick={handleIndexChange(sight.index)}
           >
             <img alt={sight.name} src={sight.photoUrl} />
           </Grid>
@@ -68,7 +69,7 @@ const PreviewPanel = (props: IProps): JSX.Element => {
   );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     container: {
       height: '100px',
@@ -77,21 +78,22 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     image: {
       cursor: 'pointer',
-      '& img': {
-        border: `1px solid ${theme.palette.text.secondary}`,
+      "& img": {
+        height: '99px',
+        objectFit: 'cover',
         borderRadius: '5px',
-        padding: '5px',
-        width: '150px',
-        height: '100px',
-        objectFit: 'contain',
-        '&:hover': {
-          boxShadow: 'inset 0px 0px 3px 1px rgb(0 140 186 / 50%)',
+        boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px' +
+          ' 1px 3px 0px rgb(0 0 0 / 12%)',
+        "&:hover": {
+          boxShadow: '0px 0px 9px 1px #717171',
         },
       },
     },
     activeImage: {
-      border: '2px solid red',
-    },
+      "& img": {
+        border: '2px solid #00add7',
+      }
+    }
   })
 );
 
