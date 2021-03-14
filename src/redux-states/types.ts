@@ -3,6 +3,7 @@ import { IState as ICountriesState } from 'States/countries/model';
 import { IState as ICountryState } from 'States/country/model';
 import { IState as ILanguageSelectorState } from 'States/language-selector/model';
 import { IState as ISearchFieldState } from 'States/search-field/model';
+import { IState as IUserState } from 'States/user/model';
 
 export interface IAction<P> {
   type: string;
@@ -21,6 +22,7 @@ export interface RootState {
   country: ICountryState;
   languageSelector: ILanguageSelectorState;
   searchField: ISearchFieldState;
+  user: IUserState;
 }
 
 export type AsyncDispatch<T, P> = (

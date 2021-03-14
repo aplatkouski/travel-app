@@ -9,6 +9,7 @@ import CountryPage from 'Components/CountryPage';
 import Footer from 'Components/Footer';
 import Header from 'Components/Header';
 import MainPage from 'Components/MainPage';
+import RegistrationForm from 'Components/RegistrationForm';
 import { Language } from 'Entities/travel-app';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
@@ -46,6 +47,7 @@ const App = ({ classes, fetchCountries, language }: Props): JSX.Element => {
             <Route component={CountryPage} path="/country/:id" />
           </Switch>
           <Footer />
+          <RegistrationForm />
         </div>
       </ThemeProvider>
     </Router>
