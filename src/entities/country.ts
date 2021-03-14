@@ -5,6 +5,10 @@ export interface ICountryPreview {
   name: string;
   capital: string;
   photoUrl: string;
+  timezone: string;
+  currency: string;
+  lat: number;
+  lng: number;
 }
 
 export interface IRating {
