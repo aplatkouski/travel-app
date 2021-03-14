@@ -4,7 +4,7 @@ import * as t from './action-types';
 import { IState } from './model';
 
 const initialState: IState = {
-  country: undefined,
+  payload: undefined,
   error: undefined,
   isLoading: false,
 };
@@ -19,13 +19,10 @@ const handlers: StateTypes.IHandlers<IState, any> = {
     ...state,
     isLoading: true,
   }),
-  [t.FETCH_COUNTRY.SUCCESS]: (
-    state,
-    { payload: country }: StateTypes.IAction<ICountry>
-  ) => ({
+  [t.FETCH_COUNTRY.SUCCESS]: (state, { payload }: StateTypes.IAction<ICountry>) => ({
     ...state,
+    payload,
     isLoading: false,
-    country,
   }),
   DEFAULT: (state) => state,
 };

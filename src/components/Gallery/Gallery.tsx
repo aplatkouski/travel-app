@@ -9,22 +9,20 @@ interface IProps {
   sights: Array<ISight>;
 }
 
-const Gallery = ({ sights = [] }: IProps): JSX.Element => {
+const Gallery = (props: IProps): JSX.Element => {
+  const { sights = [] } = props;
   const [currentSightIndex, setCurrentSightIndex] = useState<number>(0);
 
   const totalImages = useMemo(() => sights.length, [sights.length]);
-  const currentSight = useMemo<ISight | undefined>(() => sights[currentSightIndex], [
-    currentSightIndex,
-    sights,
-  ]);
+
+  const currentSight = useMemo<ISight | undefined>(() => {
+    return sights[currentSightIndex]
+  }, [currentSightIndex, sights]);
 
   const classes = useStyles();
 
   const panelSights = useMemo<IPanelSight[]>(() => {
-    return sights.map((sight: ISight, index) => ({
-      ...sight,
-      index,
-    }));
+    return sights.map((sight: ISight, index) => ({ ...sight, index }));
   }, [sights]);
 
   const handleCurrentImageChange = useCallback((index: number) => {

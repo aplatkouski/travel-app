@@ -7,7 +7,7 @@ import { ID, Language } from 'Entities/travel-app';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getCountryThunk } from 'States/country/thunk';
+import { getCountyInfoThunk } from 'States/country/thunk';
 import { RootState } from 'States/types';
 
 interface IRedux {
@@ -58,26 +58,16 @@ const CountryPageContainer = (props: IProps): JSX.Element => {
               </Typography>
             </Grid>
             <Grid className={classes.widgetsContainer} container>
-              <Grid item sm={4}>
-                погода
-              </Grid>
-              <Grid item sm={4}>
-                курс валют
-              </Grid>
-              <Grid item sm={4}>
-                дата время
-              </Grid>
+              <Grid item sm={4}>погода</Grid>
+              <Grid item sm={4}>курс валют</Grid>
+              <Grid item sm={4}>дата время</Grid>
             </Grid>
           </Grid>
         </Grid>
 
         <Grid alignItems="center" container justify="center">
-          <Grid item sm={6}>
-            {country.description}
-          </Grid>
-          <Grid item sm={6}>
-            карта с маркером в столице
-          </Grid>
+          <Grid item sm={6}>{country.description}</Grid>
+          <Grid item sm={6}>карта с маркером в столице</Grid>
         </Grid>
         <Gallery sights={country.sights} />
         <div>video</div>
@@ -115,12 +105,12 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const mapStateToProps = (state: RootState) => ({
-  country: state.country.country,
+  country: state.country.payload,
   language: state.languageSelector.language,
 });
 
 const mapDispatchToProps = {
-  getCountyInfo: getCountryThunk,
+  getCountyInfo: getCountyInfoThunk,
 };
 
 const CountryPage = connect(mapStateToProps, mapDispatchToProps)(CountryPageContainer);

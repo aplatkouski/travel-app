@@ -1,20 +1,17 @@
 import { ICountry } from 'Entities/country';
-import type { ID } from 'Entities/travel-app';
+import { ID } from 'Entities/travel-app';
 import * as StateTypes from 'States/types';
 import { api, countryAPI } from '../../constants';
 import { fetchFailure, fetchSuccess, startRequest } from './actions';
 import { IState } from './model';
 
-export const getCountryThunk = (id: ID): StateTypes.AsyncDispatch<IState, any> => async (
-  dispatch,
-  getState
-) => {
+export const getCountyInfoThunk = (id: ID): StateTypes.AsyncDispatch<IState, any> => async (dispatch, getState) => {
   dispatch(startRequest());
   const { languageSelector } = getState();
   try {
     const data = {
       countryID: id,
-      reloadLang: languageSelector.language,
+      reloadLang: (languageSelector as any).language,
     };
     const options = {
       method: 'POST',

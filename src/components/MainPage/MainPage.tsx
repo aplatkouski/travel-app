@@ -1,10 +1,9 @@
 import { Container, Grid, Typography, Zoom } from '@material-ui/core';
 import { createStyles, Theme, WithStyles, withStyles } from '@material-ui/core/styles';
 import CountryCard from 'Components/CountryCard';
-import type { Countries } from 'Entities/country';
-import type { ID } from 'Entities/travel-app';
-import * as React from 'react';
-import { useCallback } from 'react';
+import { Countries } from 'Entities/country';
+import { ID } from 'Entities/travel-app';
+import React, { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 
 const styles = (theme: Theme) =>
@@ -31,15 +30,13 @@ interface Props extends WithStyles<typeof styles> {
   filter: string;
 }
 
-const MainPage = ({ allCountries, classes, filter }: Props): JSX.Element => {
+const MainPage = (props: Props): JSX.Element => {
+  const { allCountries, classes, filter } = props;
   const history = useHistory();
 
-  const handleCountrySelect = useCallback(
-    (id: ID) => () => {
+  const handleCountrySelect = useCallback((id: ID) => () => {
       history.push(`/country/${id}`);
-    },
-    [history]
-  );
+    }, [history]);
 
   return (
     <Container className={classes.main} component="main" maxWidth="sm">

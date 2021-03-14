@@ -5,6 +5,7 @@ import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import SightRating from 'Components/Rating';
 import { ISight } from 'Entities/country';
 import React, { useCallback, useEffect, useState } from 'react';
+import Grow from '@material-ui/core/Grow';
 
 interface IProps {
   currentSight: ISight;
@@ -16,19 +17,29 @@ interface IProps {
 const ImagesSlider = (props: IProps): JSX.Element => {
   const { currentSight, currentSightIndex, onChange, totalImages = 0 } = props;
   const [fullScreenEnabled, setFullScreenEnabled] = useState(false);
+  const [checked, setChecked] = useState<boolean>(true);
 
   const classes = useStyles();
 
-  const handleNavBtnClick = useCallback((index: number) => onChange(index), [onChange]);
+  useEffect(() => {
+    setTimeout(() => {
+      setChecked(true);
+    }, 350);
+  }, [currentSightIndex]);
+
+  const handleNavBtnClick = useCallback((index: number) => () => {
+    onChange(index);
+    setChecked(!checked);
+  }, [checked, onChange]);
 
   const handleKeyPress = useCallback(
     (e: KeyboardEvent) => {
       e.preventDefault();
       if (e.key === 'ArrowLeft' && currentSightIndex) {
-        handleNavBtnClick(currentSightIndex - 1);
+        handleNavBtnClick(currentSightIndex - 1)();
       }
       if (e.key === 'ArrowRight' && currentSightIndex + 1 !== totalImages) {
-        handleNavBtnClick(currentSightIndex + 1);
+        handleNavBtnClick(currentSightIndex + 1)();
       }
     },
     [handleNavBtnClick, currentSightIndex, totalImages]
@@ -70,27 +81,29 @@ const ImagesSlider = (props: IProps): JSX.Element => {
         {currentSight.name}
       </Typography>
 
-      <div className={classes.stage} id="imageSliderContainer">
-        <img alt={currentSight.name} src={currentSight.photoUrl} />
-        <div className={classes.buttonContainer}>
-          <button
-            className={classes.button}
-            disabled={currentSightIndex === 0}
-            onClick={() => handleNavBtnClick(currentSightIndex - 1)}
-            type="button"
-          >
-            <ArrowBackIosIcon />
-          </button>
-          <button
-            className={classes.button}
-            disabled={currentSightIndex + 1 === totalImages}
-            onClick={() => handleNavBtnClick(currentSightIndex + 1)}
-            type="button"
-          >
-            <ArrowForwardIosIcon />
-          </button>
+      <Grow in={checked}>
+        <div className={classes.stage} id="imageSliderContainer">
+          <img alt={currentSight.name} src={currentSight.photoUrl}/>
+          <div className={classes.buttonContainer}>
+            <button
+              className={classes.button}
+              disabled={currentSightIndex === 0}
+              onClick={handleNavBtnClick(currentSightIndex - 1)}
+              type="button"
+            >
+              <ArrowBackIosIcon/>
+            </button>
+            <button
+              className={classes.button}
+              disabled={currentSightIndex + 1 === totalImages}
+              onClick={handleNavBtnClick(currentSightIndex + 1)}
+              type="button"
+            >
+              <ArrowForwardIosIcon/>
+            </button>
+          </div>
         </div>
-      </div>
+      </Grow>
 
       <Typography className={classes.sightDescription} variant="h4">
         {currentSight.description}
@@ -105,8 +118,7 @@ const ImagesSlider = (props: IProps): JSX.Element => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      boxShadow:
-        '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%),' +
+      boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%),' +
         ' 0px 1px 3px 0px rgb(0 0 0 / 12%)',
       borderRadius: '5px',
       display: 'flex',
@@ -146,9 +158,10 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       '&:hover': {
         transform: 'scale(1.3)',
+        color: '#00add745',
       },
       '&:active': {
-        color: 'rgba(0,173,215,0.27)',
+        color: theme.palette.secondary.main,
       },
     },
     sightName: {

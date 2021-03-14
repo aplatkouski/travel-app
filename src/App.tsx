@@ -35,22 +35,21 @@ const App = ({ classes, fetchCountries, language }: Props): JSX.Element => {
     fetchCountries();
   }, [fetchCountries, language]);
 
-  return (
-    <Router>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <div className={classes.root}>
-          <Header />
-          <Switch>
-            <Route component={MainPage} exact path="/" />
-            <Route component={CountryPage} path="/country/:id" />
+  return (<Router>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <div className={classes.root}>
+        <Header />
+        <Switch>
+          <Route component={MainPage} exact path="/" />
+          <Route component={CountryPage} path="/country/:id" />
+        <Route component={CountryPage} path="/country/:id" />
           </Switch>
-          <Footer />
-        </div>
-      </ThemeProvider>
-    </Router>
-  );
-};
+        <Footer />
+      </div>
+    </ThemeProvider>
+  </Router>
+);};
 
 const mapStateToProps = (state: StateTypes.RootState) => ({
   language: state.languageSelector.language,

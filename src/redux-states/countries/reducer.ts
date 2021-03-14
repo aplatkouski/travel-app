@@ -1,4 +1,4 @@
-import type { Countries } from 'Entities/country';
+import { Countries } from 'Entities/country';
 import * as StateTypes from 'States/types';
 import * as t from './action-types';
 import { IState } from './model';
