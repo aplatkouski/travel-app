@@ -6,21 +6,18 @@ import logo from 'Assets/images/logo.png';
 import LanguageSelector from 'Components/LanguageSelector';
 import SearchField from 'Components/SearchField';
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import RegistrationForm from 'Components/RegistrationForm';
+import user from 'States/user';
 
-const Header = (): JSX.Element => {
+interface Props {
+  onOpenRegistrationForm: () => void;
+}
+
+const Header = ({
+  onOpenRegistrationForm: handleOpenRegistrationForm,
+}: Props): JSX.Element => {
   const classes = useStyles();
-
-  const [openRegUserDlg, setOpenRegUserDlg] = React.useState(false);
-
-  const handleOpenRegUserDlg = () => {
-    setOpenRegUserDlg(true);
-  };
-
-  const handleCloseRegUserDlg = () => {
-    setOpenRegUserDlg(false);
-  };
 
   return (
     <Grid className={classes.header} container>
@@ -50,12 +47,11 @@ const Header = (): JSX.Element => {
           <Button
             className={classes.button}
             color="secondary"
-            onClick={handleOpenRegUserDlg}
+            onClick={handleOpenRegistrationForm}
             variant="outlined"
           >
             Sign up
           </Button>
-          <RegistrationForm onClose={handleCloseRegUserDlg} open={openRegUserDlg} />
           <Button className={classes.button} color="secondary" variant="outlined">
             Login
           </Button>
@@ -132,4 +128,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-export default Header;
+
+const mapDispatchToProps = {
+  onOpenRegistrationForm: user.actions.openRegistrationForm,
+};
+
+export default connect(null, mapDispatchToProps)(Header);
