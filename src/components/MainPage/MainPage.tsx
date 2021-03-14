@@ -1,6 +1,7 @@
 import { Container, Grid, Typography, Zoom } from '@material-ui/core';
 import { createStyles, Theme, WithStyles, withStyles } from '@material-ui/core/styles';
 import CountryCard from 'Components/CountryCard';
+import UserCard from 'Components/UserCard';
 import type { Countries } from 'Entities/country';
 import type { ID } from 'Entities/travel-app';
 import * as React from 'react';
@@ -47,6 +48,7 @@ const MainPage = ({ allCountries, classes, filter }: Props): JSX.Element => {
         <Typography align="center" className={classes.header} component="h1" variant="h1">
           Countries
         </Typography>
+        <UserCard />
         <div className="container-fluid">
           <Grid container spacing={3}>
             {allCountries
