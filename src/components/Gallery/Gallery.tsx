@@ -16,7 +16,7 @@ const Gallery = (props: IProps): JSX.Element => {
   const totalImages = useMemo(() => sights.length, [sights.length]);
 
   const currentSight = useMemo<ISight | undefined>(() => {
-    return sights[currentSightIndex]
+    return sights[currentSightIndex];
   }, [currentSightIndex, sights]);
 
   const classes = useStyles();

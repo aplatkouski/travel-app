@@ -27,10 +27,13 @@ const ImagesSlider = (props: IProps): JSX.Element => {
     }, 350);
   }, [currentSightIndex]);
 
-  const handleNavBtnClick = useCallback((index: number) => () => {
-    onChange(index);
-    setChecked(!checked);
-  }, [checked, onChange]);
+  const handleNavBtnClick = useCallback(
+    (index: number) => () => {
+      onChange(index);
+      setChecked(!checked);
+    },
+    [checked, onChange]
+  );
 
   const handleKeyPress = useCallback(
     (e: KeyboardEvent) => {
@@ -83,7 +86,7 @@ const ImagesSlider = (props: IProps): JSX.Element => {
 
       <Grow in={checked}>
         <div className={classes.stage} id="imageSliderContainer">
-          <img alt={currentSight.name} src={currentSight.photoUrl}/>
+          <img alt={currentSight.name} src={currentSight.photoUrl} />
           <div className={classes.buttonContainer}>
             <button
               className={classes.button}
@@ -91,7 +94,7 @@ const ImagesSlider = (props: IProps): JSX.Element => {
               onClick={handleNavBtnClick(currentSightIndex - 1)}
               type="button"
             >
-              <ArrowBackIosIcon/>
+              <ArrowBackIosIcon />
             </button>
             <button
               className={classes.button}
@@ -99,7 +102,7 @@ const ImagesSlider = (props: IProps): JSX.Element => {
               onClick={handleNavBtnClick(currentSightIndex + 1)}
               type="button"
             >
-              <ArrowForwardIosIcon/>
+              <ArrowForwardIosIcon />
             </button>
           </div>
         </div>
@@ -118,7 +121,8 @@ const ImagesSlider = (props: IProps): JSX.Element => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%),' +
+      boxShadow:
+        '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%),' +
         ' 0px 1px 3px 0px rgb(0 0 0 / 12%)',
       borderRadius: '5px',
       display: 'flex',

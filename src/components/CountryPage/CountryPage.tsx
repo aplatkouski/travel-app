@@ -9,11 +9,11 @@ import React, { useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getCountyInfoThunk } from 'States/country/thunk';
+import { getCountryThunk } from 'States/country/thunk';
 import { RootState } from 'States/types';
 
 interface IRedux {
-  country: ICountry | undefined;
+  country: ICountry;
   language: Language;
 }
 
@@ -112,10 +112,15 @@ const useStyles = makeStyles((theme: Theme) =>
 const mapStateToProps = (state: RootState) => ({
   country: state.country.payload,
   language: state.languageSelector.language,
+  currency: state.currency.payload,
 });
 
 const mapDispatchToProps = {
-  getCountyInfo: getCountyInfoThunk,
+  getCountyInfo: getCountryThunk,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CountryPageContainer);
+const CountryPage = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CountryPageContainer as any);
+export default CountryPage;
