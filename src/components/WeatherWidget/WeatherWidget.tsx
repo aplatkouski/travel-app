@@ -5,6 +5,7 @@ import React, { useEffect } from 'react';
 import Loader from 'Components/Loader';
 import { ArrowIcon } from './ArrowIcon/ArrowIcon';
 import WeatherIcon from './WeatherIcon';
+import { dictionary as d } from './constants';
 import styles from './styles';
 
 interface Props extends WithStyles<typeof styles> {
@@ -68,21 +69,21 @@ const WeatherWidget = ({
 
       {String(weather.temperature) && (
         <Typography component="p" variant="body2">
-          {`${weather.temperature} °C`}
+          {`${d[language].temperature}: ${weather.temperature.toFixed()}`}
         </Typography>
       )}
 
       {String(weather.humidity) && (
         <Typography component="p" variant="body2">
-          {`${weather.humidity} %`}
+          {`${d[language].humidity}: ${weather.humidity}`}
         </Typography>
       )}
 
       {String(weather.windSpeed) && (
         <Typography component="p" variant="body2">
-          {String(weather.windDeg) && <ArrowIcon styles={iconStyles} />}
+          {`${d[language].wind}: ${weather.windSpeed.toFixed(1)}`}
           &nbsp;
-          {`${weather.windSpeed} m/c`}
+          {String(weather.windDeg) && <ArrowIcon styles={iconStyles} />}
         </Typography>
       )}
 
