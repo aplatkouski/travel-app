@@ -21,7 +21,7 @@ export interface IState {
 }
 
 const initialState: IState = {
-  payload: undefined,
+  payload: [],
   error: undefined,
   isLoading: false,
 };
