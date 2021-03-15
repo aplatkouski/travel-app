@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import user from 'States/user';
 import LoginForm from 'Components/LoginForm';
+import UserCard from 'Components/UserCard';
 
 import * as StateTypes from 'States/types';
 import { IUser } from 'Entities/user';
@@ -57,6 +58,7 @@ const Header = ({
 
       <Grid item xs={2}>
         <LanguageSelector />
+        <UserCard />
       </Grid>
 
       <Grid

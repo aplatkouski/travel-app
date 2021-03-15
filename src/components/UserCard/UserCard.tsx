@@ -1,27 +1,38 @@
-import { Card, CardActionArea, CardMedia } from '@material-ui/core';
+import { Avatar } from '@material-ui/core';
 import { withStyles, WithStyles } from '@material-ui/core/styles';
 import { IUser } from 'Entities/user';
-import * as React from 'react';
+import React, { useRef } from 'react';
 import * as StateTypes from 'States/types';
 import { connect } from 'react-redux';
+import userAltImg from 'Assets/images/UnknownUser.png';
 import styles from './styles';
+import { api, getUserImgAPI } from '../../constants';
 
 interface Props extends WithStyles<typeof styles> {
   currUser: IUser | undefined;
 }
 
 const UserCard = ({ classes, currUser }: Props): JSX.Element => {
+  const imgRef = useRef<HTMLImageElement | null>(null);
+
+  function handleLoadAlternativeImg() {
+    if (imgRef && imgRef.current) {
+      imgRef.current.src = userAltImg;
+    }
+  }
+
   const elToRender =
     currUser && currUser.token ? (
-      <Card className={classes.root}>
-        <CardActionArea>
-          <CardMedia
-            className={classes.media}
-            image={currUser ? currUser.photoUrl : undefined}
-            title={currUser ? currUser.name : ''}
-          />
-        </CardActionArea>
-      </Card>
+      <div className={classes.root}>
+        <Avatar
+          ref={imgRef}
+          alt="no user img"
+          className={classes.large}
+          onError={handleLoadAlternativeImg}
+          src={`${api}/${getUserImgAPI}/${currUser.userId}`}
+        />
+        <p>{currUser.name}</p>
+      </div>
     ) : (
       <div />
     );
