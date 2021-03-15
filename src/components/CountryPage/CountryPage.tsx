@@ -15,6 +15,7 @@ import { RootState } from 'States/types';
 interface IRedux {
   country: ICountry;
   language: Language;
+  isLoading: boolean;
 }
 
 interface IDispatch {
@@ -28,7 +29,7 @@ interface ParamTypes {
 type IProps = IRedux & IDispatch;
 
 const CountryPageContainer = (props: IProps): JSX.Element => {
-  const { country, getCountyInfo, language } = props;
+  const { country, getCountyInfo, language, isLoading } = props;
   const classes = useStyles();
   const { id } = useParams<ParamTypes>();
 
@@ -42,7 +43,7 @@ const CountryPageContainer = (props: IProps): JSX.Element => {
     getCountyInfo(id);
   }, [getCountyInfo, id, language]);
 
-  return country ? (
+  return (country && !isLoading) ? (
     <Container className={classes.main} component="main">
       <Grid container direction="column">
         <Grid container>
@@ -111,16 +112,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const mapStateToProps = (state: RootState) => ({
   country: state.country.payload,
+  isLoading: state.country.isLoading,
   language: state.languageSelector.language,
-  currency: state.currency.payload,
 });
 
 const mapDispatchToProps = {
   getCountyInfo: getCountryThunk,
 };
 
-const CountryPage = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CountryPageContainer as any);
+const CountryPage = connect(mapStateToProps,mapDispatchToProps,)(CountryPageContainer as any);
 export default CountryPage;
