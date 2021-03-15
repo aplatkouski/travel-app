@@ -7,9 +7,9 @@ export const startRequest = (): StateTypes.IAction<undefined> => ({
   payload: undefined,
 });
 
-export const fetchSuccess = (currency: ICurrency): StateTypes.IAction<ICurrency> => ({
+export const fetchSuccess = (currencies: ICurrency[]): StateTypes.IAction<ICurrency[]> => ({
   type: t.FETCH_CURRENCY.SUCCESS,
-  payload: currency,
+  payload: currencies,
 });
 
 export const fetchFailure = (error: Error): StateTypes.IAction<Error> => ({
