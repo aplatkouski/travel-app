@@ -2,8 +2,7 @@ import { Container, Grid, Typography } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Gallery from 'Components/Gallery/Gallery';
 import Loader from 'Components/Loader';
-import DateTimeWidget from 'Components/DateTimeWidget';
-import WeatherWidget from 'Components/WeatherWidget';
+import WidgetsPanel from 'Components/WidgetsPanel';
 import { ICountry } from 'Entities/country';
 import { ID, Language } from 'Entities/travel-app';
 import React, { useEffect } from 'react';
@@ -59,17 +58,6 @@ const CountryPageContainer = (props: IProps): JSX.Element => {
                 {country.capital}
               </Typography>
             </Grid>
-            <Grid className={classes.widgetsContainer} container>
-              <Grid item sm={4}>
-                <WeatherWidget />
-              </Grid>
-              <Grid item sm={4}>
-                курс валют
-              </Grid>
-              <Grid item sm={4}>
-                <DateTimeWidget />
-              </Grid>
-            </Grid>
           </Grid>
         </Grid>
 
@@ -84,6 +72,7 @@ const CountryPageContainer = (props: IProps): JSX.Element => {
         <Gallery sights={country.sights} />
         <div>video</div>
       </Grid>
+      <WidgetsPanel />
     </Container>
   ) : (
     <Loader />
@@ -93,6 +82,8 @@ const CountryPageContainer = (props: IProps): JSX.Element => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     main: {
+      position: 'relative',
+      display: 'flex',
       flexBasis: 'auto',
       flexGrow: 1,
       flexShrink: 0,
@@ -112,7 +103,6 @@ const useStyles = makeStyles((theme: Theme) =>
     countryCapital: {
       fontSize: '3rem',
     },
-    widgetsContainer: {},
   })
 );
 
