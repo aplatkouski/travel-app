@@ -2,10 +2,11 @@ import * as StateTypes from 'States/types';
 import * as t from './action-types';
 
 export interface ICurrency {
-  base_code: string; // local currency
-  conversion_rates: { [key: string]: number };
+  base_code: string; // currency EUR RUB USD
+  conversion_rate: number;
   documentation: string;
   result: string;
+  target_code: string; // local currency
   terms_of_use: string;
   time_last_update_unix: number;
   time_last_update_utc: string;
@@ -14,7 +15,7 @@ export interface ICurrency {
 }
 
 export interface IState {
-  payload?: ICurrency;
+  payload?: ICurrency[];
   error?: Error;
   isLoading: boolean;
 }
@@ -30,7 +31,7 @@ const handlers: StateTypes.IHandlers<IState, any> = {
     ...state,
     isLoading: true,
   }),
-  [t.FETCH_CURRENCY.SUCCESS]: (state, { payload }: StateTypes.IAction<ICurrency>) => ({
+  [t.FETCH_CURRENCY.SUCCESS]: (state, { payload }: StateTypes.IAction<ICurrency[]>) => ({
     ...state,
     isLoading: false,
     payload,
