@@ -1,5 +1,3 @@
-// eslint-disable-next-line eslint-comments/disable-enable-pair
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import React, { useRef, useEffect, useCallback } from 'react';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
@@ -61,6 +59,7 @@ const LoginForm = ({
   };
 
   const handleKeyPressOnInput = (event: any) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if (event.key === 'Enter') {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       handleLoginUser();

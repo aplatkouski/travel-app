@@ -48,7 +48,7 @@ export const loginViaLocalStorageThunk = (): ThunkAction<any, any, any, Action> 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       token: localStorageData.token,
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      photoUrl: localStorageData.photoUrl,
+      userId: localStorageData.userId,
     };
     dispatch(loginSuccess(userData));
   }
@@ -100,6 +100,7 @@ export const loginThunk = (
       dispatch(loginFailure(errObj));
     } else {
       const user = (await response.json()) as IUser;
+
       dispatch(loginSuccess(user));
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment

@@ -7,4 +7,5 @@ export const SUCCESSFUL_REGISTRATION_MESSAGE =
   'Congratulations! You have been registered successfully. Now, You can log in.';
 export const USER_REGISTRATION_API = 'auth/register';
 export const loginAPI = 'auth/login';
+export const getUserImgAPI = 'auth/getUserPhoto';
 export const LOCALSTORAGE_NAME = 'travel-app-storage';

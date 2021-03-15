@@ -4,21 +4,13 @@ import { createStyles, Theme } from '@material-ui/core/styles';
 const styles = (theme: Theme) =>
   createStyles({
     root: {
-      maxWidth: theme.spacing(60),
-      '&:hover': {
-        color: theme.palette.secondary.main,
-      },
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
     },
-    media: {
-      height: theme.spacing(30),
-      transition: 'all .5s',
-      '&:hover': {
-        transform: 'scale(1.2)',
-        backgroundPositionY: '-18px',
-      },
-    },
-    user: {
-      color: theme.palette.text.secondary,
+    large: {
+      width: theme.spacing(7),
+      height: theme.spacing(7),
     },
   });
 
