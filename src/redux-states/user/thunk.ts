@@ -1,130 +1,88 @@
-import { IUser, ILoginErrs } from 'Entities/user';
+import { ICredentials, ILogInErrors, IUser } from 'Entities/user';
 import * as StateTypes from 'States/types';
-import { Action } from 'redux';
-import { ThunkAction } from 'redux-thunk';
-import { api, loginAPI, LOCALSTORAGE_NAME } from '../../constants';
-import {
-  loginFailure,
-  loginSuccess,
-  startLogin,
-  clearLoginErrs,
-  logout,
-} from './actions';
+import { api, LOCALSTORAGE_KEY, LOG_IN_API } from '../../constants';
+import { logInFailure, logInSuccess, startLogIn } from './actions';
 import { IState } from './model';
 
-interface IErrResponse {
+interface IResponse {
+  errors: Array<{ param: keyof ILogInErrors; msg: string }>;
   message: string;
-  errors: Array<{ param: string; msg: string }>;
 }
 
-function isError(value: any | undefined): value is Error {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  return value && (value as Error).message !== undefined;
-}
-
-export const clearLoginErrorsThunk = (): ThunkAction<any, any, any, Action> => (
+export const logInWithLocalStorageThunk = (): StateTypes.SyncDispatch<IState, any> => (
   dispatch
 ) => {
-  dispatch(clearLoginErrs());
-};
+  const savedUserData = JSON.parse(
+    localStorage.getItem(LOCALSTORAGE_KEY) || 'null'
+  ) as IUser | null;
 
-export const logoutThunk = (): ThunkAction<any, any, any, Action> => (dispatch) => {
-  dispatch(logout());
-  localStorage.removeItem(LOCALSTORAGE_NAME);
-};
-
-export const loginViaLocalStorageThunk = (): ThunkAction<any, any, any, Action> => (
-  dispatch
-) => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const lsItem: string | null = localStorage.getItem(LOCALSTORAGE_NAME);
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const localStorageData: IUser = lsItem ? JSON.parse(lsItem) : {};
-
-  if (localStorageData) {
+  if (savedUserData) {
+    const { name, token, id } = savedUserData;
     const userData: IUser = {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      name: localStorageData.name,
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      token: localStorageData.token,
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      userId: localStorageData.userId,
+      name,
+      token,
+      id,
     };
-    dispatch(loginSuccess(userData));
+    dispatch(logInSuccess(userData));
   }
 };
 
-export const loginThunk = (
-  userLogin: string,
-  userPassword: string
-): StateTypes.AsyncDispatch<IState, any> => async (dispatch) => {
-  dispatch(startLogin());
+export const logInThunk = ({
+  login,
+  password,
+}: ICredentials): StateTypes.AsyncDispatch<IState, any> => async (dispatch) => {
+  dispatch(startLogIn());
   try {
-    const data = {
-      login: userLogin,
-      password: userPassword,
-    };
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        login,
+        password,
+      }),
     };
-    const response = await fetch(`${api}/${loginAPI}`, options);
+    const response = await fetch(`${api}/${LOG_IN_API}`, options);
 
     if (response.status !== 201) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const body: IErrResponse = await response.json();
+      const body = (await response.json()) as IResponse;
 
-      const errObj: ILoginErrs = {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        generalErr: body.message,
-        loginErr: null,
-        passwordErr: null,
+      const errors: ILogInErrors = {
+        general: body.message,
+        login: null,
+        password: null,
       };
 
       if (body.errors && body.errors.length) {
-        for (let i = 0; i < body.errors.length; i += 1) {
-          const err = body.errors[i];
-          switch (err.param) {
-            case 'login':
-              errObj.loginErr = err.msg;
-              break;
-            case 'password':
-              errObj.passwordErr = err.msg;
-              break;
-            default:
-              break;
+        // eslint-disable-next-line promise/prefer-await-to-callbacks
+        body.errors.forEach((error) => {
+          if (Object.keys(errors).includes(error.param)) {
+            errors[error.param] = error.msg;
           }
-        }
+        });
       }
-      dispatch(loginFailure(errObj));
+      dispatch(logInFailure(errors));
     } else {
       const user = (await response.json()) as IUser;
-
-      dispatch(loginSuccess(user));
-
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const lsItem: string | null = localStorage.getItem(LOCALSTORAGE_NAME);
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const localStorageData = lsItem ? JSON.parse(lsItem) : {};
+      dispatch(logInSuccess(user));
+      const lsItem: string | null = localStorage.getItem(LOCALSTORAGE_KEY);
+      const savedUserData = lsItem ? (JSON.parse(lsItem) as IUser) : {};
 
       localStorage.setItem(
-        LOCALSTORAGE_NAME,
+        LOCALSTORAGE_KEY,
         JSON.stringify({
-          ...localStorageData,
+          ...savedUserData,
           ...user,
         })
       );
     }
-  } catch (error) {
-    if (error && isError(error)) {
-      const errObj: ILoginErrs = {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        generalErr: error.message,
-        loginErr: null,
-        passwordErr: null,
+  } catch (e) {
+    if (e instanceof Error) {
+      const errors: ILogInErrors = {
+        general: e.message,
+        login: null,
+        password: null,
       };
-      dispatch(loginFailure(errObj));
+      dispatch(logInFailure(errors));
     }
   }
 };

@@ -1,21 +1,23 @@
+import { ID } from 'Entities/travel-app';
+
 export interface IUser {
   name: string;
   token: string;
-  userId: string;
+  id: ID;
 }
-/*
-export interface IUserAuthorizationData {
+
+export interface ICredentials {
   login: string;
   password: string;
 }
 
-export interface IUserRegistrationData extends IUserAuthorizationData {
+export interface IUserRegistrationData extends ICredentials {
   name: string;
   photoPath: string;
 }
-*/
-export interface ILoginErrs {
-  loginErr: string | null | undefined;
-  passwordErr: string | null | undefined;
-  generalErr: string | null | undefined;
+
+export interface ILogInErrors {
+  general: string | null | undefined;
+  login: string | null | undefined;
+  password: string | null | undefined;
 }

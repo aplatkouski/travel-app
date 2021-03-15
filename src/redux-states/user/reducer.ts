@@ -1,27 +1,27 @@
-import type { IUser, ILoginErrs } from 'Entities/user';
+import type { ILogInErrors, IUser } from 'Entities/user';
 import * as StateTypes from 'States/types';
 import * as t from './action-types';
 import { IState } from './model';
 
 const initialState: IState = {
-  user: undefined,
-  error: undefined,
-  isLogginIn: false,
-  isLoading: false,
-  isOpenAuthorizationForm: false,
-  isOpenRegistrationForm: false,
-  message: undefined,
   current: undefined,
+  error: undefined,
+  isLoading: false,
+  isOpenLogInForm: false,
+  isOpenRegistrationForm: false,
+  logInErrors: undefined,
+  message: undefined,
 };
 
 const handlers: StateTypes.IHandlers<IState, any> = {
-  [t.AUTHORIZATION_FORM.CLOSE]: (state) => ({
+  [t.LOG_IN_FORM.CLOSE]: (state) => ({
     ...state,
-    isOpenAuthorizationForm: false,
+    logInErrors: undefined,
+    isOpenLogInForm: false,
   }),
-  [t.AUTHORIZATION_FORM.OPEN]: (state) => ({
+  [t.LOG_IN_FORM.OPEN]: (state) => ({
     ...state,
-    isOpenAuthorizationForm: true,
+    isOpenLogInForm: true,
   }),
   [t.REGISTRATION_FORM.CLOSE]: (state) => ({
     ...state,
@@ -31,33 +31,35 @@ const handlers: StateTypes.IHandlers<IState, any> = {
     ...state,
     isOpenRegistrationForm: true,
   }),
-  [t.LOGIN.FAILURE]: (state, { payload: error }: StateTypes.IAction<ILoginErrs>) => ({
+  [t.LOG_IN.FAILURE]: (
+    state,
+    { payload: logInErrors }: StateTypes.IAction<ILogInErrors>
+  ) => ({
     ...state,
-    isLogginIn: false,
-    error,
+    isLoading: false,
+    logInErrors,
   }),
-  [t.LOGIN.START]: (state) => ({
+  [t.LOG_IN.START]: (state) => ({
     ...state,
-    isLogginIn: true,
+    logInErrors: undefined,
+    isLoading: true,
   }),
-  [t.LOGIN.SUCCESS]: (state, { payload: user }: StateTypes.IAction<IUser>) => ({
+  [t.LOG_IN.SUCCESS]: (state, { payload: user }: StateTypes.IAction<IUser>) => ({
     ...state,
-    isLogginIn: false,
-    user,
+    logInErrors: undefined,
+    current: user,
+    isLoading: false,
+    isOpenLogInForm: false,
   }),
-  [t.LOGIN.CLEAR_LOGIN_ERRS]: (state) => ({
-    ...state,
-    error: undefined,
-  }),
-  [t.LOGIN.LOGOUT]: () => ({
+  [t.LOG_OUT]: () => ({
     ...initialState,
   }),
-  [t.LOGIN.LOGIN_VIA_LOCALSTORAGE]: (
+  [t.LOG_IN.WITH_LOCALSTORAGE]: (
     state,
     { payload: user }: StateTypes.IAction<IUser>
   ) => ({
     ...state,
-    user,
+    current: user,
   }),
   DEFAULT: (state) => state,
 };

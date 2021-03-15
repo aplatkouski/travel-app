@@ -29,3 +29,8 @@ export type AsyncDispatch<T, P> = (
   dispatch: ThunkDispatch<T, any, IAction<P>>,
   getState: () => RootState
 ) => Promise<void>;
+
+export type SyncDispatch<T, P> = (
+  dispatch: ThunkDispatch<T, any, IAction<P>>,
+  getState: () => RootState
+) => void;

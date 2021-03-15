@@ -8,6 +8,7 @@ import {
 import CountryPage from 'Components/CountryPage';
 import Footer from 'Components/Footer';
 import Header from 'Components/Header';
+import LogInForm from 'Components/LogInForm';
 import MainPage from 'Components/MainPage';
 import RegistrationForm from 'Components/RegistrationForm';
 import { Language } from 'Entities/travel-app';
@@ -28,21 +29,21 @@ const styles = createStyles({
 });
 
 interface Props extends WithStyles<typeof styles> {
-  language: Language;
   fetchCountries: () => void;
-  loginViaLocalStorage: () => void;
+  language: Language;
+  logInWithLocalStorage: () => void;
 }
 
 const App = ({
   classes,
   fetchCountries,
   language,
-  loginViaLocalStorage,
+  logInWithLocalStorage,
 }: Props): JSX.Element => {
   useEffect(() => {
     fetchCountries();
-    loginViaLocalStorage();
-  }, [fetchCountries, language, loginViaLocalStorage]);
+    logInWithLocalStorage();
+  }, [fetchCountries, language, logInWithLocalStorage]);
 
   return (
     <Router>
@@ -56,6 +57,7 @@ const App = ({
           </Switch>
           <Footer />
           <RegistrationForm />
+          <LogInForm />
         </div>
       </ThemeProvider>
     </Router>
@@ -68,7 +70,7 @@ const mapStateToProps = (state: StateTypes.RootState) => ({
 
 const mapDispatchToProps = {
   fetchCountries: countries.thunk.getCountriesThunk,
-  loginViaLocalStorage: user.thunk.loginViaLocalStorageThunk,
+  logInWithLocalStorage: user.thunk.logInWithLocalStorageThunk,
 };
 
 export default withStyles(styles, { withTheme: true })(

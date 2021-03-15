@@ -11,6 +11,6 @@ test('renders App', () => {
     </Provider>
   );
 
-  expect(getAllByText(/Login/i)).toHaveLength(1);
+  expect(getAllByText(/Log in/i)).toHaveLength(1);
   expect(getAllByText(/Countries/i)).toHaveLength(1);
 });

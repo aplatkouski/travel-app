@@ -44,7 +44,7 @@ const MainPage = ({ allCountries, classes, filter }: Props): JSX.Element => {
   return (
     <Container className={classes.main} component="main" maxWidth="sm">
       <div className="container-fluid lg-p-top">
-        <Typography align="center" className={classes.header} component="h1" variant="h1">
+        <Typography align="center" className={classes.header} component="h2" variant="h1">
           Countries
         </Typography>
         <div className="container-fluid">
