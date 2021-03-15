@@ -5,12 +5,13 @@ const styles = (theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
-      flexDirection: 'column',
       alignItems: 'center',
+      margin: theme.spacing(0, 1),
     },
     large: {
-      width: theme.spacing(7),
-      height: theme.spacing(7),
+      width: theme.spacing(4),
+      height: theme.spacing(4),
+      marginRight: theme.spacing(1),
     },
   });
 

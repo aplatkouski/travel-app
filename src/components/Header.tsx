@@ -5,44 +5,28 @@ import plane from 'Assets/images/illustration-plane.png';
 import logo from 'Assets/images/logo.png';
 import LanguageSelector from 'Components/LanguageSelector';
 import SearchField from 'Components/SearchField';
+import UserCard from 'Components/UserCard';
+import { IUser } from 'Entities/user';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import user from 'States/user';
-import LoginForm from 'Components/LoginForm';
-import UserCard from 'Components/UserCard';
-
 import * as StateTypes from 'States/types';
-import { IUser } from 'Entities/user';
-import { connect } from 'react-redux';
 import user from 'States/user';
 
 interface Props {
-  currUser: IUser | undefined;
+  currentUser: IUser | undefined;
+  logOut: () => void;
+  onOpenLogInForm: () => void;
   onOpenRegistrationForm: () => void;
-  logout: () => void;
 }
 
 const Header = ({
-  currUser,
+  currentUser,
+  logOut: handleLogOut,
+  onOpenLogInForm: handleOpenLogInForm,
   onOpenRegistrationForm: handleOpenRegistrationForm,
-  logout,
 }: Props): JSX.Element => {
   const classes = useStyles();
-
-  const [openLoginUserDlg, setOpenLoginUserDlg] = React.useState(false);
-
-  const handleOpenLoginUserDlg = () => {
-    setOpenLoginUserDlg(true);
-  };
-
-  const handleCloseLoginUserDlg = () => {
-    setOpenLoginUserDlg(false);
-  };
-
-  const handleUserLogout = () => {
-    logout();
-  };
 
   return (
     <Grid className={classes.header} container>
@@ -58,7 +42,6 @@ const Header = ({
 
       <Grid item xs={2}>
         <LanguageSelector />
-        <UserCard />
       </Grid>
 
       <Grid
@@ -70,33 +53,38 @@ const Header = ({
         xs={10}
       >
         <Grid container item justify="flex-end">
-          <Button
-            className={classes.button}
-            color="secondary"
-            onClick={handleOpenRegistrationForm}
-            variant="outlined"
-          >
-            Sign up
-          </Button>
-          <Button
-            className={classes.button}
-            color="secondary"
-            disabled={!!(currUser && currUser.token)}
-            onClick={handleOpenLoginUserDlg}
-            variant="outlined"
-          >
-            Login
-          </Button>
-          <LoginForm onClose={handleCloseLoginUserDlg} open={openLoginUserDlg} />
-          <Button
-            className={classes.button}
-            color="secondary"
-            disabled={!currUser || !currUser.token}
-            onClick={handleUserLogout}
-            variant="outlined"
-          >
-            Logout
-          </Button>
+          {currentUser && currentUser.token ? (
+            <>
+              <UserCard />
+              <Button
+                className={classes.button}
+                color="secondary"
+                onClick={handleLogOut}
+                variant="outlined"
+              >
+                Log out
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button
+                className={classes.button}
+                color="secondary"
+                onClick={handleOpenRegistrationForm}
+                variant="outlined"
+              >
+                Sign up
+              </Button>
+              <Button
+                className={classes.button}
+                color="secondary"
+                onClick={handleOpenLogInForm}
+                variant="outlined"
+              >
+                Log in
+              </Button>
+            </>
+          )}
         </Grid>
         <Grid container justify="flex-end">
           <SearchField />
@@ -169,12 +157,13 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const mapStateToProps = (state: StateTypes.RootState) => ({
-  currUser: state.user.user,
+  currentUser: state.user.current,
 });
 
 const mapDispatchToProps = {
+  logOut: user.actions.logOut,
+  onOpenLogInForm: user.actions.openLogInForm,
   onOpenRegistrationForm: user.actions.openRegistrationForm,
-  logout: user.thunk.logoutThunk,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

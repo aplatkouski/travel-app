@@ -6,6 +6,6 @@ export const MAX_PANEL_IMAGES = 6;
 export const SUCCESSFUL_REGISTRATION_MESSAGE =
   'Congratulations! You have been registered successfully. Now, You can log in.';
 export const USER_REGISTRATION_API = 'auth/register';
-export const loginAPI = 'auth/login';
-export const getUserImgAPI = 'auth/getUserPhoto';
-export const LOCALSTORAGE_NAME = 'travel-app-storage';
+export const GET_USER_PHOTO_API = 'auth/getUserPhoto';
+export const LOCALSTORAGE_KEY = 'travel-app-storage';
+export const LOG_IN_API = 'auth/login';
