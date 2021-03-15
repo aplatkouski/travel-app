@@ -1,33 +1,33 @@
-import { Typography, Box } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import { withStyles, WithStyles } from '@material-ui/core/styles';
+import Loader from 'Components/Loader';
+import { Language } from 'Entities/travel-app';
 import IWeather from 'Entities/weather';
 import React, { useEffect } from 'react';
-import Loader from 'Components/Loader';
-import { ArrowIcon } from './ArrowIcon/ArrowIcon';
-import WeatherIcon from './WeatherIcon';
-import { dictionary as d } from './constants';
+import { WEATHER_DATA_UPDATE_MS } from '../../constants';
+import ArrowIcon from './ArrowIcon';
+import { dictionary } from './constants';
 import styles from './styles';
+import WeatherIcon from './WeatherIcon';
 
 interface Props extends WithStyles<typeof styles> {
+  error: Error | undefined;
+  getWeather: () => void;
+  isCountryLoading: boolean;
+  isWeatherLoading: boolean;
+  language: Language;
   lat: number | undefined;
   lng: number | undefined;
-  language: string;
-  isLoading: boolean;
-  error: Error | undefined;
-  isWeatherLoading: boolean;
-  weatherError: Error | undefined;
   weather: IWeather | undefined;
-  getWeather: (lat: number, lng: number, lang: string) => void;
+  weatherError: Error | undefined;
 }
-
-const DELAY = 60000;
 
 const WeatherWidget = ({
   classes,
   lat,
   lng,
   language,
-  isLoading,
+  isCountryLoading,
   error,
   isWeatherLoading,
   weatherError,
@@ -35,16 +35,12 @@ const WeatherWidget = ({
   getWeather,
 }: Props): JSX.Element => {
   useEffect(() => {
-    const update = () => {
-      if (lat && lng) {
-        getWeather(lat, lng, language);
-      }
-    };
-
-    update();
-    const timerId: number = window.setInterval(() => update(), DELAY);
+    getWeather();
+    const timerId: number = window.setInterval(getWeather, WEATHER_DATA_UPDATE_MS);
     return () => clearInterval(timerId);
   }, [lat, lng, language, getWeather]);
+
+  const d = dictionary[language];
 
   if (error || weatherError || !weather) {
     return (
@@ -56,7 +52,7 @@ const WeatherWidget = ({
     );
   }
 
-  if (isLoading || isWeatherLoading) {
+  if (isCountryLoading || isWeatherLoading) {
     return (
       <Box className={classes.root}>
         <Loader />
@@ -67,7 +63,6 @@ const WeatherWidget = ({
   const iconStyles = weather.windDeg
     ? {
         transform: `rotate(${weather.windDeg + 90}deg)`,
-        color: 'blue',
       }
     : undefined;
 
@@ -77,21 +72,21 @@ const WeatherWidget = ({
 
       {String(weather.temperature) && (
         <Typography component="p" variant="body2">
-          {`${d[language].temperature}: ${weather.temperature.toFixed()}`}
+          {`${d.temperature}: ${weather.temperature.toFixed()}`}
         </Typography>
       )}
 
       {String(weather.humidity) && (
         <Typography component="p" variant="body2">
-          {`${d[language].humidity}: ${weather.humidity}`}
+          {`${d.humidity}: ${weather.humidity}`}
         </Typography>
       )}
 
       {String(weather.windSpeed) && (
         <Typography component="p" variant="body2">
-          {`${d[language].wind}: ${weather.windSpeed.toFixed(1)}`}
+          {`${d.wind}: ${weather.windSpeed.toFixed(1)}`}
           &nbsp;
-          {String(weather.windDeg) && <ArrowIcon styles={iconStyles} />}
+          {String(weather.windDeg) && <ArrowIcon iconStyles={iconStyles} />}
         </Typography>
       )}
 
