@@ -2,14 +2,14 @@ interface IWeather {
   cityId: string;
   cityName: string;
   date: number;
-  timezone: string;
-  windSpeed: number;
-  windDeg: number;
-  temperature: number;
-  humidity: number;
-  pressure: number;
   description: string;
+  humidity: number;
   icon: string;
+  pressure: number;
+  temperature: number;
+  timezone: string;
+  windDeg: number;
+  windSpeed: number;
 }
 
 export default IWeather;

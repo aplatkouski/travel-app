@@ -1,27 +1,21 @@
-interface ILanguage {
-  temperature: string;
-  humidity: string;
-  wind: string;
-}
+import type { IDictionary } from 'Entities/travel-app';
 
-interface IDictionary {
-  [key: string]: ILanguage;
-}
+export type Words = 'humidity' | 'temperature' | 'wind';
 
-export const dictionary: IDictionary = {
+export const dictionary: IDictionary<Record<Words, string>> = {
+  de: {
+    humidity: 'luftfeuchtigkeit, %',
+    temperature: 'lufttemperatur, °C',
+    wind: 'wind, m/s',
+  },
   en: {
-    temperature: 'temperature, °C',
     humidity: 'humidity, %',
+    temperature: 'temperature, °C',
     wind: 'wind, m/s',
   },
   ru: {
-    temperature: 'температура, °C',
     humidity: 'влажность, %',
+    temperature: 'температура, °C',
     wind: 'ветер, м/c',
-  },
-  de: {
-    temperature: 'lufttemperatur, °C',
-    humidity: 'luftfeuchtigkeit, %',
-    wind: 'wind, m/s',
   },
 };

@@ -4,9 +4,9 @@ import * as t from './action-types';
 import { IState } from './model';
 
 const initialState: IState = {
-  weather: undefined,
   error: undefined,
   isLoading: false,
+  weather: undefined,
 };
 
 const handlers: StateTypes.IHandlers<IState, any> = {

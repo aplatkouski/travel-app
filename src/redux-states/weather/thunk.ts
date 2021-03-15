@@ -1,71 +1,75 @@
 import IWeather from 'Entities/weather';
 import * as StateTypes from 'States/types';
+import { WEATHER_API, WEATHER_API_KEY } from '../../constants';
 import { fetchFailure, fetchSuccess, startRequest } from './actions';
 import { IState } from './model';
 
 interface IWeatherMain {
-  temp: number;
   humidity: number;
   pressure: number;
+  temp: number;
 }
 
 interface IWeatherWind {
-  speed: number;
   deg: number;
+  speed: number;
 }
 
 interface IWeatherItem {
-  id: number;
-  icon: string;
   description: string;
+  icon: string;
+  id: number;
 }
 
 interface IWeatherFetch {
   id: number;
-  name: string;
   dt: number;
-  timezone: string;
-  wind: IWeatherWind;
   main: IWeatherMain;
+  name: string;
+  timezone: string;
   weather: [IWeatherItem];
+  wind: IWeatherWind;
 }
 
 export const mapWeatherResult = ({
   id,
   dt,
-  timezone,
-  wind,
   main,
   name,
+  timezone,
   weather,
+  wind,
 }: IWeatherFetch): IWeather => {
   return {
     cityId: String(id),
     cityName: name,
     date: dt,
-    timezone,
-    windSpeed: wind.speed,
-    windDeg: wind.deg,
-    temperature: main.temp,
-    humidity: main.humidity,
-    pressure: main.pressure,
     description: weather[0].description,
+    humidity: main.humidity,
     icon: weather[0].icon,
+    pressure: main.pressure,
+    temperature: main.temp,
+    timezone,
+    windDeg: wind.deg,
+    windSpeed: wind.speed,
   };
 };
 
-const API = 'https://api.openweathermap.org/data/2.5/weather';
-const API_KEY = '679070626d7fff4194b0a776c3a2f8a7';
+export const getWeatherThunk = (): StateTypes.AsyncDispatch<IState, any> => async (
+  dispatch,
+  getState
+) => {
+  const {
+    languageSelector: { language },
+    country: { country },
+  } = getState();
+  if (!country) return;
 
-export const getWeatherThunk = (
-  lat: number,
-  lng: number,
-  lang: string
-): StateTypes.AsyncDispatch<IState, any> => async (dispatch) => {
   dispatch(startRequest());
   try {
-    const params = `?lat=${lat}&lon=${lng}&lang=${lang}&units=metric&appid=${API_KEY}`;
-    const response = await fetch(`${API}${params}`);
+    const { lat, lng } = country;
+    const params = `?lat=${lat}&lon=${lng}&lang=${language}&units=metric&appid=${WEATHER_API_KEY}`;
+    const response = await fetch(`${WEATHER_API}${params}`);
     const data = (await response.json()) as IWeatherFetch;
     dispatch(fetchSuccess(mapWeatherResult(data)));
   } catch (error) {

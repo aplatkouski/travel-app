@@ -4,14 +4,14 @@ import { getWeatherThunk } from 'States/weather/thunk';
 import WeatherWidget from './WeatherWidget';
 
 const mapStateToProps = (state: StateTypes.RootState) => ({
+  error: state.country.error,
+  isCountryLoading: state.country.isLoading,
+  isWeatherLoading: state.weather.isLoading,
   language: state.languageSelector.language,
   lat: state.country.country && state.country.country.lat,
   lng: state.country.country && state.country.country.lng,
-  isLoading: state.country.isLoading,
-  error: state.country.error,
-  isWeatherLoading: state.weather.isLoading,
-  weatherError: state.weather.error,
   weather: state.weather.weather,
+  weatherError: state.weather.error,
 });
 
 const mapDispatchToProps = {
