@@ -1,6 +1,5 @@
 import { Container, Grid, Typography } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import clsx from 'clsx';
 import Gallery from 'Components/Gallery/Gallery';
 import Loader from 'Components/Loader';
 import WidgetsPanel from 'Components/WidgetsPanel';
@@ -34,19 +33,18 @@ const CountryPageContainer = (props: IProps): JSX.Element => {
   const { id } = useParams<ParamTypes>();
 
   useEffect(() => {
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 150);
+  }, []);
+
+  useEffect(() => {
     getCountyInfo(id);
   }, [getCountyInfo, id, language]);
 
   return country ? (
     <Container className={classes.main} component="main">
-      <Grid
-        className={clsx({
-          animate__animated: true,
-          animate__fadeInDownBig: true,
-        })}
-        container
-        direction="column"
-      >
+      <Grid container direction="column">
         <Grid container>
           <Grid className={classes.imgContainer} item sm={4}>
             <img alt={country.name} src={country.photoUrl} />
