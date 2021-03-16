@@ -9,10 +9,11 @@ import {
   InputLabel,
   Typography,
 } from '@material-ui/core';
+import { Language } from 'Entities/travel-app';
 import { ICredentials, ILogInErrors } from 'Entities/user';
 import React, { useRef } from 'react';
 import 'Styles/animate.min.css';
-import { Language } from 'Entities/travel-app';
+import getDictionary from './i18n/translate';
 
 interface Props {
   logInErrors: ILogInErrors | undefined;
@@ -22,44 +23,12 @@ interface Props {
   currentLanguage: Language;
 }
 
-const LOG_IN_TITLE_LABEL = 'LogInTitle';
-const LOGIN_LABEL = 'Login';
-const PASSWORD_LABEL = 'Password';
-const CANCEL_BTN_LABEL = 'Cancel';
-const LOGIN_BTN_LABEL = 'LogInBtn';
-
-const Translations = {
-  [LOG_IN_TITLE_LABEL]: {
-    en: 'Log In',
-    ru: 'Войти',
-    de: 'Einloggen',
-  },
-  [LOGIN_LABEL]: {
-    en: 'Login',
-    ru: 'Логин',
-    de: 'Login',
-  },
-  [PASSWORD_LABEL]: {
-    en: 'Password',
-    ru: 'Пароль',
-    de: 'Passwort',
-  },
-  [CANCEL_BTN_LABEL]: {
-    en: 'CANCEL',
-    ru: 'ОТМЕНА',
-    de: 'STORNIEREN',
-  },
-  [LOGIN_BTN_LABEL]: {
-    en: 'LOG IN',
-    ru: 'ВОЙТИ',
-    de: 'Einloggen',
-  },
-};
-
 const LogInForm = (props: Props): JSX.Element => {
   const { logInErrors, isOpen, onClose: handleClose, onLogIn, currentLanguage } = props;
   const refLoginField = useRef<HTMLInputElement>(null);
   const refPasswordField = useRef<HTMLInputElement>(null);
+
+  const d = getDictionary(currentLanguage);
 
   const handleLogInUser = () => {
     if (refLoginField.current && refPasswordField.current) {
@@ -88,9 +57,7 @@ const LogInForm = (props: Props): JSX.Element => {
         onClose={handleClose}
         open={isOpen}
       >
-        <DialogTitle id="form-dialog-title">
-          {Translations[LOG_IN_TITLE_LABEL][currentLanguage]}
-        </DialogTitle>
+        <DialogTitle id="form-dialog-title">{d.logIn}</DialogTitle>
         <DialogContent>
           {logInErrors && logInErrors.general && (
             <Typography className="animate__animated animate__bounceInLeft" gutterBottom>
@@ -98,9 +65,7 @@ const LogInForm = (props: Props): JSX.Element => {
             </Typography>
           )}
           <FormControl fullWidth>
-            <InputLabel htmlFor="login">
-              {Translations[LOGIN_LABEL][currentLanguage]}
-            </InputLabel>
+            <InputLabel htmlFor="login">{d.login}</InputLabel>
             <Input
               autoFocus
               fullWidth
@@ -122,9 +87,7 @@ const LogInForm = (props: Props): JSX.Element => {
           </FormControl>
           <br />
           <FormControl fullWidth>
-            <InputLabel htmlFor="password">
-              {Translations[PASSWORD_LABEL][currentLanguage]}
-            </InputLabel>
+            <InputLabel htmlFor="password">{d.password}</InputLabel>
             <Input
               fullWidth
               id="password"
@@ -145,10 +108,10 @@ const LogInForm = (props: Props): JSX.Element => {
           </FormControl>
           <DialogActions>
             <Button color="primary" onClick={handleClose}>
-              {Translations[CANCEL_BTN_LABEL][currentLanguage]}
+              {d.cancel}
             </Button>
             <Button color="primary" onClick={handleLogInUser}>
-              {Translations[LOGIN_BTN_LABEL][currentLanguage]}
+              {d.logIn}
             </Button>
           </DialogActions>
         </DialogContent>

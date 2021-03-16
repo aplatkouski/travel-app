@@ -7,14 +7,11 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
+import { Language } from 'Entities/travel-app';
 import React, { useRef, useState } from 'react';
 import 'Styles/animate.min.css';
-import { Language } from 'Entities/travel-app';
-import {
-  api,
-  SUCCESSFUL_REGISTRATION_MESSAGE,
-  USER_REGISTRATION_API,
-} from '../../constants';
+import { api, USER_REGISTRATION_API } from '../../constants';
+import getDictionary from './i18n/translate';
 
 interface Props {
   isOpen: boolean;
@@ -34,58 +31,6 @@ interface IResponse {
   message: string;
 }
 
-const SIGN_UP_LABEL = 'SignUp';
-const USER_NAME_LABEL = 'Name';
-const LOGIN_LABEL = 'Login';
-const PASSWORD_LABEL = 'Password';
-const CHOOSE_FILE_LABEL = 'ChooseFile';
-const CANCEL_BTN_LABEL = 'Cancel';
-const REGISTER_BTN_LABEL = 'Register';
-const CLOSE_BTN_LABEL = 'Close';
-
-const Translations = {
-  [SIGN_UP_LABEL]: {
-    en: 'Sign Up',
-    ru: 'Регистрация',
-    de: 'Einchecken',
-  },
-  [USER_NAME_LABEL]: {
-    en: 'Your Name',
-    ru: 'Ваше имя',
-    de: 'Ihr Name',
-  },
-  [LOGIN_LABEL]: {
-    en: 'Login',
-    ru: 'Логин',
-    de: 'Login',
-  },
-  [PASSWORD_LABEL]: {
-    en: 'Password',
-    ru: 'Пароль',
-    de: 'Passwort',
-  },
-  [CHOOSE_FILE_LABEL]: {
-    en: 'Choose Your photo',
-    ru: 'Выберите Ваше фото',
-    de: 'Wählen Sie Ihr Foto',
-  },
-  [CANCEL_BTN_LABEL]: {
-    en: 'CANCEL',
-    ru: 'ОТМЕНА',
-    de: 'STORNIEREN',
-  },
-  [REGISTER_BTN_LABEL]: {
-    en: 'REGISTER',
-    ru: 'ЗАРЕГИСТРИРОВАТЬСЯ',
-    de: 'REGISTRIEREN',
-  },
-  [CLOSE_BTN_LABEL]: {
-    en: 'CLOSE',
-    ru: 'ЗАКРЫТЬ',
-    de: 'Schließen',
-  },
-};
-
 const RegistrationForm = ({
   isOpen,
   onClose: handleClose,
@@ -103,6 +48,8 @@ const RegistrationForm = ({
 
   const formRef = useRef<HTMLFormElement>(null);
   const loadHiddenTextFieldRef = useRef<HTMLInputElement>(null);
+
+  const d = getDictionary(currentLanguage);
 
   const handleCloseDialog = () => {
     setRegistrationErrors({
@@ -153,7 +100,7 @@ const RegistrationForm = ({
         }
         setRegistrationErrors({ ...registrationErrors, ...errors });
       } else {
-        setSuccessfulMessage(SUCCESSFUL_REGISTRATION_MESSAGE[currentLanguage]);
+        setSuccessfulMessage(d.successfulRegistrationMessage);
       }
     } catch (error) {
       if (typeof error === 'object' && error !== null) {
@@ -183,9 +130,7 @@ const RegistrationForm = ({
     >
       {!successMess ? (
         <>
-          <DialogTitle id="form-dialog-title">
-            {Translations[SIGN_UP_LABEL][currentLanguage]}
-          </DialogTitle>
+          <DialogTitle id="form-dialog-title">{d.signUp}</DialogTitle>
           <DialogContent>
             {registrationErrors.general && (
               <Typography className="animate__animated animate__bounceIn" gutterBottom>
@@ -202,7 +147,7 @@ const RegistrationForm = ({
                 autoFocus
                 fullWidth
                 id="name"
-                label={Translations[USER_NAME_LABEL][currentLanguage]}
+                label={d.yourName}
                 margin="dense"
                 name="name"
                 type="text"
@@ -218,7 +163,7 @@ const RegistrationForm = ({
               <TextField
                 fullWidth
                 id="login"
-                label={Translations[LOGIN_LABEL][currentLanguage]}
+                label={d.login}
                 margin="dense"
                 name="login"
                 type="text"
@@ -234,7 +179,7 @@ const RegistrationForm = ({
               <TextField
                 fullWidth
                 id="password"
-                label={Translations[PASSWORD_LABEL][currentLanguage]}
+                label={d.password}
                 margin="dense"
                 name="password"
                 type="password"
@@ -255,7 +200,7 @@ const RegistrationForm = ({
                   }
                 }}
               >
-                {Translations[CHOOSE_FILE_LABEL][currentLanguage]}
+                {d.chooseYourPhoto}
               </Button>
               <Typography>{chosenFileName}</Typography>
               <input
@@ -267,10 +212,10 @@ const RegistrationForm = ({
               />
               <DialogActions>
                 <Button color="primary" onClick={handleCloseDialog}>
-                  {Translations[CANCEL_BTN_LABEL][currentLanguage]}
+                  {d.cancel}
                 </Button>
                 <Button color="primary" type="submit" variant="outlined">
-                  {Translations[REGISTER_BTN_LABEL][currentLanguage]}
+                  {d.register}
                 </Button>
               </DialogActions>
             </form>
@@ -281,7 +226,7 @@ const RegistrationForm = ({
           <DialogTitle id="form-dialog-title">{successMess}</DialogTitle>
           <DialogActions>
             <Button color="primary" onClick={handleCloseDialog} variant="outlined">
-              {Translations[CLOSE_BTN_LABEL][currentLanguage]}
+              {d.close}
             </Button>
           </DialogActions>
         </>
