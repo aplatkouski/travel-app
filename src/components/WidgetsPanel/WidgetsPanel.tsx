@@ -1,13 +1,19 @@
 import { Divider, Drawer, Hidden, IconButton } from '@material-ui/core';
 import { withStyles, WithStyles } from '@material-ui/core/styles';
 import WidgetsIcon from '@material-ui/icons/Widgets';
+import CurrencyWidget from 'Components/CurrencyWidget';
 import DateTimeWidget from 'Components/DateTimeWidget';
 import WeatherWidget from 'Components/WeatherWidget';
 import * as React from 'react';
 import { useState } from 'react';
 import styles from './styles';
 
-const WidgetsPanel = ({ classes }: WithStyles): JSX.Element => {
+interface IProps extends WithStyles<typeof styles> {
+  countryCurrency: string;
+}
+
+const WidgetsPanel = (props: IProps): JSX.Element => {
+  const { classes, countryCurrency } = props;
   const [mobileOpen, setMobileOpen] = useState<boolean>(false);
 
   const handleDrawerToggle = (): void => {
@@ -18,7 +24,7 @@ const WidgetsPanel = ({ classes }: WithStyles): JSX.Element => {
     <>
       <WeatherWidget />
       <Divider />
-      курс валют
+      <CurrencyWidget countryCurrency={countryCurrency} />
       <Divider />
       <DateTimeWidget />
     </>
