@@ -9,6 +9,7 @@ export interface ICountryPreview {
   currency: string;
   lat: number;
   lng: number;
+  alpha2Code: string;
 }
 
 export interface IRating {

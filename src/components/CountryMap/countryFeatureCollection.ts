@@ -1,4 +1,21 @@
-const countryFeatureCollection = {
+import { GeoJsonTypes, Feature } from 'geojson';
+
+export interface IGeoJSONProp {
+  name: string;
+  alpha2Code?: string;
+}
+
+export interface IGeoJSON extends Feature {
+  id: string;
+  properties: IGeoJSONProp;
+}
+
+export interface IGeoJSONObject {
+  type: GeoJsonTypes;
+  features: IGeoJSON[];
+}
+
+export const countryFeatureCollection: IGeoJSONObject = {
   type: 'FeatureCollection',
   features: [
     {
@@ -13914,5 +13931,3 @@ const countryFeatureCollection = {
     },
   ],
 };
-
-export default countryFeatureCollection;
