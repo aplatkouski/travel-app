@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core';
 import React, { useRef, useState } from 'react';
 import 'Styles/animate.min.css';
+import { Language } from 'Entities/travel-app';
 import {
   api,
   SUCCESSFUL_REGISTRATION_MESSAGE,
@@ -18,6 +19,7 @@ import {
 interface Props {
   isOpen: boolean;
   onClose: () => void;
+  currentLanguage: Language;
 }
 
 interface IRegistrationErrors {
@@ -32,7 +34,63 @@ interface IResponse {
   message: string;
 }
 
-const RegistrationForm = ({ isOpen, onClose: handleClose }: Props): JSX.Element => {
+const SIGN_UP_LABEL = 'SignUp';
+const USER_NAME_LABEL = 'Name';
+const LOGIN_LABEL = 'Login';
+const PASSWORD_LABEL = 'Password';
+const CHOOSE_FILE_LABEL = 'ChooseFile';
+const CANCEL_BTN_LABEL = 'Cancel';
+const REGISTER_BTN_LABEL = 'Register';
+const CLOSE_BTN_LABEL = 'Close';
+
+const Translations = {
+  [SIGN_UP_LABEL]: {
+    en: 'Sign Up',
+    ru: 'Регистрация',
+    de: 'Einchecken',
+  },
+  [USER_NAME_LABEL]: {
+    en: 'Your Name',
+    ru: 'Ваше имя',
+    de: 'Ihr Name',
+  },
+  [LOGIN_LABEL]: {
+    en: 'Login',
+    ru: 'Логин',
+    de: 'Login',
+  },
+  [PASSWORD_LABEL]: {
+    en: 'Password',
+    ru: 'Пароль',
+    de: 'Passwort',
+  },
+  [CHOOSE_FILE_LABEL]: {
+    en: 'Choose Your photo',
+    ru: 'Выберите Ваше фото',
+    de: 'Wählen Sie Ihr Foto',
+  },
+  [CANCEL_BTN_LABEL]: {
+    en: 'CANCEL',
+    ru: 'ОТМЕНА',
+    de: 'STORNIEREN',
+  },
+  [REGISTER_BTN_LABEL]: {
+    en: 'REGISTER',
+    ru: 'ЗАРЕГИСТРИРОВАТЬСЯ',
+    de: 'REGISTRIEREN',
+  },
+  [CLOSE_BTN_LABEL]: {
+    en: 'CLOSE',
+    ru: 'ЗАКРЫТЬ',
+    de: 'Schließen',
+  },
+};
+
+const RegistrationForm = ({
+  isOpen,
+  onClose: handleClose,
+  currentLanguage,
+}: Props): JSX.Element => {
   const [registrationErrors, setRegistrationErrors] = useState<IRegistrationErrors>({
     general: null,
     login: null,
@@ -41,8 +99,10 @@ const RegistrationForm = ({ isOpen, onClose: handleClose }: Props): JSX.Element 
   });
 
   const [successMess, setSuccessfulMessage] = useState<string | null>(null);
+  const [chosenFileName, setChosenFileName] = useState<string | null | undefined>(null);
 
   const formRef = useRef<HTMLFormElement>(null);
+  const loadHiddenTextFieldRef = useRef<HTMLInputElement>(null);
 
   const handleCloseDialog = () => {
     setRegistrationErrors({
@@ -106,6 +166,12 @@ const RegistrationForm = ({ isOpen, onClose: handleClose }: Props): JSX.Element 
     }
   };
 
+  const handleFileNameChange = () => {
+    if (loadHiddenTextFieldRef && loadHiddenTextFieldRef.current) {
+      setChosenFileName(loadHiddenTextFieldRef.current.value);
+    }
+  };
+
   return (
     <Dialog
       aria-labelledby="form-dialog-title"
@@ -117,7 +183,9 @@ const RegistrationForm = ({ isOpen, onClose: handleClose }: Props): JSX.Element 
     >
       {!successMess ? (
         <>
-          <DialogTitle id="form-dialog-title">Sign up</DialogTitle>
+          <DialogTitle id="form-dialog-title">
+            {Translations[SIGN_UP_LABEL][currentLanguage]}
+          </DialogTitle>
           <DialogContent>
             {registrationErrors.general && (
               <Typography className="animate__animated animate__bounceIn" gutterBottom>
@@ -134,7 +202,7 @@ const RegistrationForm = ({ isOpen, onClose: handleClose }: Props): JSX.Element 
                 autoFocus
                 fullWidth
                 id="name"
-                label="Your name"
+                label={Translations[USER_NAME_LABEL][currentLanguage]}
                 margin="dense"
                 name="name"
                 type="text"
@@ -150,7 +218,7 @@ const RegistrationForm = ({ isOpen, onClose: handleClose }: Props): JSX.Element 
               <TextField
                 fullWidth
                 id="login"
-                label="Login"
+                label={Translations[LOGIN_LABEL][currentLanguage]}
                 margin="dense"
                 name="login"
                 type="text"
@@ -166,7 +234,7 @@ const RegistrationForm = ({ isOpen, onClose: handleClose }: Props): JSX.Element 
               <TextField
                 fullWidth
                 id="password"
-                label="Password"
+                label={Translations[PASSWORD_LABEL][currentLanguage]}
                 margin="dense"
                 name="password"
                 type="password"
@@ -179,20 +247,30 @@ const RegistrationForm = ({ isOpen, onClose: handleClose }: Props): JSX.Element 
                   {registrationErrors.password}
                 </Typography>
               )}
-              <TextField
-                fullWidth
-                id="file"
-                label="Your photo"
-                margin="dense"
+              <Button
+                color="primary"
+                onClick={() => {
+                  if (loadHiddenTextFieldRef && loadHiddenTextFieldRef.current) {
+                    loadHiddenTextFieldRef.current.click();
+                  }
+                }}
+              >
+                {Translations[CHOOSE_FILE_LABEL][currentLanguage]}
+              </Button>
+              <Typography>{chosenFileName}</Typography>
+              <input
+                ref={loadHiddenTextFieldRef}
                 name="filedata"
+                onChange={handleFileNameChange}
+                style={{ display: 'none' }}
                 type="file"
               />
               <DialogActions>
                 <Button color="primary" onClick={handleCloseDialog}>
-                  Cancel
+                  {Translations[CANCEL_BTN_LABEL][currentLanguage]}
                 </Button>
                 <Button color="primary" type="submit" variant="outlined">
-                  Register
+                  {Translations[REGISTER_BTN_LABEL][currentLanguage]}
                 </Button>
               </DialogActions>
             </form>
@@ -203,7 +281,7 @@ const RegistrationForm = ({ isOpen, onClose: handleClose }: Props): JSX.Element 
           <DialogTitle id="form-dialog-title">{successMess}</DialogTitle>
           <DialogActions>
             <Button color="primary" onClick={handleCloseDialog} variant="outlined">
-              Close
+              {Translations[CLOSE_BTN_LABEL][currentLanguage]}
             </Button>
           </DialogActions>
         </>

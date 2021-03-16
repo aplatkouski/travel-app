@@ -6,6 +6,7 @@ import LogInForm from './LogInForm';
 const mapStateToProps = (state: StateTypes.RootState) => ({
   logInErrors: state.user.logInErrors,
   isOpen: state.user.isOpenLogInForm,
+  currentLanguage: state.languageSelector.language,
 });
 
 const mapDispatchToProps = {
