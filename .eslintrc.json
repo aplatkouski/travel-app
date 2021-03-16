@@ -46,7 +46,7 @@
         "jsx": "never",
         "ts": "never",
         "tsx": "never",
-        "json": "never",
+        "json": "always",
         "scss": "always",
         "svg": "always"
       }
