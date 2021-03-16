@@ -62,8 +62,9 @@ export const getWeatherThunk = (): StateTypes.AsyncDispatch<IState, any> => asyn
   const {
     languageSelector: { language },
     country: { country },
+    weather: { isLoading },
   } = getState();
-  if (!country) return;
+  if (!country || isLoading) return;
 
   dispatch(startRequest());
   try {
