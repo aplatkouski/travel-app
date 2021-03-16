@@ -1,4 +1,4 @@
-import { Divider, Drawer, Hidden, IconButton } from '@material-ui/core';
+import { Drawer, Hidden, IconButton } from '@material-ui/core';
 import { withStyles, WithStyles } from '@material-ui/core/styles';
 import WidgetsIcon from '@material-ui/icons/Widgets';
 import CurrencyWidget from 'Components/CurrencyWidget';
@@ -23,9 +23,7 @@ const WidgetsPanel = (props: IProps): JSX.Element => {
   const Widgets = (
     <>
       <WeatherWidget />
-      <Divider />
       <CurrencyWidget countryCurrency={countryCurrency} />
-      <Divider />
       <DateTimeWidget />
     </>
   );

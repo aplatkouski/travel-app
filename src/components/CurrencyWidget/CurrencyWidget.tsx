@@ -8,6 +8,7 @@ import { ICurrency } from 'States/widgets/reducer';
 import usd from 'Assets/icons/usd.png';
 import eur from 'Assets/icons/eur.png';
 import rub from 'Assets/icons/rub.png';
+import pin from 'Assets/images/pin.svg';
 import currencyLogo from 'Assets/icons/currency.svg';
 import { getCurrenciesThunk, IConverter } from 'States/widgets/thunk';
 
@@ -62,17 +63,18 @@ const CurrencyWidgetContainer = (props: IProps): JSX.Element => {
       justify="space-around"
       className={classes.currencyWidgetContainer}
     >
+      <img src={pin} alt="pin" className={classes.pin} />
       <Grid container>
         <img src={currencyLogo} alt="currency widget logo" className={classes.widgetHeaderImg}/>
         <Typography className={classes.widgetHeader} variant="h2">
           {d.exchange} {d.rate}
         </Typography>
       </Grid>
-      {currencies?.map((currency: ICurrency) => (
+      {currencies?.map((currency: ICurrency, index: number) => (
         <Grid
           container
           className={classes.widgetCurrency}
-          key={`${currency.time_last_update_unix}-${currency.conversion_rate}`}
+          key={`${currency.time_last_update_unix}/${index}/${currency.conversion_rate}`}
           justify="space-between"
         >
           <div>
@@ -94,13 +96,14 @@ const useStyles = makeStyles((theme: Theme) =>
     currencyWidgetContainer: {
       height: theme.spacing(22),
       width: theme.spacing(28),
-
       fontSize: '1.1rem',
       padding: theme.spacing(1.25),
-      background: theme.palette.background.paper,
+      margin: theme.spacing(2,1),
+      background: theme.palette.background.default,
       boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%),' +
         ' 0px 1px 3px 0px rgb(0 0 0 / 12%)',
       borderRadius: '5px',
+      position: 'relative',
     },
     widgetHeader: {
       fontSize: '1.5rem',
@@ -114,7 +117,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     widgetCurrency: {
       fontFamily: 'serif',
-      borderBottom: '1px solid #f7f7f7',
+      borderBottom: '1px solid #ffffff',
       color: theme.palette.text.secondary,
     },
     number: {
@@ -125,6 +128,13 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: theme.spacing(2.5),
       width: '100%',
       marginRight: theme.spacing(0.5),
+    },
+    pin: {
+      maxWidth: theme.spacing(3.5),
+      width: '100%',
+      position: 'absolute',
+      top: theme.spacing(-2),
+      right: theme.spacing(-1),
     },
   }));
 

@@ -1,6 +1,7 @@
-import { Box, Typography } from '@material-ui/core';
+import { Box, Grid, Typography } from '@material-ui/core';
 import { withStyles, WithStyles } from '@material-ui/core/styles';
 import Loader from 'Components/Loader';
+import pin from 'Images/pin.svg';
 import React, { useEffect, useMemo, useState } from 'react';
 import styles from './styles';
 
@@ -74,13 +75,14 @@ const DateTimeWidget = (props: Props): JSX.Element => {
 
   return (
     <Box className={classes.root}>
-      <Typography component="p" variant="body2">
+      <img src={pin} alt="pin" className={classes.pin} />
+      <Typography component="p" variant="body2" className={classes.typography}>
         {dateStr}
       </Typography>
-      <Typography component="p" variant="body2">
+      <Typography component="p" variant="body2" className={classes.typography}>
         {weekdayStr}
       </Typography>
-      <Typography component="p" variant="body2">
+      <Typography component="p" variant="body2" className={classes.typography}>
         {timeStr}
       </Typography>
     </Box>

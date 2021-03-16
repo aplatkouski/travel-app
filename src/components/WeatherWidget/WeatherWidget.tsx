@@ -3,6 +3,7 @@ import { withStyles, WithStyles } from '@material-ui/core/styles';
 import Loader from 'Components/Loader';
 import { Language } from 'Entities/travel-app';
 import IWeather from 'Entities/weather';
+import pin from 'Images/pin.svg';
 import React, { useEffect } from 'react';
 import { WEATHER_DATA_UPDATE_MS } from '../../constants';
 import ArrowIcon from './ArrowIcon';
@@ -68,6 +69,8 @@ const WeatherWidget = ({
 
   return (
     <Box className={classes.root}>
+      <img src={pin} alt="pin" className={classes.pin} />
+
       {weather.icon && <WeatherIcon iconId={weather.icon} />}
 
       {String(weather.temperature) && (
