@@ -1,5 +1,5 @@
 import * as StateTypes from 'States/types';
-import { ICurrency } from 'States/widgets/reducer';
+import { ICurrency } from 'States/currency/reducer';
 import * as t from './action-types';
 
 export const startRequest = (): StateTypes.IAction<undefined> => ({

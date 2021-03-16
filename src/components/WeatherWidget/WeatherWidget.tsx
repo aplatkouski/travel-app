@@ -1,4 +1,4 @@
-import { Box, Typography } from '@material-ui/core';
+import { Box, Grid, Typography } from '@material-ui/core';
 import { withStyles, WithStyles } from '@material-ui/core/styles';
 import Loader from 'Components/Loader';
 import { Language } from 'Entities/travel-app';
@@ -71,22 +71,28 @@ const WeatherWidget = ({
     <Box className={classes.root}>
       <img src={pin} alt="pin" className={classes.pin} />
 
+      <Grid container>
       {weather.icon && <WeatherIcon iconId={weather.icon} />}
+      <Typography className={classes.widgetHeader} variant="h2">
+        {d.weather}
+      </Typography>
+      </Grid>
+
 
       {String(weather.temperature) && (
-        <Typography component="p" variant="body2">
+        <Typography component="p" variant="body2" className={classes.weather}>
           {`${d.temperature}: ${weather.temperature.toFixed()}`}
         </Typography>
       )}
 
       {String(weather.humidity) && (
-        <Typography component="p" variant="body2">
+        <Typography component="p" variant="body2" className={classes.weather}>
           {`${d.humidity}: ${weather.humidity}`}
         </Typography>
       )}
 
       {String(weather.windSpeed) && (
-        <Typography component="p" variant="body2">
+        <Typography component="p" variant="body2" className={classes.weather}>
           {`${d.wind}: ${weather.windSpeed.toFixed(1)}`}
           &nbsp;
           {String(weather.windDeg) && <ArrowIcon iconStyles={iconStyles} />}
@@ -94,7 +100,7 @@ const WeatherWidget = ({
       )}
 
       {String(weather.description) && (
-        <Typography component="p" variant="body2">
+        <Typography component="p" variant="body2" className={classes.weather}>
           {weather.description}
         </Typography>
       )}

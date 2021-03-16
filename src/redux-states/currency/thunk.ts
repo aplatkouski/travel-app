@@ -1,5 +1,5 @@
 import * as StateTypes from 'States/types';
-import { ICurrency, IState } from 'States/widgets/reducer';
+import { ICurrency, IState } from 'States/currency/reducer';
 import { fetchFailure, fetchSuccess, startRequest } from './actions';
 
 const url = 'https://v6.exchangerate-api.com';

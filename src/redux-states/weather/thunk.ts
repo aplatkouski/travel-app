@@ -61,14 +61,14 @@ export const getWeatherThunk = (): StateTypes.AsyncDispatch<IState, any> => asyn
 ) => {
   const {
     languageSelector: { language },
-    country: { country },
+    country: { payload },
     weather: { isLoading },
   } = getState();
   if (!country || isLoading) return;
 
   dispatch(startRequest());
   try {
-    const { lat, lng } = country;
+    const { lat, lng } = payload;
     const params = `?lat=${lat}&lon=${lng}&lang=${language}&units=metric&appid=${WEATHER_API_KEY}`;
     const response = await fetch(`${WEATHER_API}${params}`);
     const data = (await response.json()) as IWeatherFetch;

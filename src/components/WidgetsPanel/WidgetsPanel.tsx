@@ -22,9 +22,9 @@ const WidgetsPanel = (props: IProps): JSX.Element => {
 
   const Widgets = (
     <>
+      <DateTimeWidget />
       <WeatherWidget />
       <CurrencyWidget countryCurrency={countryCurrency} />
-      <DateTimeWidget />
     </>
   );
 
@@ -41,11 +41,11 @@ const WidgetsPanel = (props: IProps): JSX.Element => {
       </IconButton>
 
       <aside aria-label="widgets" className={classes.drawer}>
-        <Hidden implementation="css" smUp>
+        <Hidden implementation="css" mdUp>
           <Drawer
             ModalProps={{ keepMounted: true }}
-            anchor="right"
-            classes={{ paper: classes.drawerPaper }}
+            anchor="left"
+            classes={{ paper: classes.drawerPaper, root: classes.drawerRoot }}
             onClose={handleDrawerToggle}
             open={mobileOpen}
             variant="temporary"
@@ -54,8 +54,8 @@ const WidgetsPanel = (props: IProps): JSX.Element => {
           </Drawer>
         </Hidden>
 
-        <Hidden implementation="css" smDown>
-          <Drawer classes={{ paper: classes.drawerPaper }} open variant="permanent">
+        <Hidden implementation="css" mdDown>
+          <Drawer classes={{ paper: classes.drawerPaper,  root: classes.drawerRoot }} open variant="permanent">
             {Widgets}
           </Drawer>
         </Hidden>

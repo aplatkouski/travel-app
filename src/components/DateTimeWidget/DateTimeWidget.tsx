@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import { withStyles, WithStyles } from '@material-ui/core/styles';
 import Loader from 'Components/Loader';
 import pin from 'Images/pin.svg';

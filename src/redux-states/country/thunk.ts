@@ -9,11 +9,10 @@ export const getCountryThunk = (id: ID): StateTypes.AsyncDispatch<IState, any> =
   dispatch,
   getState
 ) => {
-  const {
-    languageSelector: { language },
-    country: { country: currentCountry },
-  } = getState();
-  if (currentCountry && currentCountry.id === id) return;
+  const { languageSelector: { language }, country: { payload: currentCountry } } = getState();
+  if (currentCountry && currentCountry.id === id) {
+    return;
+  }
   dispatch(startRequest());
   try {
     const data = {
