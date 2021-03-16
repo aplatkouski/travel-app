@@ -5,17 +5,32 @@ import Loader from 'Components/Loader';
 import { MapContainer, TileLayer, Marker, Popup, GeoJSON } from 'react-leaflet';
 import { latLngBounds, LatLngExpression } from 'leaflet';
 import React, { useRef, useMemo } from 'react';
-import { MAP_API_URL, FLAG_API_URL } from '../../constants';
+import {
+  MAP_API_URL_EN,
+  MAP_API_URL_RU,
+  MAP_API_URL_DE,
+  FLAG_API_URL,
+} from '../../constants';
 import screenModeChange from './utils/screen-mode-change';
 import { countryFeatureCollection, IGeoJSON } from './countryFeatureCollection';
 import 'leaflet/dist/leaflet.css';
 // import './leaflet.scss';
 import styles from './styles';
 
+export type IMapURLs = {
+  [key: string]: string;
+};
+
+const URLs: IMapURLs = {
+  en: MAP_API_URL_EN,
+  ru: MAP_API_URL_RU,
+  de: MAP_API_URL_DE,
+};
+
 interface Props extends WithStyles<typeof styles> {
   error: Error | undefined;
   isLoading: boolean;
-  // language: string;
+  language: string;
   lat: number | undefined;
   lng: number | undefined;
   code: string | undefined;
@@ -23,7 +38,7 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 const CountryMap = (props: Props): JSX.Element => {
-  const { classes, lat, lng, code, capital, isLoading, error } = props;
+  const { classes, language, lat, lng, code, capital, isLoading, error } = props;
 
   const theme = useTheme();
 
@@ -103,7 +118,7 @@ const CountryMap = (props: Props): JSX.Element => {
         zoom={4}
         zoomControl={false}
       >
-        <TileLayer url={MAP_API_URL} />
+        <TileLayer url={URLs[language]} />
 
         {geoJSON && <GeoJSON data={geoJSON} style={style} />}
 
