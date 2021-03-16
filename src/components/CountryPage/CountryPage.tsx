@@ -1,6 +1,7 @@
 import { Container, Grid, Typography } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Gallery from 'Components/Gallery/Gallery';
+import CountryMap from 'Components/CountryMap';
 import Loader from 'Components/Loader';
 import WidgetsPanel from 'Components/WidgetsPanel';
 import { ICountry } from 'Entities/country';
@@ -68,8 +69,9 @@ const CountryPageContainer = (props: IProps): JSX.Element => {
         </Grid>
 
         <Grid alignItems="center" container justify="center">
-
-          <Grid item sm={6}>карта с маркером в столице</Grid>
+          <Grid item sm={6}>
+            <CountryMap />
+          </Grid>
         </Grid>
         <Gallery sights={country.sights} />
         <ReactPlayer controls light pip url={country.videoUrl} />
@@ -123,5 +125,5 @@ const mapDispatchToProps = {
   getCountyInfo: getCountryThunk,
 };
 
-const CountryPage = connect(mapStateToProps,mapDispatchToProps,)(CountryPageContainer as any);
+const CountryPage = connect(mapStateToProps,mapDispatchToProps)(CountryPageContainer as any);
 export default CountryPage;

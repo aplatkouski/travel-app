@@ -12,8 +12,10 @@
     "@types/classnames": "2.2.11",
     "classnames": "2.2.6",
     "clsx": "1.1.1",
+    "leaflet": "1.7.1",
     "react": "16.14.0",
     "react-dom": "16.14.0",
+    "react-leaflet": "3.0.0-beta.2",
     "react-player": "2.9.0",
     "react-redux": "7.2.2",
     "react-router-dom": "5.2.0",
@@ -58,9 +60,9 @@
       "url": "https://github.com/natallia-js"
     },
     {
-      "name": "Ilya Komar",
-      "email": "helias@yandex.ru",
-      "url": "https://github.com/Helias17"
+      "name": "Vital Raicheu",
+      "email": "rvitaly1978@gmail.com",
+      "url": "https://github.com/RVitaly1978"
     }
   ],
   "keywords": [
@@ -88,8 +90,10 @@
     "@commitlint/cli": "11.0.0",
     "@commitlint/config-conventional": "11.0.0",
     "@types/jest": "26.0.20",
+    "@types/leaflet": "1.7.0",
     "@types/react": "16.14.0",
     "@types/react-dom": "16.9.11",
+    "@types/react-leaflet": "2.8.1",
     "@types/react-redux": "7.1.16",
     "@types/react-router-dom": "5.1.7",
     "@types/redux-logger": "3.0.8",
