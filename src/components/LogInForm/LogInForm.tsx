@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import { ICredentials, ILogInErrors } from 'Entities/user';
 import React, { useRef } from 'react';
-import '../../assets/styles/animate.min.css';
+import 'Styles/animate.min.css';
 
 interface Props {
   logInErrors: ILogInErrors | undefined;
@@ -20,12 +20,8 @@ interface Props {
   onLogIn: (credentials: ICredentials) => void;
 }
 
-const LogInForm = ({
-  logInErrors,
-  isOpen,
-  onClose: handleClose,
-  onLogIn,
-}: Props): JSX.Element => {
+const LogInForm = (props: Props): JSX.Element => {
+  const { logInErrors, isOpen, onClose: handleClose, onLogIn } = props;
   const refLoginField = useRef<HTMLInputElement>(null);
   const refPasswordField = useRef<HTMLInputElement>(null);
 

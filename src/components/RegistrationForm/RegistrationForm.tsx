@@ -8,12 +8,12 @@ import {
   Typography,
 } from '@material-ui/core';
 import React, { useRef, useState } from 'react';
+import 'Styles/animate.min.css';
 import {
   api,
   SUCCESSFUL_REGISTRATION_MESSAGE,
   USER_REGISTRATION_API,
 } from '../../constants';
-import '../../assets/styles/animate.min.css';
 
 interface Props {
   isOpen: boolean;
