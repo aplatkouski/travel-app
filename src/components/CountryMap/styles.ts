@@ -10,10 +10,9 @@ const styles = (theme: Theme) =>
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      borderRadius: '5px',
+      borderRadius: theme.shape.borderRadius,
       overflow: 'hidden',
-      boxShadow:
-        '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)',
+      boxShadow: theme.shadows[1],
     },
     map: {
       height: '100%',
@@ -36,8 +35,7 @@ const styles = (theme: Theme) =>
       objectFit: 'cover',
       objectPosition: 'center',
       borderRadius: '2px',
-      boxShadow:
-        '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)',
+      boxShadow: theme.shadows[1],
     },
   });
 

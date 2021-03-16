@@ -1,4 +1,4 @@
-import { GeoJsonTypes, Feature } from 'geojson';
+import { Feature, GeoJsonTypes } from 'geojson';
 
 export interface IGeoJSONProp {
   name: string;
@@ -12,7 +12,7 @@ export interface IGeoJSON extends Feature {
 
 export interface IGeoJSONObject {
   type: GeoJsonTypes;
-  features: IGeoJSON[];
+  features: Array<IGeoJSON>;
 }
 
 export const countryFeatureCollection: IGeoJSONObject = {
