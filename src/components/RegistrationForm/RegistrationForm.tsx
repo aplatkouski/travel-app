@@ -13,6 +13,7 @@ import {
   SUCCESSFUL_REGISTRATION_MESSAGE,
   USER_REGISTRATION_API,
 } from '../../constants';
+import '../../assets/styles/animate.min.css';
 
 interface Props {
   isOpen: boolean;
@@ -108,6 +109,7 @@ const RegistrationForm = ({ isOpen, onClose: handleClose }: Props): JSX.Element 
   return (
     <Dialog
       aria-labelledby="form-dialog-title"
+      className="animate__animated animate__fadeInDownBig"
       fullWidth
       maxWidth="sm"
       onClose={handleCloseDialog}
@@ -118,7 +120,9 @@ const RegistrationForm = ({ isOpen, onClose: handleClose }: Props): JSX.Element 
           <DialogTitle id="form-dialog-title">Sign up</DialogTitle>
           <DialogContent>
             {registrationErrors.general && (
-              <Typography gutterBottom>{registrationErrors.general}</Typography>
+              <Typography className="animate__animated animate__bounceIn" gutterBottom>
+                {registrationErrors.general}
+              </Typography>
             )}
             <form
               ref={formRef}
@@ -136,7 +140,12 @@ const RegistrationForm = ({ isOpen, onClose: handleClose }: Props): JSX.Element 
                 type="text"
               />
               {registrationErrors.name && (
-                <Typography gutterBottom>{registrationErrors.name}</Typography>
+                <Typography
+                  className="animate__animated animate__bounceInLeft"
+                  gutterBottom
+                >
+                  {registrationErrors.name}
+                </Typography>
               )}
               <TextField
                 fullWidth
@@ -147,7 +156,12 @@ const RegistrationForm = ({ isOpen, onClose: handleClose }: Props): JSX.Element 
                 type="text"
               />
               {registrationErrors.login && (
-                <Typography gutterBottom>{registrationErrors.login}</Typography>
+                <Typography
+                  className="animate__animated animate__bounceInLeft"
+                  gutterBottom
+                >
+                  {registrationErrors.login}
+                </Typography>
               )}
               <TextField
                 fullWidth
@@ -158,7 +172,12 @@ const RegistrationForm = ({ isOpen, onClose: handleClose }: Props): JSX.Element 
                 type="password"
               />
               {registrationErrors.password && (
-                <Typography gutterBottom>{registrationErrors.password}</Typography>
+                <Typography
+                  className="animate__animated animate__bounceInLeft"
+                  gutterBottom
+                >
+                  {registrationErrors.password}
+                </Typography>
               )}
               <TextField
                 fullWidth
