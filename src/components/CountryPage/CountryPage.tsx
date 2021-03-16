@@ -76,7 +76,7 @@ const CountryPageContainer = (props: IProps): JSX.Element => {
         <Gallery sights={country.sights} />
         <ReactPlayer controls light pip url={country.videoUrl} />
       </Grid>
-      <WidgetsPanel />
+      <WidgetsPanel countryCurrency={country.currency} />
     </Container>
   ) : (
     <Loader />

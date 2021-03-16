@@ -1,4 +1,5 @@
 import { createStyles, Grid, makeStyles, Theme, Typography } from '@material-ui/core';
+import { dictionary } from './constants';
 import { Language } from 'Entities/travel-app';
 import React, { useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
@@ -52,6 +53,8 @@ const CurrencyWidgetContainer = (props: IProps): JSX.Element => {
     getCurrencies(converters);
   }, [getCurrencies, converters, language]);
 
+  const d = dictionary[language];
+
   return (
     <Grid
       container
@@ -62,7 +65,7 @@ const CurrencyWidgetContainer = (props: IProps): JSX.Element => {
       <Grid container>
         <img src={currencyLogo} alt="currency widget logo" className={classes.widgetHeaderImg}/>
         <Typography className={classes.widgetHeader} variant="h2">
-          Currencies
+          {d.exchange} {d.rate}
         </Typography>
       </Grid>
       {currencies?.map((currency: ICurrency) => (
@@ -90,7 +93,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     currencyWidgetContainer: {
       height: theme.spacing(22),
-      width: theme.spacing(25),
+      width: theme.spacing(28),
 
       fontSize: '1.1rem',
       padding: theme.spacing(1.25),
