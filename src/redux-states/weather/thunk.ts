@@ -64,7 +64,7 @@ export const getWeatherThunk = (): StateTypes.AsyncDispatch<IState, any> => asyn
     country: { payload },
     weather: { isLoading },
   } = getState();
-  if (!country || isLoading) return;
+  if (!payload || isLoading) return;
 
   dispatch(startRequest());
   try {
