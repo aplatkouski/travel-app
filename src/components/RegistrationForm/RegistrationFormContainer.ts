@@ -5,6 +5,7 @@ import user from 'States/user';
 
 const mapStateToProps = (state: StateTypes.RootState) => ({
   isOpen: state.user.isOpenRegistrationForm,
+  currentLanguage: state.languageSelector.language,
 });
 
 const mapDispatchToProps = {
