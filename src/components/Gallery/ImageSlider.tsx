@@ -121,10 +121,8 @@ const ImagesSlider = (props: IProps): JSX.Element => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      boxShadow:
-        '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%),' +
-        ' 0px 1px 3px 0px rgb(0 0 0 / 12%)',
-      borderRadius: '5px',
+      boxShadow: theme.shadows[1],
+      borderRadius: theme.shape.borderRadius,
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -196,7 +194,7 @@ const useStyles = makeStyles((theme: Theme) =>
         maxHeight: '90%',
         maxWidth: '85%',
         transition: 'opacity .2s ease-in-out',
-        borderRadius: '5px',
+        borderRadius: theme.shape.borderRadius,
         objectFit: 'contain',
       },
     },

@@ -37,6 +37,9 @@ const theme = createMuiTheme({
       fontFamily: '"Fondamento", cursive',
     },
   },
+  shape: {
+    borderRadius: 5,
+  },
 });
 
 export default responsiveFontSizes(theme);

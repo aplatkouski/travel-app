@@ -2,43 +2,42 @@ import { Box, Typography } from '@material-ui/core';
 import { useTheme, withStyles, WithStyles } from '@material-ui/core/styles';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import Loader from 'Components/Loader';
-import { MapContainer, TileLayer, Marker, Popup, GeoJSON } from 'react-leaflet';
+import { Language, Languages } from 'Entities/travel-app';
 import { latLngBounds, LatLngExpression } from 'leaflet';
-import React, { useRef, useMemo } from 'react';
+import React, { useMemo, useRef } from 'react';
+import { GeoJSON, MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import {
+  FLAG_API_URL,
+  MAP_API_URL_DE,
   MAP_API_URL_EN,
   MAP_API_URL_RU,
-  MAP_API_URL_DE,
-  FLAG_API_URL,
 } from '../../constants';
-import screenModeChange from './utils/screen-mode-change';
-import { countryFeatureCollection, IGeoJSON } from './countryFeatureCollection';
-import 'leaflet/dist/leaflet.css';
-// import './leaflet.scss';
+import { countryFeatureCollection, IGeoJSON } from './country-feature-collection';
 import styles from './styles';
+import screenModeChange from './utils/screen-mode-change';
 
 export type IMapURLs = {
-  [key: string]: string;
+  [key in keyof Languages]: string;
 };
 
 const URLs: IMapURLs = {
+  de: MAP_API_URL_DE,
   en: MAP_API_URL_EN,
   ru: MAP_API_URL_RU,
-  de: MAP_API_URL_DE,
 };
 
 interface Props extends WithStyles<typeof styles> {
+  capital: string | undefined;
+  code: string | undefined;
   error: Error | undefined;
   isLoading: boolean;
-  language: string;
+  language: Language;
   lat: number | undefined;
   lng: number | undefined;
-  code: string | undefined;
-  capital: string | undefined;
 }
 
 const CountryMap = (props: Props): JSX.Element => {
-  const { classes, language, lat, lng, code, capital, isLoading, error } = props;
+  const { capital, classes, code, error, isLoading, language, lat, lng } = props;
 
   const theme = useTheme();
 
