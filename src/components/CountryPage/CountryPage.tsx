@@ -50,27 +50,25 @@ const CountryPageContainer = (props: IProps): JSX.Element => {
           <Grid className={classes.imgContainer} item sm={4}>
             <img alt={country.name} src={country.photoUrl} />
           </Grid>
-          <Grid
+          <Grid container item sm={8}
             alignItems="center"
-            container
             direction="column"
-            item
             justify="space-between"
-            sm={8}
           >
-            <Grid alignItems="center" container direction="column">
               <Typography className={classes.countryName} variant="h1">
                 {country.name}
               </Typography>
               <Typography className={classes.countryCapital} variant="h2">
                 {country.capital}
               </Typography>
-            </Grid>
+              <Typography className={classes.countryDescription} variant="h3">
+               {country.description}
+              </Typography>
           </Grid>
         </Grid>
 
         <Grid alignItems="center" container justify="center">
-          <Grid item sm={6}>{country.description}</Grid>
+
           <Grid item sm={6}>карта с маркером в столице</Grid>
         </Grid>
         <Gallery sights={country.sights} />
@@ -106,6 +104,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     countryCapital: {
       fontSize: '3rem',
+    },
+    countryDescription: {
+      fontSize: '2rem',
+      color: theme.palette.text.secondary,
+      padding: theme.spacing(0, 4),
     },
   })
 );
