@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core';
 import { ICredentials, ILogInErrors } from 'Entities/user';
 import React, { useRef } from 'react';
+import '../../assets/styles/animate.min.css';
 
 interface Props {
   logInErrors: ILogInErrors | undefined;
@@ -49,6 +50,7 @@ const LogInForm = ({
     <div>
       <Dialog
         aria-labelledby="form-dialog-title"
+        className="animate__animated animate__fadeInDownBig"
         fullWidth
         maxWidth="sm"
         onClose={handleClose}
@@ -57,7 +59,9 @@ const LogInForm = ({
         <DialogTitle id="form-dialog-title">Log In</DialogTitle>
         <DialogContent>
           {logInErrors && logInErrors.general && (
-            <Typography gutterBottom>{logInErrors.general}</Typography>
+            <Typography className="animate__animated animate__bounceInLeft" gutterBottom>
+              {logInErrors.general}
+            </Typography>
           )}
           <FormControl fullWidth>
             <InputLabel htmlFor="login">Log in</InputLabel>
@@ -72,7 +76,12 @@ const LogInForm = ({
               type="text"
             />
             {logInErrors && logInErrors.login && (
-              <Typography gutterBottom>{logInErrors.login}</Typography>
+              <Typography
+                className="animate__animated animate__bounceInLeft"
+                gutterBottom
+              >
+                {logInErrors.login}
+              </Typography>
             )}
           </FormControl>
           <br />
@@ -88,7 +97,12 @@ const LogInForm = ({
               type="password"
             />
             {logInErrors && logInErrors.password && (
-              <Typography gutterBottom>{logInErrors.password}</Typography>
+              <Typography
+                className="animate__animated animate__bounceInLeft"
+                gutterBottom
+              >
+                {logInErrors.password}
+              </Typography>
             )}
           </FormControl>
           <DialogActions>
