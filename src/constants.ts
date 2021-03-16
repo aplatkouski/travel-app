@@ -16,3 +16,4 @@ export const MAP_API_KEY =
   'pk.eyJ1IjoicnZpdGFseSIsImEiOiJja2p4Ymx3ZDEwcW05MnVwZ2dicHlyd2kwIn0.TEXhkHWxKEzDhrScrjeumQ';
 export const MAP_API_LAYER_ID = 'mapbox/streets-v11';
 export const MAP_API_URL = `https://api.mapbox.com/styles/v1/${MAP_API_LAYER_ID}/tiles/{z}/{x}/{y}?access_token=${MAP_API_KEY}`;
+export const FLAG_API_URL = 'https://restcountries.eu/data/';

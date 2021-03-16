@@ -1,12 +1,13 @@
 import { Box, Typography } from '@material-ui/core';
-import { withStyles, WithStyles } from '@material-ui/core/styles';
+import { useTheme, withStyles, WithStyles } from '@material-ui/core/styles';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import Loader from 'Components/Loader';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, GeoJSON } from 'react-leaflet';
 import { latLngBounds, LatLngExpression } from 'leaflet';
-import React, { useRef } from 'react';
-import { MAP_API_URL } from '../../constants';
+import React, { useRef, useMemo } from 'react';
+import { MAP_API_URL, FLAG_API_URL } from '../../constants';
 import screenModeChange from './utils/screen-mode-change';
+import { countryFeatureCollection, IGeoJSON } from './countryFeatureCollection';
 import 'leaflet/dist/leaflet.css';
 // import './leaflet.scss';
 import styles from './styles';
@@ -17,12 +18,31 @@ interface Props extends WithStyles<typeof styles> {
   // language: string;
   lat: number | undefined;
   lng: number | undefined;
+  code: string | undefined;
+  capital: string | undefined;
 }
 
 const CountryMap = (props: Props): JSX.Element => {
-  const { classes, lat, lng, isLoading, error } = props;
+  const { classes, lat, lng, code, capital, isLoading, error } = props;
+
+  const theme = useTheme();
 
   const containerRef = useRef<HTMLDivElement | null>(null);
+
+  const geoJSON: IGeoJSON | undefined = useMemo(() => {
+    return countryFeatureCollection.features.find(
+      ({ properties }) => properties.alpha2Code === code
+    );
+  }, [code]);
+
+  const style = useMemo(
+    () => ({
+      fillColor: theme.palette.primary.main,
+      fillOpacity: 0.2,
+      color: 'transparent',
+    }),
+    [theme]
+  );
 
   const handleFullScreen = (): void => {
     if (containerRef.current) {
@@ -48,6 +68,23 @@ const CountryMap = (props: Props): JSX.Element => {
     );
   }
 
+  const popup = geoJSON ? (
+    <Popup>
+      <Box>
+        {geoJSON && (
+          <img
+            alt="flag"
+            className={classes.flag}
+            src={`${FLAG_API_URL}${geoJSON.id.toLowerCase()}.svg`}
+          />
+        )}
+        <Typography component="p" variant="h6">
+          {capital}
+        </Typography>
+      </Box>
+    </Popup>
+  ) : null;
+
   const position: LatLngExpression = [lat, lng];
 
   return (
@@ -62,17 +99,15 @@ const CountryMap = (props: Props): JSX.Element => {
         className={classes.map}
         maxBounds={latLngBounds([-90, -180], [90, 180])}
         maxBoundsViscosity={1.0}
-        maxZoom={12}
-        minZoom={1}
         worldCopyJump
         zoom={4}
         zoomControl={false}
       >
         <TileLayer url={MAP_API_URL} />
 
-        <Marker position={position}>
-          <Popup>Capital</Popup>
-        </Marker>
+        {geoJSON && <GeoJSON data={geoJSON} style={style} />}
+
+        <Marker position={position}>{popup}</Marker>
       </MapContainer>
     </div>
   );
