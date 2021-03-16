@@ -153,7 +153,7 @@ const RegistrationForm = ({
         }
         setRegistrationErrors({ ...registrationErrors, ...errors });
       } else {
-        setSuccessfulMessage(SUCCESSFUL_REGISTRATION_MESSAGE);
+        setSuccessfulMessage(SUCCESSFUL_REGISTRATION_MESSAGE[currentLanguage]);
       }
     } catch (error) {
       if (typeof error === 'object' && error !== null) {
