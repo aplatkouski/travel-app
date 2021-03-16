@@ -6,6 +6,7 @@ import WidgetsPanel from 'Components/WidgetsPanel';
 import { ICountry } from 'Entities/country';
 import { ID, Language } from 'Entities/travel-app';
 import React, { useEffect } from 'react';
+import ReactPlayer from 'react-player';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getCountryThunk } from 'States/country/thunk';
@@ -70,7 +71,7 @@ const CountryPageContainer = (props: IProps): JSX.Element => {
           </Grid>
         </Grid>
         <Gallery sights={country.sights} />
-        <div>video</div>
+        <ReactPlayer controls light pip url={country.videoUrl} />
       </Grid>
       <WidgetsPanel />
     </Container>
@@ -115,5 +116,4 @@ const mapDispatchToProps = {
   getCountyInfo: getCountryThunk,
 };
 
-const CountryPage = connect(mapStateToProps, mapDispatchToProps)(CountryPageContainer);
-export default CountryPage;
+export default connect(mapStateToProps, mapDispatchToProps)(CountryPageContainer);
