@@ -8,22 +8,32 @@ const styles = (theme: Theme) =>
         position: 'relative',
         flexShrink: 0,
       },
+      "& > div": {
+        height: '100%',
+      },
     },
     menuButton: {
       position: 'absolute',
       right: 0,
       top: theme.spacing(2),
-      [theme.breakpoints.up('sm')]: {
+      [theme.breakpoints.up('lg')]: {
         display: 'none',
       },
     },
     drawerPaper: {
+      display: 'flex',
+      justifyContent: 'space-around',
       alignItems: 'center',
+      width: '250px',
+      height: '100%',
       [theme.breakpoints.up('sm')]: {
         position: 'relative',
         flexShrink: 0,
       },
     },
+    drawerRoot: {
+      height: '100%',
+    }
   });
 
 export default styles;

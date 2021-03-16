@@ -8,8 +8,8 @@ const mapStateToProps = (state: StateTypes.RootState) => ({
   isCountryLoading: state.country.isLoading,
   isWeatherLoading: state.weather.isLoading,
   language: state.languageSelector.language,
-  lat: state.country.country && state.country.country.lat,
-  lng: state.country.country && state.country.country.lng,
+  lat: state.country.payload && state.country.payload.lat,
+  lng: state.country.payload && state.country.payload.lng,
   weather: state.weather.weather,
   weatherError: state.weather.error,
 });

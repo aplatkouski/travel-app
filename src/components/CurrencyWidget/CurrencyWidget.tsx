@@ -4,13 +4,13 @@ import { Language } from 'Entities/travel-app';
 import React, { useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { RootState } from 'States/types';
-import { ICurrency } from 'States/widgets/reducer';
+import { ICurrency } from 'States/currency/reducer';
 import usd from 'Assets/icons/usd.png';
 import eur from 'Assets/icons/eur.png';
 import rub from 'Assets/icons/rub.png';
 import pin from 'Assets/images/pin.svg';
 import currencyLogo from 'Assets/icons/currency.svg';
-import { getCurrenciesThunk, IConverter } from 'States/widgets/thunk';
+import { getCurrenciesThunk, IConverter } from 'States/currency/thunk';
 
 interface IRedux {
   language: Language;
@@ -95,7 +95,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     currencyWidgetContainer: {
       height: theme.spacing(22),
-      width: theme.spacing(28),
+      width: theme.spacing(29),
       fontSize: '1.1rem',
       padding: theme.spacing(1.25),
       margin: theme.spacing(2,1),

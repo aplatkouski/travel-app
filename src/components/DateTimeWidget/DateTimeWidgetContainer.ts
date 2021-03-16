@@ -6,8 +6,8 @@ const mapStateToProps = (state: StateTypes.RootState) => ({
   error: state.country.error,
   isLoading: state.country.isLoading,
   language: state.languageSelector.language,
-  timeZone: state.country.country
-    ? state.country.country.timezone
+  timeZone: state.country.payload
+    ? state.country.payload.timezone
     : Intl.DateTimeFormat().resolvedOptions().timeZone,
 });
 

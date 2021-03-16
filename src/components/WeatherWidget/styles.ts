@@ -13,6 +13,17 @@ const styles = (theme: Theme) =>
       borderRadius: '5px',
       position: 'relative',
     },
+    weather: {
+      fontSize: '1.1rem',
+      fontFamily: 'Vollkorn SC',
+      color: theme.palette.text.secondary,
+    },
+    widgetHeader: {
+      fontSize: '1.5rem',
+      alignSelf: 'flex-end',
+      color: theme.palette.text.secondary,
+      fontFamily: 'Vollkorn SC',
+    },
     pin: {
       maxWidth: theme.spacing(3.5),
       width: '100%',
