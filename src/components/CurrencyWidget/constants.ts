@@ -1,4 +1,4 @@
-import {IDictionary} from 'Entities/travel-app';
+import { IDictionary } from 'Entities/travel-app';
 
 export type Words = 'exchange' | 'rate';
 

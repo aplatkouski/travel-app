@@ -54,10 +54,9 @@ const App = ({
           <Switch>
             <Route component={MainPage} exact path="/" />
             <Route component={CountryPage} path="/country/:id" />
-            <Route component={CountryPage} path="/country/:id" />
           </Switch>
           <Footer />
-        <RegistrationForm />
+          <RegistrationForm />
           <LogInForm />
         </div>
       </ThemeProvider>
