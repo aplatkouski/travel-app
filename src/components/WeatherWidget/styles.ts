@@ -4,7 +4,8 @@ import { createStyles, Theme } from '@material-ui/core/styles';
 const styles = (theme: Theme) =>
   createStyles({
     root: {
-      maxWidth: theme.spacing(60),
+      minWidth: theme.spacing(21.7675),
+      minHeight: theme.spacing(19.5),
       padding: theme.spacing(1.25),
       margin: theme.spacing(2, 1),
       background: theme.palette.background.default,
@@ -32,6 +33,9 @@ const styles = (theme: Theme) =>
       top: theme.spacing(-2),
       right: theme.spacing(-1),
     },
+    loader: {
+      height: theme.spacing(16.25),
+    }
   });
 
 export default styles;

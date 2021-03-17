@@ -1,11 +1,18 @@
 import { makeStyles } from '@material-ui/core';
 import loader from 'Assets/images/loader.gif';
 import React from 'react';
+import classNames from "classnames";
 
-const Loader = (): JSX.Element => {
-  const classes = useStyles();
+interface IProps {
+  classes?: {[key: string]: string};
+}
+
+
+const Loader = (props: IProps): JSX.Element => {
+  const { classes } = props;
+  const innerClasses = useStyles();
   return (
-    <div className={classes.loaderContainer}>
+    <div className={classNames(innerClasses.loaderContainer, classes?.loaderContainer)}>
       <img alt="Loader" src={loader} />
     </div>
   );
