@@ -53,14 +53,6 @@ const WeatherWidget = ({
     );
   }
 
-  if (isCountryLoading || isWeatherLoading) {
-    return (
-      <Box className={classes.root}>
-        <Loader />
-      </Box>
-    );
-  }
-
   const iconStyles = weather.windDeg
     ? {
         transform: `rotate(${weather.windDeg + 90}deg)`,
@@ -69,39 +61,45 @@ const WeatherWidget = ({
 
   return (
     <Box className={classes.root}>
+      {(isCountryLoading || isWeatherLoading) ? <Loader
+        classes={{ loaderContainer: classes.loader }}/> : (
+        <>
+          <img src={pin} alt="pin" className={classes.pin}/>
       <img alt="pin" className={classes.pin} src={pin} />
 
-      <Grid container>
-        {weather.icon && <WeatherIcon iconId={weather.icon} />}
-        <Typography className={classes.widgetHeader} variant="h2">
-          {d.weather}
-        </Typography>
-      </Grid>
+          <Grid container>
+            {weather.icon && <WeatherIcon iconId={weather.icon}/>}
+            <Typography className={classes.widgetHeader} variant="h2">
+              {d.weather}
+            </Typography>
+          </Grid>
 
-      {String(weather.temperature) && (
-        <Typography className={classes.weather} component="p" variant="body2">
-          {`${d.temperature}: ${weather.temperature.toFixed()}`}
-        </Typography>
-      )}
+          {String(weather.temperature) && (
+            <Typography className={classes.weather} component="p" variant="body2">
+              {`${d.temperature}: ${weather.temperature.toFixed()}`}
+            </Typography>
+          )}
 
-      {String(weather.humidity) && (
-        <Typography className={classes.weather} component="p" variant="body2">
-          {`${d.humidity}: ${weather.humidity}`}
-        </Typography>
-      )}
+          {String(weather.humidity) && (
+            <Typography className={classes.weather} component="p" variant="body2">
+              {`${d.humidity}: ${weather.humidity}`}
+            </Typography>
+          )}
 
-      {String(weather.windSpeed) && (
-        <Typography className={classes.weather} component="p" variant="body2">
-          {`${d.wind}: ${weather.windSpeed.toFixed(1)}`}
-          &nbsp;
-          {String(weather.windDeg) && <ArrowIcon iconStyles={iconStyles} />}
-        </Typography>
-      )}
+          {String(weather.windSpeed) && (
+            <Typography className={classes.weather} component="p" variant="body2">
+              {`${d.wind}: ${weather.windSpeed.toFixed(1)}`}
+              &nbsp;
+              {String(weather.windDeg) && <ArrowIcon iconStyles={iconStyles}/>}
+            </Typography>
+          )}
 
-      {String(weather.description) && (
-        <Typography className={classes.weather} component="p" variant="body2">
-          {weather.description}
-        </Typography>
+          {String(weather.description) && (
+            <Typography className={classes.weather} component="p" variant="body2">
+              {weather.description}
+            </Typography>
+          )}
+        </>
       )}
     </Box>
   );

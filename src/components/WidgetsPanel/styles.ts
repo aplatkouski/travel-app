@@ -23,17 +23,20 @@ const styles = (theme: Theme) =>
     },
     drawerPaper: {
       display: 'flex',
-      justifyContent: 'space-around',
       alignItems: 'center',
-      width: '250px',
+      width: theme.spacing(31.25),
       height: '100%',
       [theme.breakpoints.up('sm')]: {
         position: 'relative',
         flexShrink: 0,
       },
+      [theme.breakpoints.up('lg')]: {
+        justifyContent: 'space-around',
+      },
     },
     drawerRoot: {
       height: '100%',
+      borderLeft: '1px solid lightgrey',
     },
     image: {
       width: '40%',

@@ -61,7 +61,7 @@ const CountryPageContainer = (props: IProps): JSX.Element => {
             </Grid>
           </Grid>
 
-          <Grid item sm={6}>
+          <Grid item sm={6} className={classes.imgContainer}>
             <CountryMap />
           </Grid>
         </Grid>
@@ -91,13 +91,14 @@ const useStyles = makeStyles((theme: Theme) =>
       flexBasis: 'auto',
       flexGrow: 1,
       flexShrink: 0,
-      padding: theme.spacing(3, 0),
+      padding: theme.spacing(3.1, 0),
       maxWidth: theme.spacing(160),
     },
     imgContainer: {
       backgroundColor: theme.palette.background.paper,
       padding: theme.spacing(2),
       boxShadow: '0 0.25em 1em rgba(0,0,0,0.2)',
+      width: '100%',
       '& img': {
         transition: 'all .6s',
         width: '100%',
