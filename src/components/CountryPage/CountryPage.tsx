@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getCountryThunk } from 'States/country/thunk';
 import { RootState } from 'States/types';
+import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
 
 interface IRedux {
   country: ICountry;
@@ -46,7 +47,7 @@ const CountryPageContainer = (props: IProps): JSX.Element => {
 
   return (country && !isLoading) ? (
     <Container className={classes.main} component="main">
-      <Grid container direction="column">
+      <Grid container direction="column" alignItems="center">
         <Grid container>
           <Grid className={classes.imgContainer} item sm={4}>
             <img alt={country.name} src={country.photoUrl} />
@@ -62,9 +63,7 @@ const CountryPageContainer = (props: IProps): JSX.Element => {
               <Typography className={classes.countryCapital} variant="h2">
                 {country.capital}
               </Typography>
-              <Typography className={classes.countryDescription} variant="h3">
-               {country.description}
-              </Typography>
+
           </Grid>
         </Grid>
 
@@ -73,7 +72,15 @@ const CountryPageContainer = (props: IProps): JSX.Element => {
             <CountryMap />
           </Grid>
         </Grid>
+
         <Gallery sights={country.sights} />
+
+
+          <Typography className={classes.countryDescription} variant="h3">
+            <FormatQuoteIcon color="secondary" fontSize="large" />
+            {country.description}
+          </Typography>
+
         <ReactPlayer controls light pip url={country.videoUrl} />
       </Grid>
       <WidgetsPanel countryCurrency={country.currency} />
@@ -111,6 +118,13 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '2rem',
       color: theme.palette.text.secondary,
       padding: theme.spacing(0, 4),
+      margin: theme.spacing(10, 0),
+      background: '#FDFBFB',
+      letterSpacing: '.05em',
+      lineHeight: 1.4,
+      borderLeft: '10px solid #00add7',
+      fontStyle: 'italic',
+      fontFamily: 'Vollkorn SC',
     },
   })
 );

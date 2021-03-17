@@ -1,4 +1,4 @@
-import { createStyles, Grid, makeStyles } from '@material-ui/core';
+import { createStyles, Grid, makeStyles, Theme } from '@material-ui/core';
 import { ISight } from 'Entities/country';
 import React, { useCallback, useMemo, useState } from 'react';
 import ImagesSlider from './ImageSlider';
@@ -51,9 +51,11 @@ const Gallery = (props: IProps): JSX.Element => {
   );
 };
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    container: {},
+    container: {
+      margin: theme.spacing(2,0),
+    },
   })
 );
 
