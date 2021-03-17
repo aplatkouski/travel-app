@@ -1,3 +1,5 @@
 {
-  "search": "Suche"
+  "search": "Suche",
+  "searchCountry": "Suchland",
+  "inputTooltip": "Geben Sie das Land oder die Hauptstadt ein"
 }
