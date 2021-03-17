@@ -53,10 +53,10 @@ const CountryPageContainer = (props: IProps): JSX.Element => {
             <img alt={country.name} src={country.photoUrl} />
             <Grid alignItems="center" container>
               <Typography className={classes.countryName} variant="h1">
-                {country.name}
+                {`${country.name},`}
               </Typography>
               <Typography className={classes.countryCapital} variant="h2">
-                {`, ${country.capital}`}
+                {country.capital}
               </Typography>
             </Grid>
           </Grid>
