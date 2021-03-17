@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Fondamento:ital@0;1&family=Vollkorn+SC:wght@400;600;700;900&display=swap");
-@import "~leaflet/dist/leaflet.css";
 
 body {
   margin: 0;
@@ -28,7 +27,7 @@ code {
 *,
 *::before,
 *::after {
-  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -54,9 +53,9 @@ body {
   height: 100%;
   font-size: 14px;
   line-height: 1;
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
-  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 input,

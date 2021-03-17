@@ -6,9 +6,10 @@ const styles = (theme: Theme) =>
     root: {
       maxWidth: theme.spacing(60),
       padding: theme.spacing(1.25),
-      margin: theme.spacing(2,1),
+      margin: theme.spacing(2, 1),
       background: theme.palette.background.default,
-      boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%),' +
+      boxShadow:
+        '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%),' +
         ' 0px 1px 3px 0px rgb(0 0 0 / 12%)',
       borderRadius: '5px',
       position: 'relative',

@@ -8,7 +8,7 @@ const styles = (theme: Theme) =>
         position: 'relative',
         flexShrink: 0,
       },
-      "& > div": {
+      '& > div': {
         height: '100%',
       },
     },
