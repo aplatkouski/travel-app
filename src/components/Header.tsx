@@ -9,7 +9,7 @@ import UserCard from 'Components/UserCard';
 import { IUser } from 'Entities/user';
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import * as StateTypes from 'States/types';
 import user from 'States/user';
 
@@ -27,6 +27,8 @@ const Header = ({
   onOpenRegistrationForm: handleOpenRegistrationForm,
 }: Props): JSX.Element => {
   const classes = useStyles();
+
+  const location = useLocation();
 
   return (
     <Grid className={classes.header} container>
@@ -86,9 +88,12 @@ const Header = ({
             </>
           )}
         </Grid>
-        <Grid container justify="flex-end">
-          <SearchField />
-        </Grid>
+
+        {location.pathname === '/' && (
+          <Grid container justify="flex-end">
+            <SearchField />
+          </Grid>
+        )}
       </Grid>
     </Grid>
   );
