@@ -4,6 +4,7 @@ import * as StateTypes from 'States/types';
 import SearchField from './SearchField';
 
 const mapStateToProps = (state: StateTypes.RootState) => ({
+  currentLanguage: state.languageSelector.language,
   value: state.searchField.value,
 });
 

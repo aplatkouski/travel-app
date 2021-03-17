@@ -15,6 +15,7 @@ const styles = (theme: Theme) =>
     menuButton: {
       position: 'absolute',
       right: 0,
+      zIndex: 1000,
       top: theme.spacing(2),
       [theme.breakpoints.up('lg')]: {
         display: 'none',
@@ -33,7 +34,10 @@ const styles = (theme: Theme) =>
     },
     drawerRoot: {
       height: '100%',
-    }
+    },
+    image: {
+      width: '40%',
+    },
   });
 
 export default styles;

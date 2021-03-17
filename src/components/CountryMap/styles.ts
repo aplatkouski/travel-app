@@ -4,15 +4,11 @@ import { createStyles, Theme } from '@material-ui/core/styles';
 const styles = (theme: Theme) =>
   createStyles({
     root: {
+      padding: theme.spacing(2),
+      boxShadow: '0 0.25em 1em rgb(0 0 0 / 20%)',
+      width: '100%',
+      height: '100%',
       position: 'relative',
-      height: theme.spacing(40),
-      width: theme.spacing(40),
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      borderRadius: theme.shape.borderRadius,
-      overflow: 'hidden',
-      boxShadow: theme.shadows[1],
     },
     map: {
       height: '100%',
@@ -20,8 +16,7 @@ const styles = (theme: Theme) =>
     },
     fullScreenBtn: {
       position: 'absolute',
-      top: theme.spacing(1),
-      right: theme.spacing(1),
+      top: theme.spacing(2),
       zIndex: 1000,
       background: 'transparent',
       transition: 'all .5s ease',

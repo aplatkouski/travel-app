@@ -7,6 +7,10 @@ import WeatherWidget from 'Components/WeatherWidget';
 import * as React from 'react';
 import { useState } from 'react';
 import styles from './styles';
+import img1 from 'Images/6.png';
+import img2 from 'Images/2.png';
+import img3 from 'Images/3.png';
+import img4 from 'Images/4.png';
 
 interface IProps extends WithStyles<typeof styles> {
   countryCurrency: string;
@@ -22,9 +26,13 @@ const WidgetsPanel = (props: IProps): JSX.Element => {
 
   const Widgets = (
     <>
+      <img src={img1} className={classes.image}/>
       <DateTimeWidget />
+      <img src={img2} className={classes.image}/>
       <WeatherWidget />
+      <img src={img3} className={classes.image}/>
       <CurrencyWidget countryCurrency={countryCurrency} />
+      <img src={img4} className={classes.image}/>
     </>
   );
 
