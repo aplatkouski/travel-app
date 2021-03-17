@@ -14,4 +14,8 @@ const store = createStore(
   composedEnhancer(applyMiddleware(loggerMiddleware, thunkMiddleware))
 );
 
+store.subscribe(() => {
+  localStorage.setItem('travel-app', JSON.stringify(store.getState().languageSelector));
+});
+
 export default store;

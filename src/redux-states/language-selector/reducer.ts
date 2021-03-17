@@ -3,8 +3,14 @@ import * as StateTypes from 'States/types';
 import * as t from './action-types';
 import { IState } from './model';
 
+const saved = localStorage.getItem('travel-app');
+const initialLanguage = saved
+  ? // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    (JSON.parse(saved).language as Language)
+  : ('en' as Language);
+
 const initialState: IState = {
-  language: 'en' as Language,
+  language: initialLanguage,
 };
 
 const handlers: StateTypes.IHandlers<IState, any> = {
