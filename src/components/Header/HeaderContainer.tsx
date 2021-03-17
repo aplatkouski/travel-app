@@ -4,8 +4,8 @@ import user from 'States/user';
 import Header from './Header';
 
 const mapStateToProps = (state: StateTypes.RootState) => ({
-  currentUser: state.user.current,
   currentLanguage: state.languageSelector.language,
+  currentUser: state.user.current,
 });
 
 const mapDispatchToProps = {

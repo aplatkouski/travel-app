@@ -1,5 +1,5 @@
 {
-  "login": "einloggen",
-  "logout": "ausloggen",
-  "signup": "anmelden"
+  "logIn": "einloggen",
+  "logOut": "ausloggen",
+  "signUp": "einchecken"
 }
