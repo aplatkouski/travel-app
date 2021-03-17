@@ -45,7 +45,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     formControl: {
       minWidth: '3rem',
-      // width: '200px',
       background: 'transparent',
       cursor: 'pointer',
     },
@@ -74,8 +73,9 @@ const useStyles = makeStyles((theme: Theme) =>
       fill: theme.palette.primary.main,
       position: 'absolute',
       top: '15px',
-      left: '40px',
+      right: '0',
       fontSize: '1.5rem',
+      pointerEvents: 'none',
     },
   })
 );
