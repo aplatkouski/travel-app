@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core/styles';
 import CountryPage from 'Components/CountryPage';
 import Footer from 'Components/Footer';
-import Header from 'Components/Header';
+import Header from 'Components/Header/Header';
 import LogInForm from 'Components/LogInForm';
 import MainPage from 'Components/MainPage';
 import RegistrationForm from 'Components/RegistrationForm';

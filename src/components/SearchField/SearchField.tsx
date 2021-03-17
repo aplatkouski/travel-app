@@ -1,6 +1,8 @@
 import { Button, InputBase, Paper, Tooltip, Zoom } from '@material-ui/core';
 import { withStyles, WithStyles } from '@material-ui/core/styles';
 import { Search } from '@material-ui/icons';
+import getDictionary from './i18n/translate';
+import { Language } from 'Entities/travel-app';
 import * as React from 'react';
 import { useRef } from 'react';
 import * as StateTypes from 'States/types';
@@ -9,9 +11,13 @@ import styles from './styles';
 interface Props extends WithStyles<typeof styles> {
   value: string;
   onChange: (value: string) => StateTypes.IAction<string>;
+  currentLanguage: Language;
 }
 
-const SearchField = ({ classes, value, onChange: handleChange }: Props): JSX.Element => {
+const SearchField = ({ classes, value, onChange: handleChange, currentLanguage }: Props): JSX.Element => {
+
+  const d = getDictionary(currentLanguage);
+
   const inputEl = useRef<HTMLInputElement>(null);
 
   const handleButtonClick = () => {
@@ -45,7 +51,6 @@ const SearchField = ({ classes, value, onChange: handleChange }: Props): JSX.Ele
           onChange={(e) => handleChange(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Search Country"
-          type="search"
           value={value}
         />
       </Tooltip>
@@ -56,7 +61,7 @@ const SearchField = ({ classes, value, onChange: handleChange }: Props): JSX.Ele
         startIcon={<Search />}
         variant="contained"
       >
-        Search
+        {d.Search}
       </Button>
     </Paper>
   );

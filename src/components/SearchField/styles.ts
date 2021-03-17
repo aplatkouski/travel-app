@@ -11,7 +11,6 @@ const styles = (theme: Theme) =>
     },
     input: {
       marginLeft: theme.spacing(1),
-      paddingRight: theme.spacing(1),
       flex: 1,
       minWidth: '3rem',
       background: 'transparent',

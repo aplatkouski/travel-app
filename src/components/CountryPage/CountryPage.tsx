@@ -1,8 +1,7 @@
 import { Container, Grid, Typography } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
-import CountryMap from 'Components/CountryMap';
 import Gallery from 'Components/Gallery/Gallery';
+import CountryMap from 'Components/CountryMap';
 import Loader from 'Components/Loader';
 import WidgetsPanel from 'Components/WidgetsPanel';
 import { ICountry } from 'Entities/country';
@@ -13,6 +12,7 @@ import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getCountryThunk } from 'States/country/thunk';
 import { RootState } from 'States/types';
+import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
 
 interface IRedux {
   country: ICountry;
@@ -45,44 +45,40 @@ const CountryPageContainer = (props: IProps): JSX.Element => {
     getCountyInfo(id);
   }, [getCountyInfo, id, language]);
 
-  return country && !isLoading ? (
+  return (country && !isLoading) ? (
     <Container className={classes.main} component="main">
-      <Grid alignItems="center" container direction="column">
+      <Grid container direction="column" alignItems="center">
+
+
         <Grid container>
-          <Grid className={classes.imgContainer} item sm={4}>
+          <Grid className={classes.imgContainer} container item sm={6}>
+
             <img alt={country.name} src={country.photoUrl} />
-          </Grid>
-          <Grid
-            alignItems="center"
-            container
-            direction="column"
-            item
-            justify="space-between"
-            sm={8}
-          >
+            <Grid container alignItems="center">
             <Typography className={classes.countryName} variant="h1">
-              {country.name}
+              {country.name},
             </Typography>
             <Typography className={classes.countryCapital} variant="h2">
               {country.capital}
             </Typography>
+            </Grid>
           </Grid>
-        </Grid>
 
-        <Grid alignItems="center" container justify="center">
+
           <Grid item sm={6}>
             <CountryMap />
           </Grid>
         </Grid>
 
         <Gallery sights={country.sights} />
-
-        <Typography className={classes.countryDescription} variant="h3">
-          <FormatQuoteIcon color="secondary" fontSize="large" />
-          {country.description}
-        </Typography>
-
+          <Typography className={classes.countryDescription} variant="h3">
+            <FormatQuoteIcon color="secondary" fontSize="large" />
+            {country.description}
+            <FormatQuoteIcon color="secondary" fontSize="large" />
+          </Typography>
+        <Grid container justify="center">
         <ReactPlayer controls light pip url={country.videoUrl} />
+        </Grid>
       </Grid>
       <WidgetsPanel countryCurrency={country.currency} />
     </Container>
@@ -99,27 +95,32 @@ const useStyles = makeStyles((theme: Theme) =>
       flexBasis: 'auto',
       flexGrow: 1,
       flexShrink: 0,
-      padding: theme.spacing(2, 0),
+      padding: theme.spacing(3, 0),
       maxWidth: theme.spacing(160),
     },
     imgContainer: {
+      backgroundColor: theme.palette.background.paper,
+      padding: theme.spacing(2),
+      boxShadow: '0 0.25em 1em rgba(0,0,0,0.2)',
       '& img': {
         transition: 'all .6s',
+        width: '100%',
+        height: 'auto',
       },
-      overflow: 'hidden',
     },
     countryName: {
       color: theme.palette.text.secondary,
       fontSize: '4rem',
     },
     countryCapital: {
+      color: theme.palette.text.secondary,
       fontSize: '3rem',
     },
     countryDescription: {
       fontSize: '2rem',
       color: theme.palette.text.secondary,
       padding: theme.spacing(0, 4),
-      margin: theme.spacing(10, 0),
+      margin: theme.spacing(3, 0,6, 0),
       background: '#FDFBFB',
       letterSpacing: '.05em',
       lineHeight: 1.4,
@@ -140,8 +141,5 @@ const mapDispatchToProps = {
   getCountyInfo: getCountryThunk,
 };
 
-const CountryPage = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CountryPageContainer as any);
+const CountryPage = connect(mapStateToProps,mapDispatchToProps)(CountryPageContainer as any);
 export default CountryPage;

@@ -54,7 +54,7 @@ const Gallery = (props: IProps): JSX.Element => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      margin: theme.spacing(2,0),
+      margin: theme.spacing(3,0),
     },
   })
 );

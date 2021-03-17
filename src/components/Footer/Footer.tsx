@@ -20,7 +20,7 @@ const AppIntro = (): JSX.Element => (
     >
       Travel app
     </Link>
-    , 2021.
+    {`, ${new Date().getFullYear()}.`}
   </Typography>
 );
 
