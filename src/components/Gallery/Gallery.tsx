@@ -21,9 +21,10 @@ const Gallery = (props: IProps): JSX.Element => {
 
   const classes = useStyles();
 
-  const panelSights = useMemo<IPanelSight[]>(() => {
-    return sights.map((sight: ISight, index) => ({ ...sight, index }));
-  }, [sights]);
+  const panelSights = useMemo<IPanelSight[]>(
+    () => sights.map((sight: ISight, index) => ({ ...sight, index })),
+    [sights]
+  );
 
   const handleCurrentImageChange = useCallback((index: number) => {
     setCurrentSightIndex(index);
@@ -54,7 +55,7 @@ const Gallery = (props: IProps): JSX.Element => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      margin: theme.spacing(2,0),
+      margin: theme.spacing(3, 0),
     },
   })
 );

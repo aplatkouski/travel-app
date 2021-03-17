@@ -122,7 +122,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
       boxShadow: theme.shadows[1],
-      borderRadius: theme.shape.borderRadius,
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',

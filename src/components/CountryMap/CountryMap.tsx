@@ -104,7 +104,7 @@ const CountryMap = (props: Props): JSX.Element => {
   return (
     <div ref={containerRef} className={classes.root}>
       <button className={classes.fullScreenBtn} onClick={handleFullScreen} type="button">
-        <FullscreenIcon color="secondary" />
+        <FullscreenIcon color="primary" />
       </button>
 
       <MapContainer
