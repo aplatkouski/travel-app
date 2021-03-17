@@ -66,7 +66,7 @@ const Header = ({
                 onClick={handleLogOut}
                 variant="outlined"
               >
-                {d.logout}
+                {d.logOut}
               </Button>
             </>
           ) : (
@@ -77,7 +77,7 @@ const Header = ({
                 onClick={handleOpenRegistrationForm}
                 variant="outlined"
               >
-                {d.signup}
+                {d.signUp}
               </Button>
               <Button
                 className={classes.button}
@@ -85,7 +85,7 @@ const Header = ({
                 onClick={handleOpenLogInForm}
                 variant="outlined"
               >
-                {d.login}
+                {d.logIn}
               </Button>
             </>
           )}

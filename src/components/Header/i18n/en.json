@@ -1,5 +1,5 @@
 {
-  "login": "log in",
-  "logout": "log out",
-  "signup": "sign up"
+  "logIn": "log in",
+  "logOut": "log out",
+  "signUp": "sign up"
 }
