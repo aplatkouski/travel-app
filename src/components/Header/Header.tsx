@@ -1,33 +1,36 @@
 import { Button, Grid } from '@material-ui/core';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import clouds from 'Assets/images/illustration-clouds.png';
 import plane from 'Assets/images/illustration-plane.png';
 import logo from 'Assets/images/logo.png';
 import LanguageSelector from 'Components/LanguageSelector';
 import SearchField from 'Components/SearchField';
 import UserCard from 'Components/UserCard';
+import { Language } from 'Entities/travel-app';
 import { IUser } from 'Entities/user';
 import React from 'react';
-import { connect } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import * as StateTypes from 'States/types';
-import user from 'States/user';
+import getDictionary from './i18n/translate';
+import useStyles from './styles';
 
 interface Props {
+  currentLanguage: Language;
   currentUser: IUser | undefined;
-  logOut: () => void;
-  onOpenLogInForm: () => void;
-  onOpenRegistrationForm: () => void;
+  handleLogOut: () => void;
+  handleOpenLogInForm: () => void;
+  handleOpenRegistrationForm: () => void;
 }
 
 const Header = ({
+  currentLanguage,
   currentUser,
-  logOut: handleLogOut,
-  onOpenLogInForm: handleOpenLogInForm,
-  onOpenRegistrationForm: handleOpenRegistrationForm,
+  handleLogOut,
+  handleOpenLogInForm,
+  handleOpenRegistrationForm,
 }: Props): JSX.Element => {
   const classes = useStyles();
   const { pathname } = useLocation();
+
+  const d = getDictionary(currentLanguage);
 
   return (
     <Grid className={classes.header} container>
@@ -63,7 +66,7 @@ const Header = ({
                 onClick={handleLogOut}
                 variant="outlined"
               >
-                Log out
+                {d.logout}
               </Button>
             </>
           ) : (
@@ -74,7 +77,7 @@ const Header = ({
                 onClick={handleOpenRegistrationForm}
                 variant="outlined"
               >
-                Sign up
+                {d.signup}
               </Button>
               <Button
                 className={classes.button}
@@ -82,7 +85,7 @@ const Header = ({
                 onClick={handleOpenLogInForm}
                 variant="outlined"
               >
-                Log in
+                {d.login}
               </Button>
             </>
           )}
@@ -97,76 +100,4 @@ const Header = ({
   );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    header: {
-      background: theme.palette.background.paper,
-      boxShadow: `0 2px 2px -2px ${theme.palette.text.secondary}`,
-      height: '7rem',
-      padding: '.5rem 0 .5rem 1rem',
-      position: 'relative',
-    },
-    exp: {
-      width: '100%',
-      display: 'flex',
-      justifyContent: 'center',
-    },
-    exp1: {
-      position: 'absolute',
-      display: 'flex',
-      width: '73%',
-      justifyContent: 'space-between',
-      [theme.breakpoints.down('xs')]: {
-        flexDirection: 'row-reverse',
-      },
-    },
-    cloudsImg: {
-      maxWidth: theme.spacing(36),
-      width: '40%',
-      [theme.breakpoints.down('xs')]: {
-        width: '60%',
-      },
-      objectFit: 'contain',
-    },
-    planeImg: {
-      maxWidth: theme.spacing(36),
-      width: '40%',
-      [theme.breakpoints.down('xs')]: {
-        display: 'none',
-      },
-      objectFit: 'contain',
-    },
-    logo: {
-      maxWidth: theme.spacing(14),
-      objectFit: 'contain',
-      transition: 'all 2s ease-in',
-      '&:hover': {
-        transform: 'rotate(360deg)',
-        transition: 'all 2s ease-in',
-        transformOrigin: '49% 58%',
-      },
-    },
-    buttonsContainer: {
-      height: '100%',
-    },
-    button: {
-      color: theme.palette.text.primary,
-      borderWith: '1px',
-      borderStyle: 'solid',
-      borderColor: theme.palette.primary.main,
-      marginRight: '1rem',
-    },
-  })
-);
-
-const mapStateToProps = (state: StateTypes.RootState) => ({
-  currentUser: state.user.current,
-});
-
-const mapDispatchToProps = {
-  logOut: user.actions.logOut,
-  onOpenLogInForm: user.actions.openLogInForm,
-  onOpenRegistrationForm: user.actions.openRegistrationForm,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default Header;
