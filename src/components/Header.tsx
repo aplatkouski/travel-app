@@ -27,8 +27,7 @@ const Header = ({
   onOpenRegistrationForm: handleOpenRegistrationForm,
 }: Props): JSX.Element => {
   const classes = useStyles();
-
-  const location = useLocation();
+  const { pathname } = useLocation();
 
   return (
     <Grid className={classes.header} container>
@@ -88,8 +87,7 @@ const Header = ({
             </>
           )}
         </Grid>
-
-        {location.pathname === '/' && (
+        {pathname === '/' && (
           <Grid container justify="flex-end">
             <SearchField />
           </Grid>
