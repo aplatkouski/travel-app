@@ -45,6 +45,7 @@ const SearchField = ({ classes, value, onChange: handleChange }: Props): JSX.Ele
           onChange={(e) => handleChange(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Search Country"
+          type="search"
           value={value}
         />
       </Tooltip>
