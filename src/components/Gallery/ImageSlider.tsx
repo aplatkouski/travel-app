@@ -77,7 +77,7 @@ const ImagesSlider = (props: IProps): JSX.Element => {
           onClick={handleFullScreen}
           type="button"
         >
-          <FullscreenIcon color="secondary" fontSize="large"/>
+          <FullscreenIcon color="secondary" fontSize="large" />
         </button>
       </Grid>
       <Typography className={classes.sightName} variant="h3">

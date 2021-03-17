@@ -75,14 +75,14 @@ const DateTimeWidget = (props: Props): JSX.Element => {
 
   return (
     <Box className={classes.root}>
-      <img src={pin} alt="pin" className={classes.pin} />
-      <Typography component="p" variant="body2" className={classes.typography}>
+      <img alt="pin" className={classes.pin} src={pin} />
+      <Typography className={classes.typography} component="p" variant="body2">
         {dateStr}
       </Typography>
-      <Typography component="p" variant="body2" className={classes.typography}>
+      <Typography className={classes.typography} component="p" variant="body2">
         {weekdayStr}
       </Typography>
-      <Typography component="p" variant="body2" className={classes.typography}>
+      <Typography className={classes.typography} component="p" variant="body2">
         {timeStr}
       </Typography>
     </Box>

@@ -61,14 +61,15 @@ const WeatherWidget = ({
 
   return (
     <Box className={classes.root}>
-      {(isCountryLoading || isWeatherLoading) ? <Loader
-        classes={{ loaderContainer: classes.loader }}/> : (
+      {isCountryLoading || isWeatherLoading ? (
+        <Loader classes={{ loaderContainer: classes.loader }} />
+      ) : (
         <>
-          <img src={pin} alt="pin" className={classes.pin}/>
-      <img alt="pin" className={classes.pin} src={pin} />
+          <img alt="pin" className={classes.pin} src={pin} />
+          <img alt="pin" className={classes.pin} src={pin} />
 
           <Grid container>
-            {weather.icon && <WeatherIcon iconId={weather.icon}/>}
+            {weather.icon && <WeatherIcon iconId={weather.icon} />}
             <Typography className={classes.widgetHeader} variant="h2">
               {d.weather}
             </Typography>
@@ -90,7 +91,7 @@ const WeatherWidget = ({
             <Typography className={classes.weather} component="p" variant="body2">
               {`${d.wind}: ${weather.windSpeed.toFixed(1)}`}
               &nbsp;
-              {String(weather.windDeg) && <ArrowIcon iconStyles={iconStyles}/>}
+              {String(weather.windDeg) && <ArrowIcon iconStyles={iconStyles} />}
             </Typography>
           )}
 

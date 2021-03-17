@@ -35,7 +35,7 @@ const styles = (theme: Theme) =>
     },
     loader: {
       height: theme.spacing(16.25),
-    }
+    },
   });
 
 export default styles;

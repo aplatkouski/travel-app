@@ -15,12 +15,7 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 const SearchField = (props: Props): JSX.Element => {
-  const {
-    classes,
-    currentLanguage,
-    onChange: handleChange,
-    value,
-  } = props;
+  const { classes, currentLanguage, onChange: handleChange, value } = props;
 
   const inputEl = useRef<HTMLInputElement>(null);
   const d = getDictionary(currentLanguage);

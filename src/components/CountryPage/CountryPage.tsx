@@ -61,7 +61,7 @@ const CountryPageContainer = (props: IProps): JSX.Element => {
             </Grid>
           </Grid>
 
-          <Grid item sm={6} className={classes.imgContainer}>
+          <Grid className={classes.imgContainer} item sm={6}>
             <CountryMap />
           </Grid>
         </Grid>

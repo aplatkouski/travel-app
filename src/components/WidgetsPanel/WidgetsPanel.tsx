@@ -4,13 +4,13 @@ import WidgetsIcon from '@material-ui/icons/Widgets';
 import CurrencyWidget from 'Components/CurrencyWidget';
 import DateTimeWidget from 'Components/DateTimeWidget';
 import WeatherWidget from 'Components/WeatherWidget';
+import beachImg from 'Images/beach.png';
+import crabImg1 from 'Images/crab-1.png';
+import crabImg2 from 'Images/crab-2.png';
+import smurfImg from 'Images/smurf.png';
 import * as React from 'react';
 import { useState } from 'react';
 import styles from './styles';
-import smurfImg from 'Images/6.png';
-import crabImg1 from 'Images/2.png';
-import beachImg from 'Images/3.png';
-import crabImg2 from 'Images/4.png';
 
 interface IProps extends WithStyles<typeof styles> {
   countryCurrency: string;
@@ -26,13 +26,13 @@ const WidgetsPanel = (props: IProps): JSX.Element => {
 
   const Widgets = (
     <>
-      <img src={smurfImg} className={classes.image} alt="smurf"/>
-      <DateTimeWidget/>
-      <img src={crabImg1} className={classes.image} alt="crab"/>
-      <WeatherWidget/>
-      <img src={beachImg} className={classes.image} alt="beach"/>
-      <CurrencyWidget countryCurrency={countryCurrency}/>
-      <img src={crabImg2} className={classes.image} alt="crab"/>
+      <img alt="smurf" className={classes.image} src={smurfImg} />
+      <DateTimeWidget />
+      <img alt="crab" className={classes.image} src={crabImg1} />
+      <WeatherWidget />
+      <img alt="beach" className={classes.image} src={beachImg} />
+      <CurrencyWidget countryCurrency={countryCurrency} />
+      <img alt="crab" className={classes.image} src={crabImg2} />
     </>
   );
 
@@ -63,7 +63,11 @@ const WidgetsPanel = (props: IProps): JSX.Element => {
         </Hidden>
 
         <Hidden implementation="css" mdDown>
-          <Drawer classes={{ paper: classes.drawerPaper,  root: classes.drawerRoot }} open variant="permanent">
+          <Drawer
+            classes={{ paper: classes.drawerPaper, root: classes.drawerRoot }}
+            open
+            variant="permanent"
+          >
             {Widgets}
           </Drawer>
         </Hidden>

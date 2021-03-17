@@ -1,12 +1,12 @@
-import { makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import loader from 'Assets/images/loader.gif';
 import React from 'react';
-import classNames from "classnames";
+import classNames from 'classnames';
 
 interface IProps {
-  classes?: {[key: string]: string};
+  // eslint-disable-next-line react/require-default-props
+  classes?: { [key: string]: string };
 }
-
 
 const Loader = (props: IProps): JSX.Element => {
   const { classes } = props;
