@@ -1,7 +1,8 @@
 import { Container, Grid, Typography } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import Gallery from 'Components/Gallery/Gallery';
+import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
 import CountryMap from 'Components/CountryMap';
+import Gallery from 'Components/Gallery/Gallery';
 import Loader from 'Components/Loader';
 import WidgetsPanel from 'Components/WidgetsPanel';
 import { ICountry } from 'Entities/country';
@@ -12,7 +13,6 @@ import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getCountryThunk } from 'States/country/thunk';
 import { RootState } from 'States/types';
-import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
 
 interface IRedux {
   country: ICountry;
@@ -45,25 +45,27 @@ const CountryPageContainer = (props: IProps): JSX.Element => {
     getCountyInfo(id);
   }, [getCountyInfo, id, language]);
 
-  return (country && !isLoading) ? (
+  return country && !isLoading ? (
     <Container className={classes.main} component="main">
-      <Grid container direction="column" alignItems="center">
+      <Grid alignItems="center" container direction="column">
         <Grid container>
           <Grid className={classes.imgContainer} item sm={4}>
             <img alt={country.name} src={country.photoUrl} />
           </Grid>
-          <Grid container item sm={8}
+          <Grid
             alignItems="center"
+            container
             direction="column"
+            item
             justify="space-between"
+            sm={8}
           >
-              <Typography className={classes.countryName} variant="h1">
-                {country.name}
-              </Typography>
-              <Typography className={classes.countryCapital} variant="h2">
-                {country.capital}
-              </Typography>
-
+            <Typography className={classes.countryName} variant="h1">
+              {country.name}
+            </Typography>
+            <Typography className={classes.countryCapital} variant="h2">
+              {country.capital}
+            </Typography>
           </Grid>
         </Grid>
 
@@ -75,11 +77,10 @@ const CountryPageContainer = (props: IProps): JSX.Element => {
 
         <Gallery sights={country.sights} />
 
-
-          <Typography className={classes.countryDescription} variant="h3">
-            <FormatQuoteIcon color="secondary" fontSize="large" />
-            {country.description}
-          </Typography>
+        <Typography className={classes.countryDescription} variant="h3">
+          <FormatQuoteIcon color="secondary" fontSize="large" />
+          {country.description}
+        </Typography>
 
         <ReactPlayer controls light pip url={country.videoUrl} />
       </Grid>
@@ -139,5 +140,8 @@ const mapDispatchToProps = {
   getCountyInfo: getCountryThunk,
 };
 
-const CountryPage = connect(mapStateToProps,mapDispatchToProps)(CountryPageContainer as any);
+const CountryPage = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CountryPageContainer as any);
 export default CountryPage;
