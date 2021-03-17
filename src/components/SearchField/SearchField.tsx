@@ -14,15 +14,16 @@ interface Props extends WithStyles<typeof styles> {
   value: string;
 }
 
-const SearchField = ({
-  classes,
-  currentLanguage,
-  onChange: handleChange,
-  value,
-}: Props): JSX.Element => {
-  const d = getDictionary(currentLanguage);
+const SearchField = (props: Props): JSX.Element => {
+  const {
+    classes,
+    currentLanguage,
+    onChange: handleChange,
+    value,
+  } = props;
 
   const inputEl = useRef<HTMLInputElement>(null);
+  const d = getDictionary(currentLanguage);
 
   const handleButtonClick = () => {
     if (inputEl && inputEl.current) {
@@ -45,7 +46,7 @@ const SearchField = ({
         TransitionComponent={Zoom}
         arrow
         placement="bottom-end"
-        title="Enter country or capital."
+        title={d.inputTooltip}
       >
         <InputBase
           autoFocus
@@ -54,7 +55,7 @@ const SearchField = ({
           inputRef={inputEl}
           onChange={(e) => handleChange(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Search Country"
+          placeholder={d.searchCountry}
           type="search"
           value={value}
         />
