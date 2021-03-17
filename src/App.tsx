@@ -52,8 +52,8 @@ const App = ({
         <div className={classes.root}>
           <Header />
           <Switch>
-            <Route component={MainPage} exact path="/" />
-            <Route component={CountryPage} path="/country/:id" />
+            <Route component={MainPage} exact path="/travel-app" />
+            <Route component={CountryPage} path="/travel-app/country/:id" />
           </Switch>
           <Footer />
           <RegistrationForm />

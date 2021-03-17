@@ -36,7 +36,7 @@ const MainPage = (props: Props): JSX.Element => {
 
   const handleCountrySelect = useCallback(
     (id: ID) => () => {
-      history.push(`/country/${id}`);
+      history.push(`/travel-app/country/${id}`);
     },
     [history]
   );

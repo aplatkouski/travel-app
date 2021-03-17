@@ -41,7 +41,7 @@ const Header = (props: Props): JSX.Element => {
       <div className={classes.exp}>
         <div className={classes.exp1}>
           <img alt="clouds" className={classes.cloudsImg} src={clouds} />
-          <Link to="/">
+          <Link to="/travel-app/">
             <img alt="logo" className={classes.logo} src={logo} />
           </Link>
           <img alt="plane" className={classes.planeImg} src={plane} />
@@ -94,7 +94,7 @@ const Header = (props: Props): JSX.Element => {
             </>
           )}
         </Grid>
-        {pathname === '/' && (
+        {pathname === '/travel-app/' && (
           <Grid container justify="flex-end">
             <SearchField />
           </Grid>
