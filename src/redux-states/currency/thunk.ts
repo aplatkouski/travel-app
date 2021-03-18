@@ -1,9 +1,7 @@
 import * as StateTypes from 'States/types';
+import { EXCHANGERATE_API, EXCHANGERATE_API_KEY } from '../../constants';
 import { fetchFailure, fetchSuccess, startRequest } from './actions';
 import { ICurrency, IState } from './model';
-
-const url = 'https://v6.exchangerate-api.com';
-const apiKey = '9744e03c0ec00e7c17efdd7e';
 
 export interface IConverter {
   localCurrency: string;
@@ -15,7 +13,7 @@ const createRequest = (converter: IConverter) => {
   return new Promise(async (resolve, reject) => {
     try {
       const { localCurrency, toCurrency } = converter;
-      const getCurrencyUrl = `${url}/v6/${apiKey}/pair/${toCurrency}/${localCurrency}`;
+      const getCurrencyUrl = `${EXCHANGERATE_API}/v6/${EXCHANGERATE_API_KEY}/pair/${toCurrency}/${localCurrency}`;
       const response = await fetch(getCurrencyUrl);
       const data = (await response.json()) as ICurrency;
       resolve(data);

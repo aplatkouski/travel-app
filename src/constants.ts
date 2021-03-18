@@ -19,3 +19,5 @@ export const MAP_API_URL_EN = `https://api.mapbox.com/styles/v1/${MAP_API_LAYER_
 export const MAP_API_URL_RU = `https://api.mapbox.com/styles/v1/${MAP_API_LAYER_ID_RU}/tiles/{z}/{x}/{y}?access_token=${MAP_API_KEY}`;
 export const MAP_API_URL_DE = `https://api.mapbox.com/styles/v1/${MAP_API_LAYER_ID_DE}/tiles/{z}/{x}/{y}?access_token=${MAP_API_KEY}`;
 export const FLAG_API_URL = 'https://restcountries.eu/data/';
+export const EXCHANGERATE_API = 'https://v6.exchangerate-api.com';
+export const EXCHANGERATE_API_KEY = '5a75621e196528aa5ed2404b';
