@@ -1,0 +1,7 @@
+{
+  "*.@(js|jsx|ts|tsx)": [
+    "eslint --fix --ignore-pattern '*.config*.js' --ignore-path .gitignore"
+  ],
+  "*.scss": ["stylelint --syntax scss --fix --ignore-path .gitignore"],
+  "*.@(json|css|md)": ["prettier --write --ignore-path .gitignore"]
+}

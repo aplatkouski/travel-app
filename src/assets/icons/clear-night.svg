@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  viewBox="0 0 100 100" width="200" height="200" preserveAspectRatio="xMidYMid meet">
+
+  <style>
+  
+    .stars {
+      -webkit-animation: flash 4s linear infinite;
+      animation: flash 4s linear infinite;
+    }
+
+    .delay2s {
+      -webkit-animation: flash 3s linear infinite;
+      animation: flash 3s linear infinite;
+    }
+
+    .delay1s {
+      -webkit-animation: flash 2s linear infinite;
+      animation: flash 2s linear infinite;
+    }
+
+    @-webkit-keyframes flash {
+      0% {
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+
+    @-keyframes flash {
+      0% {
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+
+  </style>
+
+  <defs>
+    <radialGradient id="gradYellow" cx="50%" cy="50%" r="80%" fx="90%" fy="80%">
+      <stop offset="0%" style="stop-color:yellow; stop-opacity:1" />
+      <stop offset="100%" style="stop-color:orange ;stop-opacity:1" />
+    </radialGradient>
+  </defs>
+
+  <!-- Moon -->
+  <symbol id="moon">
+    <path d="M60,20 A30,30 0 1,0 90,65 22,22 0 1,1 60,20z" fill="url(#gradYellow)"/>
+  </symbol>
+
+  <!-- Star -->
+  <symbol id="star">
+    <polygon points="5,0 2,10 10,4 0,4 8,10" style="fill:url(#gradYellow);fill-rule:nonzero;"/>
+  </symbol>
+  
+  <!-- Moon -->
+  <use xlink:href="#moon" x="-15"/>
+  <use xlink:href="#star" x="42" y="30" class="stars"/>
+  <use xlink:href="#star" x="61" y="32" class="stars delay1s"/>
+  <use xlink:href="#star" x="55" y="50" class="stars delay2s"/>
+
+</svg>
